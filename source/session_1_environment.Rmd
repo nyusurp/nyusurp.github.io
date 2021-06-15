@@ -23,7 +23,11 @@ Since R is a very extensible tool, it works with other programs under the table.
 
 #### Mac users
 
+<<<<<<< HEAD
 Please search for `terminal` in your `launchpad` (F4), and enter ``xcode-select --install` in the terminal.
+=======
+Please search `terminal` in your `launchpad` (F4), and enter ``xcode-select --install` in the terminal.
+>>>>>>> 2386492e399048e5dc41cdcc556ead11761c9c89
 
 
 #### Windows users
