@@ -1,0 +1,10 @@
+---
+title: "SURP R Workshop"
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "6/15/2021"
+output: html_document
+---
+
+## Table of contents
+
+### [Session 1: Prepare your computer for R](session_1_environment.html)
