@@ -1,0 +1,76 @@
+---
+title: 'Session 1: Prepare your computer for R'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "6/15/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+## What do you want to do with R?
+
+## Preparing your computer for R
+
+### Download R
+
+R is freely available at [Comprehensive R Archive Network](https://cran.r-project.org). Please download the file corresponding to your operating system and install it.
+
+Since R is a very extensible tool, it works with other programs under the table. To provide it with those:
+
+#### Mac users
+
+Please search `terminal` in your `launchpad` (F4), and enter ``xcode-select --install` in the terminal.
+
+
+#### Windows users
+
+Please go to [Rtools](https://cran.r-project.org/bin/windows/Rtools/) to download and install it. There are a couple of commands provided in the link that you will need to make things work properly.
+
+### Download RStudio
+
+Programming could sound intimidating, but a well-designed interface can make things much easier. RStudio is among those kind of tools and helps us navigate and manage R. Please download and install RStudio Desktop from [the official website](https://www.rstudio.com/products/rstudio/).
+
+## Learning goals
+
+R is a programming language -- that could mean many things, but in this workshop, it means that it can do most of the things spreadsheets do and many things spreadsheets can't. That's the main reason we are willing to undergo the learning curve.
+
+- Handling larger datasets with relative ease
+
+```{r}
+head(iris)
+```
+
+- [Reproducible but sophisticated visualization](https://www.r-graph-gallery.com)
+
+## Exploring RStudio
+
+- The console: Where you run commands one by one
+- The environment: Where you can see what is loaded in R
+- The file explorer: An easier way for you to find files (otherwise you'll need to know the _path_ of a file to use it in R)
+
+## Basic usage of R: Using it as a calculator
+
+Enter the following line of command in the console
+
+```{r}
+17 + 2.3
+```
+
+In programming, division is often written as slashes (`/`), while multiplication is written as asterisks (`*`). Now, let's try doing these in the console as well:
+
+- Try multiplying 8 by 7
+
+- Try dividing 4589 by 124
+
+
+## Things that are good to know
+
+- There could be minor differences between versions, so it's a good habit to keep a record of the versions of R and the packages that you use to make sure the future you (and other people) can replicate your current work.
+- The upper-right quadrant of RStudio has a _History_ tab, you can find and copy the commands that you used recently from there.
+- Pressing tab will trigger RStudio to show possible autocompletion of things that start with the thing that you have typed (commands, variables, and paths).
+- Putting a question mark before a command/function will trigger Rstudio to show it's usage in the _Help_ tab in the lower right quardant. While it's pretty verbose, it's also pretty comprehensive.
+- You can usually Google your way out and find some code that will do the thing you want especially in forums like [Stackoverflow](https://stackoverflow.com/).
