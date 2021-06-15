@@ -8,3 +8,49 @@ output: html_document
 ## Table of contents
 
 ### [Session 1: Prepare your computer for R](session_1_environment.html)
+
+- Installation of R and RStudio
+- Tour of RStudio
+- Arithmetic in R
+
+### [Session 2: Interact with R](session_2_programming.html)
+
+- Googling your way out: Power and remainders
+- Variables: How data are stored temporarily in R
+- Functions: Commands that R understands
+- Packages: Extended toolboxes
+  - R notebook
+  
+### Session 3: Vectors are just a list of things
+
+- Vectors
+  - Indexes and names
+  - Using functions on vectors
+  
+### Session 4: Data frame is just a table
+
+- A table whose columns are vectors
+- Finding data in a table
+  - By index
+  - By name
+  - By criteria: Logical operations
+  
+### Session 5: Real data contains more than numbers
+
+- What is the difference between "14-3-3" and 14-3-3?
+  - Characters
+  - Numbers
+- Forget about typing: Loading data into R
+
+### Session 6: Manipulating data frames: Summary and calculation
+
+### Session 7: Plotting with `ggplot2`
+
+- Prepare your data for plotting
+- Basic plotting
+  - Scatter plot
+  - Bar plot
+  - Histogram
+  - Violin plot
+  
+### Session 8: 
