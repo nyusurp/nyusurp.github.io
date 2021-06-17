@@ -20,6 +20,9 @@ Try to find out how to do these:
 - Take 3 to the 5th power
 - Find the remainder when 8 is divided by 3
 
+As you google, you may have see some answers on a website called *StackOverflow*. This is a great site that allows people to ask questions and they are answered by members of the R community (or any other community--StackOverflow has sections for most programming languages, and subjects as diverse as Biology and Cooking!). In most cases, there was already someone who had your question at some point, which is why a clever google search can usually help you figure out how to do most things. There are also a ton of blogs online that teach you specific skills in R.
+
+
 ## How R remembers things: Variables
 
 Oftentimes, we not only want to do calculations, we also want to keep the results for future use. In R (and most programming languages), this can be achieved by assigning it to a _variable_ with an equal sign. Please enter the following line of code into the console: 
@@ -82,6 +85,15 @@ To practice how to retrieve packages, let's install three packages that we are g
 - `rmarkdown`: Enabling you to write documents with R code. The course website is written with it.
 - `ggplot2`: A package that makes plots.
 - `dplyr`: A package that provides functions that help summarize tables.
+
+
+
+```{r, eval=FALSE}
+install.packages('rmarkdown')
+library(rmarkdown)
+
+library(dplyr)
+```
 
 ## A brief taste of R Notebook
 

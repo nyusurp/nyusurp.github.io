@@ -1,0 +1,18 @@
+---
+title: 'Session 6: Everything That Can Go Wrong'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "6/17/2021"
+output: html_document
+---
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Missing Values
+
+# Dealing with Zeros and Illegal Operators
+
+# Common Errors
