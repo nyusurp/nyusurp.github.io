@@ -1,0 +1,350 @@
+---
+title: "Workshop 8: Plotting (with ggplot2)"
+subtitle: |
+    |   - plotting with base R
+    |   - introduction to ggplot
+    |   - combining multiple data representations in ggplot
+    |   - changing the appearance of plots
+    |   - organizing data according to "tidy" principles
+    |   - easy, reproducible paper figures with ggplot
+author:
+  - Eugene Plavskin
+output:
+  html_notebook:
+    code_folding: show
+    depth: 3
+    tidy: yes
+    toc: yes
+---
+**Solutions to this workshop can be found [here](Solutions_Workshop_8.nb.html)**
+
+# Intro to plotting
+
+This class will show you a *tiny* bit of plotting using the built-in R functions, but will pretty quickly veer into a very popular R package called **ggplot2**, which is often referred to as just "ggplot". This is likely the first place in this course where you will see things that are *very* easy to do in R that would be much more complicated tasks (or maybe even impossible) in excel.
+
+## The basic structure of a plot
+
+Let's load in and consider the *penguins* dataset that we played with when learning about dataframes. We had loaded this in from a *.csv* file.
+
+```{r}
+# read in the penguin data and save it to a variable called penguins
+```
+
+Let's use base R to plot the bill length vs bill depth for all the data
+```{r}
+plot(penguins$bill_length_mm, penguins$bill_depth_mm)
+```
+
+Pretty straightforward; the command is `plot(x, y)`.
+
+```{r}
+# Try making a plot of penguin flipper length vs body mass
+
+# comparing these two plots, what conclusions would you make? how could these plots be improved?
+
+```
+
+You can further modify the plot if you want to change the way the points look, etc. As I mentioned, we won't be going deep into the details of the regular R plot function.
+
+## Intro to ggplot
+
+Let's try to use ggplot to plot the same data. First, install **ggplot2** (if you haven't already done so) and load it into your R session.
+```{r}
+# uncomment the line below and install ggplot2 only if you haven't already
+#install.packages('ggplot2')
+
+# load the ggplot2 library into the current R session
+library(ggplot2)
+```
+
+The same plot as the one we made above is actually a bit more complicated to put together in ggplot:
+```{r}
+ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+```
+
+The above contains the components that are the bare minimum of what we need for a ggplot plot; we can add more on later, but let's dissect the parts of this command:
+```{}
+ggplot(data = <DATA>, mapping = aes(<Mapping>)) +
+        <GEOM_FUNCTION>()
+```
+
+* arguments:
+    + **data**: the dataframe you want to plot
+    + **mapping**: Any variables from your data that affect plot output, listed in *aes( )*
+* commands:
+    + **ggplot( )**: required start of every ggplot command. Contains any options that we want to apply to the whole plot (which can be nothing)
+    + **geom_{something}( )**: *how* you're plotting the data. Here, we want to plot points, so we're using **geom_point**; there are *tons* of different geoms available, one for each type of plot you might want to make.
+
+Arguments like *data* and *mapping* can go in the parentheses after the geom, producing the same plot as above:
+```{r}
+ggplot() +
+  geom_point(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm))
+```
+But there are specific situations in which it's better to do this (we'll see them later)
+
+## Modifying **geom** properties
+
+We can also pass additional arguments to the geom: useful ones to know are:
+
+* __color__: line color; for the default shape used in geom_point, this actually colors the inside of the shape as well
+* __fill__: the fill color inside a shape
+* __size__: point size or line thickness
+* __shape__: for points, this is the shape; for lines, this is the line pattern or dashyness
+* __alpha__: transparency level, with 0 being totally transparent and 1 being a solid, opaque color
+
+## Mapping lots of variables
+
+The plot we made above isn't really all that useful. It's great to see the data across all three species on one plot, but if we're looking at this data, we're probably actually interested in how these species differ from each other. So how do we make ggplot visually separate the points by species?
+
+Remember that the **mapping** argument deals with *any properties of the plot that depend on variables in the supplied data frame*. So we can modify our original code like this:
+```{r}
+ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species, fill = species)) +
+  geom_point(alpha = 0.33, shape = 23, size = 5)
+```
+
+Notice that the plot above uses *both* a variable-dependent color (based on the penguin dataframe's *species* column), which goes inside *aes( )*, and variable-independent values (alpha, shape, size) that applies to the whole geom_point command and goes outside *aes( )*
+
+Also, notice that you got a legend for *free*! You didn't have to tell ggplot how to make it, or what info to include in it; it knows automatically based on how you set up your **mapping**.
+
+Depending on context, you can make color, fill, shape, size or alpha variable-dependent. Some of these (color, fill, shape) obviously make more sense for categorical variables, while others (alpha, size) make more sense for continuous variables, but *ggplot* will only rarely stop you from making aesthetically and data representationally questionable choices here.
+
+Let's try an exercise: 
+
+```{r}
+# Based on the code above, make a plot where body mass is on the x axis,
+# flipper length is on the y axis, 
+#the fill of the points depends on the island, 
+# and the shape of the point depends on the species
+
+```
+
+
+## Stacking multiple **geoms**
+
+One of the places where ggplot really shines is when you want to combine multiple data representations on one plot. For example, I *really* like topology-style contour plots, which ggplot can make with **geom_density2d**. Once we know how to make a basic plot, and combining a contour plot with a plot the individual data points is super easy in ggplot:
+```{r}
+# note, the first two lines are just our plot from above
+ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_density2d() +
+  geom_point(alpha = 0.33)
+```
+Notice that the *alpha* argument we provided only applies to geom_point, so the contour lines don't show any transparency. However, any arguments provided to **mapping** in an aes( ) statement in the **ggplot( )** command apply across all geoms. (Also, notice that when we add a geom, ggplot automatically updates our legend!)
+
+
+# The structure of data that ggplot can plot
+
+As you've seen, ggplot provides users with the power to easily change the appearance of the plot, and the statistics calculated, based on any single column in the dataframe containing the data to be plotted. But this also results in some pretty rigid rules about how your data needs to be organized. Namely, data for ggplot should be in [tidy format](https://learn.gencore.bio.nyu.edu/tidyverse/):
+
+* each variable must have its own column
+* each observation must have its own row (but what's an observation?)
+* each value must have its own cell
+
+Let's take a look at what that means. Imagine the penguin data was collected for breeding pairs. Below we have created two subset of the *penguins* dataframe to mimic this, containing the same data on the same individuals, one male and one female per species.
+```{r}
+penguin_pairs_1 <- penguins[c(1,2,5,6,155:158,277:280),
+                            c('species', 'sex', 'bill_length_mm')]
+penguin_pairs_1$breeding_pair <- rep(1:6, each = 2)
+
+penguin_pairs_2 <-
+  pivot_wider(penguin_pairs_1, names_from = 'sex',
+              values_from = 'bill_length_mm', names_prefix = 'bill_length_mm_')
+
+print(penguin_pairs_1)
+print(penguin_pairs_2)
+```
+
+Imagine we had two graphs we wanted to make:
+
+1. Plot the distribution (density) of bill lengths for all the penguins, colored by species.
+2. Plot the bill length for male vs female individuals of each breeding pair, colored by species
+
+For each of these graphs, what are the *individual observations* (i.e. are they breeding pairs or individual penguins)? Which is the easiest dataset to use for plotting each of these graphs with **ggplot**?
+
+Try both of them out below.
+
+```{r}
+
+```
+
+The **tidyr** package (which, like **ggplot2**, is part of the **tidyverse** package) has some really great functions for re-organizing data, allowing you to convert from something that looks like `penguin_pairs_1` into `penguin_pairs_2`, and vice versa. If you find yourself facing data that isn't organized the right way for your plot, I really suggest looking over [David Gresham's tidyverse tutorial](https://learn.gencore.bio.nyu.edu/tidyverse/) and the more up-to-date [tidyr tutorial on pivot](https://tidyr.tidyverse.org/articles/pivot.html).
+
+# Why ggplot
+
+* __easy exploratory data analysis__: separation of variable mapping from visual representation (e.g. geoms) makes it easy to try different ways of plotting data
+* __automation of the boring stuff__: generation of legends, axis bounds, etc is done very well automatically based on the data and variables you're plotting (but you can have finer control of it if you'd like)
+* __automated stats__: lots of geoms that calculate and display statistics of your data. These statistics are automatically calculated based on your grouping of the data, how you specify your axes (e.g. linear vs log scale), etc.
+    + *geom_density* and *geom_density2d* for density estimation
+    + *geom_smooth* for trendlines with error ribbons
+    + [stat_summary](https://ggplot2.tidyverse.org/reference/stat_summary.html) for other ways to bin and summarize data)
+* __plots as objects__: storing plots as objects allows them to be easily modified and combined into figures
+* __incredibly helpful online examples__: the *tidyverse* website contains an incredible online manual with explanations and clear examples for nearly everything you might want to do in ggplot: [https://ggplot2.tidyverse.org/reference/](https://ggplot2.tidyverse.org/reference/)
+
+# Plot your own data!
+Try plotting some of your own data! Here are some commonly used types of plots (and their corresponding geoms) for data visualization:  
+* scatter plots: geom_point()
+* density plots: geom_density()
+* histograms: geom_histogram()
+* boxplots: geom_boxplot()
+* barplots: geom_bar()
+* lineplots: geom_line()
+
+***
+
+## Aside: ggplot objects
+
+ggplot actually creates objects that we can store as variables and add onto. So, for example, we can do this:
+```{r}
+basic_penguin_plot <-
+  ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point()
+print(basic_penguin_plot)
+# let's add another geom to this plot
+penguin_plot_with_contours <-
+  basic_penguin_plot + geom_density2d()
+print(penguin_plot_with_contours)
+```
+
+
+## themes and other options we can change
+
+ggplot also allows a huge amount of control over other aspects of the plot (e.g. titles, axis labeling and scale, overall plot look, etc). For most of these, ggplot actually allows multiple equivalent ways to achieve the same effect.
+
+### axes + titles
+
+Adding a title to a plot can be achieved using ggtitle()
+```{r}
+basic_penguin_plot +
+  ggtitle('Penguin Bills')
+```
+
+We can also modify the axis properties directly
+```{r}
+basic_penguin_plot +
+  ggtitle('Penguin Bills') +
+  scale_x_continuous(name = 'Bill Length',
+                     limits = c(0,60)) +
+  scale_y_log10(name = 'Bill Depth',
+                breaks = c(15, 18, 21))
+```
+There's a few things going on here:
+
+* __scale_x_continuous( )__ and __scale_y_log10( )__: set the scale of the x and y axes. For continuous variables, they can also be plotted on a square root scale, reversed, and various other transformations. For discrete variables, use **scale_x_discrete( )** and **scale_y_discrete( )**
+* __name__: the axis label
+* __limits__: the bounds on the axis, must be provided as a 2-number vector
+* __breaks__: manually assign where the tickmarks go
+* __labels__: for discrete variables, this can be used to rename the categories along your axis
+
+### legend
+
+You can modify the legend in a similar way to the other mappings (e.g. the axes); for example, if we want to modify the way the thing mapped to 'color' on our plot is represented, we can use **scale_color_discrete( )**, or, if we want to manually change the values assigned to each category (e.g. the colors), **scale_color_manual( )**:
+```{r}
+basic_penguin_plot +
+  scale_color_manual(values=c("violet", "blue", "gray"),
+                     name="Penguin Species",
+                     labels=c("Adelie", "Chinstrap", "Gentoo"))
+```
+We can also change the position of the legend using **theme( )** (which can actually control nearly every other aesthetic aspect of the plot, such as font size, which axes get labels/tickmarks, etc).
+
+```{r}
+basic_penguin_plot +
+  scale_color_manual(values=c("violet", "blue", "gray"),
+                     name="Penguin Species",
+                     labels=c("Adelie", "Chinstrap", "Gentoo")) +
+  theme(legend.position = 'bottom')
+```
+
+### themes
+
+Finally, the overall appearance of the graph can be changed by selecting a custom 'theme'; this is a bit confusing, since these are distinct from the **theme( )** command used above.
+```{r}
+basic_penguin_plot +
+  scale_color_manual(values=c("violet", "blue", "gray"),
+                     name="Penguin Species",
+                     labels=c("Adelie", "Chinstrap", "Gentoo")) +
+  theme(legend.position = 'bottom') +
+  theme_bw()
+```
+
+
+# Other cool things
+
+## More info about stacking multiple geoms
+
+One really powerful application of this is that we can actually make each geom( ) represent a different aspect of the same data. Let's say we'd like our datapoints to be colored by species, but we'd also like to see a contour plot of bill length vs depth *across all the species*. To do this, we're going to have to move our **mapping** calls inside the geoms, since we now want each geom to map the data differently:
+```{r}
+# Removed alpha for simplicity
+# Made contour plot line color black (default is blue)
+ggplot(data = penguins) +
+  geom_density2d(mapping = aes(x = bill_length_mm, y = bill_depth_mm), color = 'black') +
+  geom_point(mapping = aes(x = bill_length_mm, y = bill_depth_mm, color = species))
+```
+
+```{r eval=F}
+# can also be written as
+ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_density2d(color = 'black') +
+  geom_point(mapping = aes(color = species))
+```
+This plot shows that **mapping** actually controls not just where to plot the data points and how they should look aesthetically, but also how the data is grouped when it's represented in the plot. Notice that in the first contour plot, the statistics needed to plot the contours were computed separately for each species. However, when we removed species from the aes( ) being used by geom_density2d, the data was no longer separated by species for any of the stats calculated for this geom, and they're instead calculated across all the points in the dataset.
+
+Let's try an exercise. A really useful kind of plot you can make while exploring data is a *density* plot, which shows pretty much a normalized, smoothed histogram of your data using **geom_density**. For example, if we want to get an idea of what the distribution of bill lengths in our dataset is, we can run:
+```{r}
+# Density plot to see the distribution of bill lengths in our data
+ggplot(data = penguins) +
+  geom_density(mapping = aes(x = bill_length_mm))
+```
+
+Now repeat this plot, but overlaying the density plot for each species on this plot that shows the distribution across all 3 species' data:
+```{r}
+# Make a density plot that shows both the distribution of bill_length_mm in all
+# the data together in one color, and the distribution for each species'
+# bill_lengh_mm each in its own color
+
+# Bonus: Change the linetype of the species' density plots so that each species
+# has the same dashed line, but the line representing results across all the
+# data is solid
+```
+
+## combining multiple data frames on one plot
+
+ggplot makes it super easy to combine multiple datasets on one plot, assuming they have the relevant variables (dataframe columns) in common. Let's break up the penguins dataframe to see how this works:
+```{r}
+penguins_nonchinstrap <- subset(penguins, species != 'Chinstrap')
+penguin_chinstrap_mass <- subset(penguins, species == 'Chinstrap')[, c('body_mass_g', 'species')]
+print(penguins_nonchinstrap)
+print(penguin_chinstrap_mass)
+```
+We now have two dataframes, containing data on different species, and with only a subset of the data in one that is contained in the other (the petal widths and species). But if petal width and species is what we want to plot, this isn't a problem for ggplot:
+```{r}
+ggplot() +
+  geom_boxplot(data = penguins_nonchinstrap, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot(data = penguin_chinstrap_mass, aes(x = species, y = body_mass_g, color = species))
+```
+
+## facets
+
+Another great tool ggplot provides is faceting. This allows you to separate data into subplots based on a column (or multiple columns):
+```{r}
+basic_penguin_plot +
+  facet_wrap( ~ species)
+```
+Notice that the x-axes are consistent among these plots.
+
+## Lots of additional packages!
+
+Because ggplot is so popular, there's been a ton of additional packages written that build on top of it. Here are two examples.
+
+### gganimate
+
+Add animations to plots
+```{r warning=FALSE, message=FALSE, results = FALSE}
+install.packages('gifski')
+install.packages('gganimate')
+library(gganimate)
+animated_pegnuin_plot <-
+  basic_penguin_plot + transition_states(species)
+# save plot with 3 frames, play at 1 frame per second
+anim_save("animated_penguin_plot.gif", animated_penguin_plot, nframes = 4, fps = 1)
+# render plot using ![](plot_path) outside of code chunk
+```
