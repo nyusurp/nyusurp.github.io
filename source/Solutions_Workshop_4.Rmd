@@ -1,0 +1,200 @@
+---
+title: "Solutions to Workshop 4: Indexing and Missing values"
+subtitle: |
+    |   - pulling specific elements out of vectors
+    |   - creating, storing, and working with missing values
+author:
+  - Eugene Plavskin
+  - Grace Avecilla
+  - Tobi Shraink
+output:
+  html_notebook:
+    code_folding: show
+    depth: 3
+    tidy: yes
+    toc: yes
+---
+**Solutions to this workshop can be found [here](Solutions_Workshop_4.nb.html)**
+
+# Operations on vectors of numbers
+
+One of the best things about vectors that will come up again and again soon is that you can do operations on them, just like with numbers. Here's one example:
+```{r}
+# Create a variable holding a vector that contains an evenly spaced sequence of
+# five numbers, from 2 to 4
+my_var <- seq(from = 2, to = 4, length.out = 5)
+my_var
+# Add 3 to the vector. What happens?
+my_var + 3
+```
+
+You can also add vectors together!
+```{r}
+vector_a <- c(1,2,3)
+vector_b <- c(4,5,6)
+
+# Add vector_a and vector_b
+vector_a + vector_b
+```
+
+And finally... many math-related functions can work on vectors! `sum()` is a great example of this.
+```{r}
+# Create a vector of consecutive numbers between 1 and 100
+another_vec <- seq(from = 1, to = 100, by = 1)
+# Use sum() to add up those numbers
+sum(another_vec)
+```
+
+# Review: vectors, functions, and types
+
+## Vectors and functions
+```{r}
+# Create a variable, vect_1 that holds a vector containing any 4 numbers
+vect_1 <- c(1, 2, 3, 5)
+# Calculate the sum of vect_1 and print it out on the screen
+sum(vect_1)
+# Create a new variable, vect_2, that contains each value of vect_1 squared
+# (Don't manually enter the numbers, use vect_1 to calculate this)
+vect_2 <- vect_1^2
+print(vect_2)
+```
+
+Notice that lots of functions work on vectors!
+
+## Sequences of numbers
+
+```{r}
+# Create a vector of numbers from -5 to 5 containing 21 elements called review_vec
+review_vec <- seq(from = -5, to = 5, length.out = 21)
+print(review_vec)
+```
+
+
+# Getting specific elements from vectors
+
+Often, it's really useful to find out what the value of a specific position (or *index*) in a vector is. R makes this easy.
+```{r echo=FALSE}
+# This just makes sure the graphic is included
+if (dir.exists('class_1_figures')){
+  library(knitr)
+  include_graphics('class_1_figures/vector_illustration1.png')
+}
+```
+
+Let's create a really long vector and ask R to tell us about specific points along that vector.
+```{r}
+# Create three variables, first_num, last_num, and num_of_elements
+# The first two can be whatever numbers you want, num_of_elements should be 100
+# DON'T use 1 for first_num, and don't use 100 for last_num. Be creative.
+first_num <- 34
+last_num <- 43
+num_of_elements <- 100
+# Use the function we learned during the last class to make a sequence of length
+# num_of_elements starting at first_num and going to last_num, and put that in a
+# vector called new_vector
+new_vector <- seq(first_num, last_num, length.out = num_of_elements)
+# Check the length of the vector you just created
+length(new_vector)
+```
+
+To access the number at a specific position, we can use square brackets!
+```{r}
+# Make a vector called long_vector that goes from -1 to 50 and has 100 numbers inside
+long_vector <- seq(-1, 50, length.out = 100)
+# Let's check what the first number in long_vector is
+print(long_vector[1])
+
+# Now check what the 32nd number in long_vector is
+print(long_vector[32])
+```
+
+
+```{r}
+# Now check what the last number in long_vector is
+# (bonus: do this using a variable you've already created, rather than just
+# typing out 100)
+long_vector[length(long_vector)]
+
+```
+
+You don't have to just provide a single number as in index (the thing inside the square brackets); vectors work too!
+```{r}
+# Print out the 4th, 5th, 6th, 7th, and 8th number in long_vector
+print(long_vector[c(4,5,6,7,8)])
+# Now do the same thing as above, but using a function we have learned today to
+# specificy the indices (4, 5, 6, 7, 8)
+print(long_vector[seq(4,8)])
+```
+
+Actually, we can get even more creative here. Let's say you wanted to create a vector that had inside it *every other number* from a vector (*i.e.* the 1st, 3rd, 5th, etc numbers that are in that vector). Let's try this.
+Hint: you can use `seq()` to create a vector of positions (*indices*) that you then use to get the positions you want from that vector
+```{r}
+long_vector_2_start <- -1
+long_vector_2_end <- 50
+long_vector_2_length <- 20
+long_vector_2 <-
+  seq(long_vector_2_start, long_vector_2_end, length.out = long_vector_2_length)
+# Create position_vector, which will hold the positions you want to get out of
+# long_vector_2 (i.e. c(1,3,5,....))
+position_vector <- seq(1, long_vector_2_length, by = 2)
+# Use long_vector together with position_vector to create shorter_vector, which
+# will hold every othern number from long_vector
+shorter_vector <- long_vector_2[position_vector]
+# print out long_vector_2, then shorter_vector
+print(long_vector_2)
+print(shorter_vector)
+```
+
+# When we get missing values
+
+A **HUGE** part of analyzing real scientific data is dealing with missing values. There are lots of ways we can get missing values; these are probably the most common:
+
+* When we try to get R to do a nonsensical thing
+* When we perform some super taboo math operation
+* When we are using real data and we didn't collect every observation (*eg* you measured the height of a bunch of plants every week but by the third week, some of them died)
+
+Every programming language has its own special way of representing 'missing' data; R, ever so special, uses two: *NA* or *NaN*, depending on the situation; don't worry about the difference, I (Eugene) literally learned it while preparing this class, after 5 years of programming in R.
+
+Let's take a look at how these missing values work.
+
+## Performing nonsensical operations
+Let's try to see what R does when we ask it to do something that clearly doesn't make sense. Remember that we can ask R to convert a list of characters to numbers. Let's try that again.
+```{r}
+weird_number_vector <- c('1', '4', 'koala', '18')
+
+# Convert weird_number_vector to numeric type, and print out the result
+as.numeric(weird_number_vector)
+```
+
+## Taboo math operations
+Another way to get missing values is to perform a math operation that R doesn't like. Let's try doing this. Remember that we can perform operations on vectors, e.g. adding two vectors to each other. Let's try dividing vectors this way.
+```{r}
+vector_1 <- c(1, 2, 0, 3, 0, -5)
+vector_2 <- c(0, -3, 1, 6, 0, 0)
+
+# What do you think you'll get if you divide vector_1 by vector_2?
+
+# Try it
+vector_1 / vector_2
+```
+Notice that dividing non-zero by zero gives you `Inf` (or `-Inf` if the numerator is negative), dividing zero by non-zero gives you zero (this makes sense), but dividing zero by zero gives you `NaN`
+
+## Real missing data
+Finally, you can enter NA into your vector, just like you would any other value
+```{r}
+# Create a vector, data_vector, which has some numbers and at least one NA value
+data_vector <- c(3, 8, NA, 9)
+# What happens if you take the sum of data_vector?
+sum(data_vector)
+```
+
+Lots of functions in R, including `sum()`, have a way of dealing with missing data automatically. There are lots of times when we may want to just ignore the missing values and work with the rest of the data we have. Take a look at the documentation for `sum()`; do you see anything in there that might suggest how you could get the function to ignore missing values and take the sum of *data_vector* anyways?
+```{r}
+# Try using sum() to get the sum of the non-missing values in data_vector
+sum(data_vector, na.rm = TRUE)
+```
+
+# Things we hope you've learned today (and will hopefully remember next time)
+
+* Indexing!!!
+* When missing values arise
