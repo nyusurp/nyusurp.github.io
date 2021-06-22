@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
-
+- [Go back to syllabus](index.html)
 - [The slide deck for the session](slide/session_1_environment.ppt)
 - [Link to this worksheet](source/worksheet/session_1_environment.Rmd)
 - [Solution to this worksheet](source/solution/session_1_environment.html)
