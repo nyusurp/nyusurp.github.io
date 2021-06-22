@@ -129,7 +129,9 @@ In programming, division is often written as slashes (`/`), while multiplication
 
 
 - Yen is 6'1 and 187 lbs, what is his BMI?
-  - The formulat for BMI is $\frac{Weight (kg)}{Height^2(m)}$
+  - The formula for BMI is:
+  
+  $$\frac{Weight (kg)}{Height^2(m)}$$
 
 ```{r}
 # Calculating height in inches
