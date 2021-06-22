@@ -88,7 +88,7 @@ This is a line of text:
 
 This is how code looks like in R:
 
-![An example code chunk](../../img/codechunk.png)
+![An example code chunk](img/codechunk.png)
 
 ```{r}
 # And the output will be shown below
