@@ -14,7 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
-[The slide deck for the session](slide/session_1_environment.ppt)
+- [Go back to syllabus](index.html)
+- [Go back to worksheet](session_1_environment.html)
+- [The slide deck for the session](slide/session_1_environment.ppt)
+
 
 ## What do you want to do with R?
 
