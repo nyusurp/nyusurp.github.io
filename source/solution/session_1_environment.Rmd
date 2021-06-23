@@ -63,13 +63,22 @@ Programming could sound intimidating, but a well-designed interface can make thi
   - [dplyr](https://dplyr.tidyverse.org): A tool that handles and summarizes tables
   
 ```{r eval = FALSE}
-install.packages("rmakrdown")
+install.packages("rmarkdown")
 ```
 
 
 ### Let's install `ggplot2` and `dplyr` too!
 
 ```{r eval = FALSE}
+# In the code chunks, any line that starts with a hashtag will NOT be executed.
+# These lines become comments, and it's a good practice to thoroughly comment your code.
+# Try to include the following information in your comments:
+# The purpose of this part of code: Try to digest what you want to do into small steps and solve one step at a time with a piece of code.
+# The expected input of this part of code: Should it be relative expression level? Should it be membrane potential? In what format should it be provided?
+# The expected output of this part of code: What is the part of code providing? Is it generating a plot? Or is it calculating some sort of complicated score?
+
+# The function for installing packages is install.packages().
+# Remove the hashtag to un-comment the following line and complete the code to install ggplot2.
 install.packages("ggplot2")
 ```
 
@@ -77,6 +86,48 @@ install.packages("ggplot2")
 install.packages("dplyr")
 ```
 
+## Working directory and Rstudio projects
+
+### What is a working directory?
+
+While we usually explore the file system with a point-and-click file manager, how files are organized under the table is somewhat complicated, and when you need access a file, you will need a precise address of it, or in programming terms _file path_.
+
+A path could be either absolute (consider a full address) or relative (e.g., if you know which _building_ (= reference point) we are talking about, 10th floor is not ambiguous). The _working directory_ is the _default reference point_ where R (or other computational tools) will use for its relative paths.
+
+In other words, if you want to load a file, say it's called `data.txt`. If you don't specify the full path, R will go to your working directory to see if it can find `data.txt`.
+
+### Checking and setting your working directory
+
+You can check the path of your working directory with `getwd()` (short for _get working directory_)
+
+```{r}
+getwd()
+```
+
+To set your working directory, you can:
+
+1. Go to the file tab in the bottom-right panel in RStudio. Navigate the the folder which you want it to be your working directory, click the _More_ button, and click _Set as working directory_.
+
+2. Use `setwd()`. The syntax is `setwd("[path to your desired working directory])` (Square brackets just imply the part you need to replace with what you want. You don't need the square brackets in your real code.)
+
+```{r}
+# Set working directory to desktop for a Mac
+# ~ (the tilde symbol is a shorthand for the home directory, which is where an operating system puts all your stuff)
+setwd("~/Desktop/")
+```
+
+
+### RStudio projects
+
+Working directory is an important concept, but it could be pretty tedious to set it manually everytime. RStudio comes with a convenient feature that help us to deal with this: Projects.
+
+You can create a project by clicking the _Create a project_ button on the toolbar (second to the left).
+
+If you already have a folder that you've used as your working directory, select _Existing directory_ when creating your project, and navigate to your desired folder; if you want to start from an empty folder, select _New directory_, and navigate to the folder where you want to create a new folder.
+
+Most programming languages does not work well with spaces, so when you name your folders and files, try to replace spaces with underscores (`_`).
+
+You can find a video illustration of how to create a project [here](https://www.youtube.com/watch?v=wqOme7xsZvs).
   
 ## Using Rmarkdown
 
@@ -86,11 +137,9 @@ This is a line of text:
 
 "I know how to use R!"
 
-This is how code looks like in R:
-
-![An example code chunk](img/codechunk.png)
 
 ```{r}
+# This is a chunk of code
 # And the output will be shown below
 print("I know how to use R")
 ```
