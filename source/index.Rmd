@@ -15,6 +15,9 @@ output: html_document
 
 ### [Session 2: Storing things, types of things, and do stuff](Workshop_2.nb.html)
 
+- variables
+- types
+- basic functions
   
 ### Session 3: Vectors are just a list of things
 
