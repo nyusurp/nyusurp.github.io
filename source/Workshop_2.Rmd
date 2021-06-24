@@ -21,6 +21,22 @@ output:
 # Review from last time
 Add a code chunk below this text, and in that chunk use R to add your age to the age of your review partner.
 
+One of the *most* important skills in programming is knowing how to find information. No amount of experience will teach you how to do *everything*, and it's incredibly easy to forget how to do things that you've done many times before but haven't had to use in a while. Fortunately, we have google!
+
+Try searching online to find out how to do the exercises in the code chunk below:
+```{r}
+# Take 3 to the 5th power
+
+# Find the remainder when 8 is divided by 3
+
+```
+
+
+As you google, you may have see some answers on a website called *StackOverflow*. This is a great site that allows people to ask questions and they are answered by members of the R community (or any other community--StackOverflow has sections for most programming languages, and subjects as diverse as Biology and Cooking!). In most cases, there was already someone who had your question at some point, which is why a clever google search can usually help you figure out how to do most things. There are also a ton of blogs online that teach you specific skills in R.
+
+Finally, R has a built-in help page for every function. You can access it by typing a question mark, followed by the name of the function. We will use this a lot more later in the course. For now, try typing **?Arithmetic** (capitalization matters!) into your Rstudio Console window and pressing *enter*. You will see the help text pop up in the bottom right Help window in Rstudio. In practice, this information can sometimes be a bit dense and technical. I usually find it most useful to read the 'description' on top, and then scroll all the way down to the 'examples' section at the bottom of the help page. Don't worry if you don't understand the examples in the arithmetic help section yet--we're going to cover a lot of those in our next class.
+
+
 # Variables
 ## Variables hold information
 Defining variables, or giving a name to values, such as the numbers you added together, allows you to store information.  

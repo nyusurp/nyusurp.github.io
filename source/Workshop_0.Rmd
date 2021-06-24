@@ -1,0 +1,94 @@
+---
+title: "Workshop 0: Introduction"
+subtitle: |
+    |   - downloading and installing R and Rstudio
+    |   - what we will cover
+author:
+- Eugene Plavskin
+- Grace Avecilla
+output:
+  html_notebook:
+    code_folding: show
+    depth: 3
+    tidy: yes
+    toc: yes
+---
+
+# Downloading, installing, and navigating Rstudio
+
+In this series of workshops, we will be using the **R** programming language. In order to be able to complete the exercises in the workshops, you will need to download R onto your computer. You will also need to download RStudio, a programming environment that will make it easier to visualize what we are doing.
+
+## Downloading R
+  
+R is available for **free** at
+[r-project.org](https://cran.rstudio.com). To maintain consistency among everyone in the class, please download **R version 3.6.3**: you can find it in the following links for [Windows](https://cran.r-project.org/bin/windows/base/old/3.6.3/), [Mac](https://cran.r-project.org/bin/macosx/R-3.6.3.nn.pkg), [Linux](https://cran.r-project.org/bin/linux/). Download and install it. You can open it to see if it worked.
+You enter commands by typing them and pressing enter. R should 
+spit back a response of some kind. One thing you can do is type
+`version` and hit enter. It'll respond with the version information.
+
+## Downloading Rstudio
+
+R itself is pretty minimal, so we'll want to download [RStudio](https://www.rstudio.com/products/rstudio/download/) as well. **RStudio** is a graphical user interface (GUI) integrated development environment (IDE) for using R. RStudio will make it easier for us to write and edit our code, view plots, and make documents like this one. RStudio Desktop is also free.
+
+# Getting organized
+
+Make yourself a folder for this work. AVOID using spaces, use '_' (my_directory) or CapitalizeEachWord (ThisIsCalledCamelCase). Why no spaces? They're harder to type for when navigating directories from within R. Give directories informative names, it'll help you later on. Use consistent naming schemes, choose either CamelCase or underscores.
+
+# What will we learn?
+
+This class will give you an introduction into how to code in the context of asking questions about data. We're going to learn how to read in data; how to use R to perform computations on this data that would be difficult (or impossible, depending on how much data you're working with) to perform otherwise, such as simultaneously computing averages of various categories of data points that you select; and how to plot your data and the results of the analyses you perform.
+
+We hope that by the end of the class, you will feel relatively comfortable using R to perform some analysis on data that you have collected (or even data someone else has collected!) and to plot the results. These are practical skills that you will find useful in a wide range of fields, not just biology.
+
+This class is *not* a comprehensive introduction to coding. There will be lots more to learn after you are done with the SURP program if you're interested in pursuing computational work more seriously. But in our experience, learning the first bits of coding can present a huge barrier to students (it certainly did for us and many of our colleagues). We hope that we'll be able to break this barrier down for you over the course of the summer.
+
+## Examples from a previous SURP student
+
+Here is an example of some work that was done by a SURP student in the summer of 2018, Janessa Vail
+
+```{r}
+# First, we load in the data
+
+# Look for Janessa's data in your current directory
+load('Janessa_GR_data.Rdata')
+# Show Janessa's data table
+print(Janessa_growth_rate_data)
+```
+
+We can immediately see why Janessa's data would be hard to try to analyze by hand or, let's say, in excel.
+
+1. There's LOTS of data. Look how many rows this table has (written below the table). This is telling you that the data contains ~55,000 observations (in this case, measurements of growth rate and other properties of individual yeast colonies)
+
+2. The data can be subdivided into many categories that might be of interest to our analysis, and the data are not sorted by those categories. For example, let's take a look at the different strains whose growth rates Janessa measured in this data:
+```{r}
+Janessa_strain_list <- unique(Janessa_growth_rate_data$Strain)
+print(paste("The unique strains from Janessa's experiment are:",
+            paste(Janessa_strain_list, collapse = ', ')))
+```
+
+In real data you collect or analyze, you may have measurements made in different strains, across different conditions, etc. If you want to easily calculate the means of different combinations of these categories, it can prove difficult in excel, especially with lots of data. We can make tables that summarize the mean and sample size for each strain in Janessa's experiment:
+```{r}
+#install.packages(plyr)
+library(plyr)
+Janessa_summary_data <- ddply(
+  Janessa_growth_rate_data,
+  ~ Strain,
+  summarize,
+  mean_GR = mean(GR),
+  standard_dev_GR = sd(GR),
+  sample_size = length(GR))
+```
+
+```{r echo = F}
+print('Table of growth rate summary data')
+print(Janessa_summary_data)
+
+```
+
+You also probably want to be able to plot data, automatically splitting it into whatever categories you're interested in. Once you know a little bit about how to use it, R makes this very easy! Since Janessa was interested in comparing growth rates between strains, she plotted these:
+
+```{r}
+library(ggplot2)
+ggplot(data = Janessa_growth_rate_data) +
+  geom_boxplot(aes(x = Strain, y = GR, color = Strain))
+```
