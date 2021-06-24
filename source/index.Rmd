@@ -13,7 +13,7 @@ output: html_document
 - Tour of RStudio
 - Arithmetic in R
 
-### [Session 2: Storing things, types of things, and do stuff](Workshop_2_nb.html)
+### [Session 2: Storing things, types of things, and do stuff](Workshop_2.nb.html)
 
   
 ### Session 3: Vectors are just a list of things
