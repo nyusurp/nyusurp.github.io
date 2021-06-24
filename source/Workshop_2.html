@@ -180,13 +180,21 @@ pre code {
 <li><a href="#variables">Variables</a>
 <ul>
 <li><a href="#variables-hold-information">Variables hold information</a></li>
-<li><a href="#variable-types">Variable <em>types</em></a></li>
+<li><a href="#variable-types">Variable <em>types</em></a>
+<ul>
+<li><a href="#numeric-variables">Numeric variables</a></li>
+<li><a href="#character-variables">Character variables</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#functions">Functions</a>
 <ul>
 <li><a href="#adding-with-functions">Adding with functions</a></li>
 <li><a href="#looking-at-the-environment">Looking at the <strong>Environment</strong></a></li>
-<li><a href="#combining-strings">Combining strings</a></li>
+<li><a href="#combining-strings">Combining strings</a>
+<ul>
+<li><a href="#what-do-i-want-to-combine-strings-i-can-just-type-them-as-a-sentence-right">What do I want to combine strings? I can just type them as a sentence, right?</a></li>
+</ul></li>
+<li><a href="#checking-the-documentation-of-a-function-in-r">Checking the documentation of a function in R</a></li>
 </ul></li>
 <li><a href="#things-we-hope-youve-learned-today-and-will-hopefully-remember-next-time">Things we hope you’ve learned today (and will hopefully remember next time)</a></li>
 </ul>
@@ -233,6 +241,8 @@ variable1</code></pre>
 </div>
 <div id="variable-types" class="section level2">
 <h2>Variable <em>types</em></h2>
+<div id="numeric-variables" class="section level3">
+<h3>Numeric variables</h3>
 <p>These types of variables are <em>numeric</em>. However, R can also store text. These are in the form of <em>characters</em>. Surround characters in quotation marks to have them be character and not variable names.</p>
 <pre class="r"><code>char &lt;- &quot;a&quot;
 char</code></pre>
@@ -257,12 +267,32 @@ is(5)</code></pre>
 # How about char_variable2?
 
 # What is going on?</code></pre>
+<div id="question-what-is-this-when-i-use-typeof" class="section level4">
+<h4>Question: What is this when I use <code>typeof()</code>?</h4>
+<p>There are two other functions that also give you the type of a variable:</p>
+<ul>
+<li><code>class()</code> gives you the generic types: Numeric, character…</li>
+<li><code>typeof()</code> gives you the exact implementation (= how it is processed by R)</li>
+</ul>
+<p>If you do <code>typeof(5)</code> or any number, you will see it saying “double”.</p>
+<pre class="r"><code>typeof(5)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>This means that it’s stored as double-precision floating point numbers. If you are interested in what is double precision, the short answer is that non-integer numbers are not stored precisely in any programming languages. You can see the impression here:</p>
+<pre class="r"><code># Expecting 0
+0.1 + 0.2 - 0.3</code></pre>
+<pre><code>## [1] 5.551115e-17</code></pre>
+<p>5.551115e-17 means <span class="math inline">\(5.551115\times{}10^{-17}\)</span>. You can see a detailed description of this issue <a href="https://0.30000000000000004.com">here</a>. But don’t worry too much about it: Floating point imprecision is usually way smaller than measurement errors. If you were to work in fields where precision is a critical issue like in physics or in finance, there are workarounds at the expense of computational efficiency (for example, <a href="https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf">rmpfr</a> implements numbers with precision in the R universe, and every programming language has its favorite tools to achieve this.)</p>
+</div>
+</div>
+<div id="character-variables" class="section level3">
+<h3>Character variables</h3>
 <p>You can also make numbers into strings: just put a quote around them!</p>
 <pre class="r"><code>num_string &lt;- &#39;4&#39;
 actual_num &lt;- 4
 
 # Try identifying the types of num_string and actual_num</code></pre>
 <p>You need to be very careful about the types of your variables. It may look like <em>actual_num</em> and <em>num_string</em> are holding the same thing, but because we’ve implicitly told R that they are of different types, they behave very differently. In the <strong>Console</strong>, try adding <em>num_string</em> to <em>actual_num</em>. What happens, and why? What is R’s cryptic message trying to tell you?</p>
+</div>
 </div>
 </div>
 <div id="functions" class="section level1">
@@ -304,6 +334,22 @@ biology_quality &lt;- paste(favorite_subject, statement_about_subject, subject_r
 <p>Notice that the code above didn’t print anything out. That’s because we directed the output of the <code>paste()</code> function into a variable, <em>biology_quality</em>. To get R to print out the current program variable, you could just type it into your console, or you could use a function! Try googling to find an R function that prints out a variable.</p>
 <pre class="r"><code># Find an R function to print out a variable, and use it to print whatever
 # the current_program variable is storing</code></pre>
+<div id="what-do-i-want-to-combine-strings-i-can-just-type-them-as-a-sentence-right" class="section level3">
+<h3>What do I want to combine strings? I can just type them as a sentence, right?</h3>
+<p>One of the merit of programming is it will allow you to do repetitive things. One of the things that we often do is to ask R to <em>loop</em> (run sequentially through a list of things) through gene names and plot related things out. Say I want to save files in the form of <code>[gene_name]_[genotype_of_animal]_[type of plot].[file type]</code>, we can do it with paste like:</p>
+<pre class="r"><code>### You&#39;ll be &quot;looping&quot; through gene names in real use cases
+gene &lt;- &quot;P53&quot;
+genotype &lt;- &quot;mutant&quot;
+plottype &lt;- &quot;bar.png&quot;
+
+
+file_name &lt;- paste(gene, genotype, plottype, sep = &quot;_&quot;)
+print(file_name)</code></pre>
+<pre><code>## [1] &quot;P53_mutant_bar.png&quot;</code></pre>
+</div>
+</div>
+<div id="checking-the-documentation-of-a-function-in-r" class="section level2">
+<h2>Checking the documentation of a function in R</h2>
 <p>You can learn about a function by reading its documentation. You can access the documentation with <code>?</code>, for example, type <code>?paste</code> into your console. You will see the help text pop up in the bottom right Help box in Rstudio.</p>
 <p><code>?</code> is one of the more important keys for you to know. Seriously, many issues are averted by first checking the documentation. Documentation usually has:</p>
 <ul>

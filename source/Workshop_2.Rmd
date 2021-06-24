@@ -69,6 +69,8 @@ variable1
 
 
 ## Variable *types*
+
+### Numeric variables
 These types of variables are *numeric*. However, R can also store text. These are in the form of *characters*. Surround characters in quotation marks to have them be character and not variable names.
 
 ```{r}
@@ -101,6 +103,30 @@ is(5)
 
 # What is going on?
 ```
+
+#### Question: What is this when I use `typeof()`?
+
+There are two other functions that also give you the type of a variable:
+
+- `class()` gives you the generic types: Numeric, character...
+- `typeof()` gives you the exact implementation (= how it is processed by R)
+
+If you do `typeof(5)` or any number, you will see it saying "double".
+
+```{r}
+typeof(5)
+```
+
+This means that it's stored as double-precision floating point numbers. If you are interested in what is double precision, the short answer is that non-integer numbers are not stored precisely in any programming languages. You can see the impression here:
+
+```{r}
+# Expecting 0
+0.1 + 0.2 - 0.3
+```
+
+5.551115e-17 means $5.551115\times{}10^{-17}$. You can see a detailed description of this issue [here](https://0.30000000000000004.com). But don't worry too much about it: Floating point imprecision is usually way smaller than measurement errors. If you were to work in fields where precision is a critical issue like in physics or in finance, there are workarounds at the expense of computational efficiency (for example, [rmpfr](https://cran.r-project.org/web/packages/Rmpfr/vignettes/Rmpfr-pkg.pdf) implements numbers with precision in the R universe, and every programming language has its favorite tools to achieve this.)
+
+### Character variables
 
 You can also make numbers into strings: just put a quote around them!
 
@@ -175,6 +201,23 @@ Notice that the code above didn't print anything out. That's because we directed
 
 ```
 
+
+### What do I want to combine strings? I can just type them as a sentence, right?
+
+One of the merit of programming is it will allow you to do repetitive things. One of the things that we often do is to ask R to _loop_ (run sequentially through a list of things) through gene names and plot related things out. Say I want to save files in the form of `[gene_name]_[genotype_of_animal]_[type of plot].[file type]`, we can do it with paste like:
+
+```{r}
+### You'll be "looping" through gene names in real use cases
+gene <- "P53"
+genotype <- "mutant"
+plottype <- "bar.png"
+
+
+file_name <- paste(gene, genotype, plottype, sep = "_")
+print(file_name)
+```
+
+## Checking the documentation of a function in R
 
 You can learn about a function by reading its documentation. You can access the documentation with `?`, for example, type `?paste` into your console. You will see the help text pop up in the bottom right Help box in Rstudio.
 
