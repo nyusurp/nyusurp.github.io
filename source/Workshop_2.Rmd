@@ -6,14 +6,13 @@ subtitle: |
   |   - types
   |   - basic functions
 output:
-  html_notebook:
-    code_folding: show
-    depth: 3
-    tidy: yes
-    toc: yes
   html_document:
     toc: yes
     df_print: paged
+  html_notebook:
+    code_folding: show
+    depth: 3
+    toc: yes
 ---
 
 
@@ -28,6 +27,7 @@ Add a code chunk below this text, and in that chunk use R to add your age to the
 One of the *most* important skills in programming is knowing how to find information. No amount of experience will teach you how to do *everything*, and it's incredibly easy to forget how to do things that you've done many times before but haven't had to use in a while. Fortunately, we have google!
 
 Try searching online to find out how to do the exercises in the code chunk below:
+
 ```{r}
 # Take 3 to the 5th power
 
@@ -45,6 +45,7 @@ Finally, R has a built-in help page for every function. You can access it by typ
 ## Variables hold information
 Defining variables, or giving a name to values, such as the numbers you added together, allows you to store information.  
 You define variables using the `<-` operator, which means "store the value on the right in the variable on the left", like so. You can then call it back by saying the variable name.
+
 ```{r}
 variable1 <- 3
 variable2 <- 4
@@ -52,6 +53,7 @@ variable1
 ```
 
 You can use variables in the place of the numbers they hold, and perform mathematical operations on them.
+
 ```{r}
 variable1 + variable2
 ```
@@ -68,6 +70,7 @@ variable1
 
 ## Variable *types*
 These types of variables are *numeric*. However, R can also store text. These are in the form of *characters*. Surround characters in quotation marks to have them be character and not variable names.
+
 ```{r}
 char <- "a"
 char
@@ -76,6 +79,7 @@ char
 ```
 
 Characters variables can store *strings*, such as words and sentences (in fact, in R, *string* and *character* are basically interchangeable). In R, one string (everything between the quotation marks) is stored as a single unit.
+
 ```{r}
 char_sentence <- "My favorite food is ice cream"
 char_sentence
@@ -86,6 +90,7 @@ char_variable2
 ```
 
 You can identify the type of variable (numeric, character) using `is()`. 
+
 ```{r}
 # Using is()
 is(5)
@@ -98,6 +103,7 @@ is(5)
 ```
 
 You can also make numbers into strings: just put a quote around them!
+
 ```{r}
 num_string <- '4'
 actual_num <- 4
@@ -112,6 +118,7 @@ You need to be very careful about the types of your variables. It may look like 
 # Functions
 ## Adding with functions
 We saw above that you can do basic arithmetic in R by just using mathematical symbols, e.g. `+`. But for more complicated things, programming languages use things called *functions*. A function is something that wraps a whole set of operations so that you can invoke those operations in a single command. You have already used another function earlier in this class, `is()`. Let's take a look at another example: there's a function, `sum()`, that can add numbers, just like `+` can. Let's try it:
+
 ```{r}
 variable1
 variable2
@@ -120,12 +127,14 @@ sum(variable1, variable2)
 
 
 `sum()` can also take more than two inputs!
+
 ```{r}
 # Try using the sum function to compute the sum of 3, 4, and 6
 
 ```
 
 Functions are their own type! You can try using `is()` to check this:
+
 ```{r}
 is(sum)
 is(is)
@@ -135,7 +144,9 @@ is(is)
 Functions are always followed by `()` when you use them. When you use a function, often you are telling it to perform an operation on something else (e.g. a variable); in the examples above, we're performing the `sum()` function on *variable1* and *variable2*, and we're performing the `is()` function on `sum` and on itself. These are called arguments, and are *passed* to the function inside the parentheses.
 
 ## Looking at the **Environment**
+
 Some functions don't need to take any arguments. For example, you can find out what variables you have loaded in your *environment* at anytime using `ls()`. This will list all your variables, any custom functions you may have written, etc.
+
 ```{r}
 ls()
 ```
@@ -144,7 +155,9 @@ ls()
 Check out the **Environment** window on the top right! You can actually also see all your variables loaded in there, with a short summary of what's in them. This is a super convenient feature of programming in Rstudio.
 
 ## Combining strings
+
 Another really useful function is the `paste` function; this function allows you to combine *strings*.
+
 ```{r}
 favorite_subject <- 'biology'
 statement_about_subject <- 'is #'
@@ -155,6 +168,7 @@ biology_quality <- paste(favorite_subject, statement_about_subject, subject_rank
 
 
 Notice that the code above didn't print anything out. That's because we directed the output of the `paste()` function into a variable, *biology_quality*. To get R to print out the current program variable, you could just type it into your console, or you could use a function! Try googling to find an R function that prints out a variable.
+
 ```{r}
 # Find an R function to print out a variable, and use it to print whatever
 # the current_program variable is storing
