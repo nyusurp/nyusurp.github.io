@@ -4,10 +4,7 @@ subtitle: |
     |   - variables
     |   - types
     |   - basic functions
-author:
-- Eugene Plavskin
-- Grace Avecilla
-- Tobi Schraink
+author: "Cassandra Buzby & Yen-Chung Chen"
 output:
   html_notebook:
     code_folding: show
@@ -15,6 +12,9 @@ output:
     tidy: yes
     toc: yes
 ---
+
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
 **Solutions to this workshop can be found [here](Solutions_Workshop_2.nb.html)**
 
