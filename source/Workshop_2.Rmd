@@ -1,22 +1,26 @@
 ---
-title: "Workshop 2: Variables, Types, and Functions"
-subtitle: |
-    |   - variables
-    |   - types
-    |   - basic functions
+title: 'Workshop 2: Variables, Types, and Functions'
 author: "Cassandra Buzby & Yen-Chung Chen"
+subtitle: |
+  |   - variables
+  |   - types
+  |   - basic functions
 output:
   html_notebook:
     code_folding: show
     depth: 3
     tidy: yes
     toc: yes
+  html_document:
+    toc: yes
+    df_print: paged
 ---
 
 
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
-**Solutions to this workshop can be found [here](Solutions_Workshop_2.nb.html)**
+- **Solutions to this workshop can be found [here](Solutions_Workshop_2.nb.html)**
+- **The source can be downloaded [here from Github](https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/Workshop_2.Rmd). You can right-click and select download linked file.**
 
 # Review from last time
 Add a code chunk below this text, and in that chunk use R to add your age to the age of your review partner.
