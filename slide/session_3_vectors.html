@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session 3: Working with Vectors</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Yen-Chung Chen" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Session 3: Working with Vectors
+## Vectors are just a series of similar things put together
+### Yen-Chung Chen
+### Desplan Lab, New York University
+### 2021/06/29
+
+---
+
+
+class: center, middle
+
+
+
+Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+
+---
+
+class: inverse, center, middle
+
+# Quick recap: What is 14-3-3?
+
+---
+
+# What is 14-3-3?
+
+Whether 14-3-3 is 8 or [a gene](https://en.wikipedia.org/wiki/14-3-3_protein) depends on whether you view it as _a formula of numbers_ or _a term_. The same goes for R: It needs to know how to interact with it by knowing its _type_.
+
+--
+
+
+```r
+14-3-3
+```
+
+```
+## [1] 8
+```
+
+--
+
+
+```r
+"14-3-3"
+```
+
+```
+## [1] "14-3-3"
+```
+
+
+---
+
+# How do we assign values to a variable? 
+
+- The basic syntax is `[variable name] &lt;- [value]`.
+
+--
+
+- Note that you shall put spaces before and after the `&lt;-`
+
+--
+
+
+```r
+# Assigning variables
+quoted &lt;- "14-3-3"
+unquoted &lt;- 14-3-3
+```
+
+---
+
+# How do we find the type of a variable?: `is()`
+
+- `is()` provides the information class() gives but also the types it inherited, so the information could be sometimes perplexed.
+
+
+```r
+# Find the type of the variables
+is(quoted)
+```
+
+```
+## [1] "character"           "vector"              "data.frameRowLabels" "SuperClassMethod"
+```
+
+```r
+is(unquoted)
+```
+
+```
+## [1] "numeric" "vector"
+```
+
+--
+
+-  You also have `class()` and `typeof()` as options. (Please see the handout)
+
+---
+class: inverse, right, middle
+
+# Vectors
+#### What are they?
+#### What can we do with them?
+
+---
+
+# Vectors are just series of similar things
+
+### The keys of the definition are _series_ and _similar_:
+
+--
+
+- By _series_, you can tell there are multiple items in a vector.
+
+--
+
+- By _similar_, we strictly mean that _all items in a vector are of the same type_.
+
+---
+
+# When do we need a series of similar things?
+
+### This is a stat box of game 3 of NBA East conference finals for the Bucks
+
+--
+
+
+|players               |starting | minutes_playing| rebounds| assists| points|
+|:---------------------|:--------|---------------:|--------:|-------:|------:|
+|Giannis Antetokounmpo |Yes      |              41|       11|       4|     33|
+|P. J. Tucker          |Yes      |              34|        8|       2|      3|
+|Brook Lopez           |Yes      |              25|        3|       0|     10|
+|Jrue Holiday          |Yes      |              42|        4|      12|      6|
+|Khris Middleton       |Yes      |              42|       11|       7|     38|
+|Pat Connaughton       |No       |              32|        8|       1|      5|
+|Booby Portis          |No       |              17|        4|       1|     15|
+|Bryn Forbes           |No       |               7|        1|       0|      3|
+
+---
+
+# How do we make a vector from scratch?
+
+- `c()` makes a vector if you gives a comma-seperated list of items between the parentheses.
+
+```
+[variable_name] &lt;- c(...)
+```
+
+--
+
+- In programming terms, each item is an _argument_ to the function `c()`, and the functions _returns_ you a vector.
+
+--
+
+- If you are interested, `c()` stands for combine since it _combines_ its arguments, a series of items, into a vector.
+
+---
+
+# Exercise: Jersey numbers
+
+Here's the jersey numbers of Bucks players:
+
+- Giannis Antetokounmpo: 34
+- P. J. Tucker: 17
+- Brook Lopez: 11
+- Jrue Holiday: 21
+- Khris Middleton: 22
+- Pat Connaughton: 24
+- Bobby Portis: 9
+- Bryn Forbes: 7
+- Thanasis Antetokounmpo: 43
+- Jeff Teague: 5
+
+--
+
+#### Let's make a vector called `jersey_number` containing the jersey numbers of the players
+
+(Let's leave the names alone for now)
+
+---
+
+# Assigning a vector
+
+
+```r
+# Assign a vector named jersey_number containing the jersey numbers of the players
+jersey_number &lt;- c(34, 17, 11, 21, 22, 24, 9, 7)
+
+print(jersey_number)
+```
+
+```
+## [1] 34 17 11 21 22 24  9  7
+```
+
+--
+
+What is the type of the vector?
+
+--
+
+
+```r
+# What is the **type** of jersey_number?
+is(jersey_number)
+```
+
+```
+## [1] "numeric" "vector"
+```
+
+---
+
+# Exercise: Type conversion
+
+Remember that jersey numbers are not really numbers -- not numbers in a sense that they should not be computed:
+
+--
+
+_"The mean jersey number of the players in the starting lineup"_ means little if anything.
+
+--
+
+To prevent R treating them as numbers, you might want to make it a character vector.
+
+--
+
+Wait -- you don't have to go back and add quote to everyone of them. There are functions that _convert the types_.
+
+```
+as.numeric()
+as.character()
+...
+```
+
+---
+
+# Let's convert `jersey_number` to characters
+
+--
+
+
+```r
+# Use as.character(), which takes a vector and converts it to a character vector.
+# Use as.character() on jersey_number and assign the output to jersey_number_chr
+jersey_number_chr &lt;- as.character(jersey_number)
+jersey_number_chr
+```
+
+```
+## [1] "34" "17" "11" "21" "22" "24" "9"  "7"
+```
+
+--
+
+
+```r
+is(jersey_number_chr)
+```
+
+```
+## [1] "character"           "vector"              "data.frameRowLabels" "SuperClassMethod"
+```
+
+---
+
+# Some type conversions are forbidden and create errors.
+
+You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.
+
+For example, how do you convert `"Roger Federer"` to numbers?
+
+
+
+```r
+tennis_player &lt;- "Roger Federer"
+```
+
+--
+
+
+```r
+federer_num &lt;- as.numeric(tennis_player)
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```r
+print(federer_num)
+```
+
+```
+## [1] NA
+```
+
+---
+
+# A glimpse on Thursday: `NA`s
+
+- `NA` means _not applicable_ in programming.
+
+--
+
+- It is used to represent missing values.
+
+--
+- Missing values need special attention when we work with them.
+  - We will discuss in detail on Thursday.
+
+---
+
+# Exercise: What will happen if you convert "14-3-3" to a number?
+
+--
+
+
+```r
+# Use as.numeric() to convert gene_name to a number
+gene_name &lt;- "14-3-3"
+as.numeric(gene_name)
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```
+## [1] NA
+```
+
+---
+
+# A `vector` is a series of items of the same type, but what if you tries to mix things up?
+
+
+```r
+# Make a vector containing: Michael Jordan (a quoted character), 23 (number), and Chicago Bulls (a quoted character)
+# What is the type of the vector?
+
+mj &lt;- c("Michael Jordan", 23, "Chicago Bulls")
+```
+
+---
+
+# What's in `mj`? What is the type of it?
+
+--
+
+
+```r
+print(mj)
+```
+
+```
+## [1] "Michael Jordan" "23"             "Chicago Bulls"
+```
+
+```r
+is(mj)
+```
+
+```
+## [1] "character"           "vector"              "data.frameRowLabels" "SuperClassMethod"
+```
+
+--
+
+When you accidentally mixing types up in a vector, R will try to automatically convert them to the same type -- usually towards characters. This might result in something you did not expect, and we should always avoid mixing things of different types in a vector.
+
+---
+class: inverse, right, middle
+
+# Useful functions when you work with vectors
+
+---
+
+# Adding thing up: You can do per-item arithemetics on vectors
+
+We have covered arithemetic in R in the first session. For example, you can do:
+
+- `+` for adding
+
+- `-` for substraction
+
+- `/` for dividing
+
+- `*` for multiplication
+
+---
+
+# Adding vectors up
+
+These also apply to vectors in an item-wise fashion, for example:
+
+
+```r
+stipend &lt;- c(500, 800, 700)
+housing_subsidy &lt;- c(100, 200, 300)
+
+total_income &lt;- stipend + housing_subsidy
+print(total_income)
+```
+
+```
+## [1]  600 1000 1000
+```
+
+---
+
+# Exercise: Average points gotten per minute on court
+
+In the previous NBA example:
+
+- The vector `minutes_playing` contains the duration each player played
+
+- `points` contains the number of points each player scored. 
+
+--
+
+These variable should be still in your enviornment. Let's calculate how many points per minute each player has scored.
+
+--
+
+
+```r
+minute_score &lt;- points/minutes_playing
+print(minute_score)
+```
+
+```
+## [1] 0.80487805 0.08823529 0.40000000 0.14285714 0.90476190 0.15625000 0.88235294 0.42857143
+```
+
+---
+
+# A glimpse on next week: Data frames are just tables
+
+
+```r
+# To make things easier to read, we'll make it a data frame
+# A data frame are just a table containing columns = vectors
+# which we'll cover next week.
+data.frame(players, minute_score)
+```
+
+```
+##                 players minute_score
+## 1 Giannis Antetokounmpo   0.80487805
+## 2          P. J. Tucker   0.08823529
+## 3           Brook Lopez   0.40000000
+## 4          Jrue Holiday   0.14285714
+## 5       Khris Middleton   0.90476190
+## 6       Pat Connaughton   0.15625000
+## 7          Booby Portis   0.88235294
+## 8           Bryn Forbes   0.42857143
+```
+
+---
+
+# Exercise: How many points did the Bucks score in total?
+
+Hint: We learned about `sum()` last week.
+
+--
+
+
+```r
+# How many points did the Bucks score in total?
+sum(points)
+```
+
+```
+## [1] 113
+```
+
+---
+
+# How many points did the player who score the most/least made?
+
+`max()` and `min()` take a vector as its argument, and returns the maximum/minimum value in the vector.
+
+
+```r
+## How many points was score by who scored the most?
+max(points)
+```
+
+```
+## [1] 38
+```
+
+--
+- How many points were scored by who scored the least?
+
+--
+
+
+```r
+## How many points were scored by who scored the least?
+min(points)
+```
+
+```
+## [1] 3
+```
+
+---
+
+# Descriptive statistics: The average, the median, the standard deviation
+
+Similar to `sum()`, there are many other functions in R that calculates the descriptive statistics in R. We'll introduce 3 of them here, and offer two of them for you to Google them up if you are interested.
+
+--
+
+- `mean()` gives the arithmetic mean of a numeric vector
+
+--
+
+- `median()` gives the median of a numeric vector
+
+--
+
+- `sd()` gives the standard deviation of a numeric vector
+
+--
+
+You can also calculate the full _range_ of a vector or find specific `percentile` of a vector in R with relative ease.
+
+---
+
+# These functions work just like `sum()`
+
+
+```r
+## What is the standard deviation of the points each player scored?
+## points
+
+sd(points)
+```
+
+```
+## [1] 13.84029
+```
+
+---
+
+# Your turn
+
+## On average, how long did a player play in game 3?
+
+--
+
+
+```r
+## On average, how long did a player play in game 3?
+## minutes_playing
+mean(minutes_playing)
+```
+
+```
+## [1] 30
+```
+
+--
+
+## What is the medium duration did a player play in game 3?
+
+--
+
+
+```r
+## What is the medium duration did a player play in game 3?
+## minutes_playing
+median(minutes_playing)
+```
+
+```
+## [1] 33
+```
+
+---
+class: inverse, center, middle
+
+# I must be rushing into this slide...
+
+---
+
+# What we hope you to remember from today
+
+- Most data we process are series of items: Think about columns in a table.
+
+--
+
+- Series of items are processed as vectors in R
+
+--
+
+  - Vectors _always_ contain items of the same type, and you shall always make sure this is the case.
+  
+--
+
+- Many functions work with vectors:
+
+--
+
+  - Functions that summarize a vector usually takes the whole vector as its input:
+  
+--
+
+      - `mean()`, `median()`, `sum()`, `sd()`, `min()`, `max()`
+
+--
+      - and there are many more, which you should be able to google it out when you needs them.
+    
+--
+
+  - Functions that perform calculation per item: 
+  
+--
+    - Arithmetics (`+`, `-`, `*`, `/`, `^`, `%%`...)
+    
+---
+
+class: inverse, center, middle
+
+# If we are not running out of time, any questions?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
