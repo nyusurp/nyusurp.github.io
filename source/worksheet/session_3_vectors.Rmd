@@ -1,0 +1,271 @@
+---
+title: 'Session3: Vector is just a list of things'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "6/29/2021"
+output: 
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+- [Go back to the syllabus](index.html)
+- [Get the source of this Rmd file]()
+- [Go to solution sheet](source/solution/session_3_vectors.html)
+
+## Quick recap: What is 14-3-3?
+
+Whether 14-3-3 is 8 or [a gene](https://en.wikipedia.org/wiki/14-3-3_protein) depends on whether you view it as _a formula of numbers_ or _a term_. The same goes for R: It needs to know how to interact with it by knowing its _type_.
+
+```{r}
+14-3-3
+"14-3-3"
+```
+
+How do we assign values to a variable? Then, how do we find the type of a variable?
+
+```{r}
+quoted <- "14-3-3"
+unquoted <- 14-3-3
+
+# Find the type of the variables
+is(quoted)
+is(unquoted)
+
+## You may also try typeof() and class(), which are subtly different but serve similar functions as is()
+## typeof() provides the implementation of how R really store the data
+## class() provides an overview of the class (for example, double-precision floating point numbers and integers will return numeric if you run class() on it)
+## is() provides the information class() gives but also the types it inherited, so the information could be sometimes perplexed.
+```
+
+## Vectors are just series of similar things
+
+The keys of the definition are _series_ and _similar_:
+
+- By _series_, you can tell there are multiple items in a vector.
+- By _similar_, we strictly mean that _all items in a vector are of the same type_.
+
+When do we need a series of similar things?
+
+## Example Busks Stats from game 3 of NBA East Conference finals 2021
+
+```{r}
+players <- c(
+  "Giannis Antetokounmpo",
+  "P. J. Tucker",
+  "Brook Lopez",
+  "Jrue Holiday",
+  "Khris Middleton",
+  "Pat Connaughton",
+  "Booby Portis",
+  "Bryn Forbes"
+)
+starting <- c("Yes",
+              "Yes",
+              "Yes",
+              "Yes",
+              "Yes",
+              "No",
+              "No",
+              "No")
+minutes_playing <- c(41, 34, 25, 42, 42, 32, 17, 7)
+rebounds <- c(11, 8, 3, 4, 11, 8, 4, 1)
+assists <- c(4, 2, 0, 12, 7, 1, 1, 0)
+points <- c(33, 3, 10, 6, 38, 5, 15, 3)
+
+data.frame(players,
+           starting,
+           minutes_playing,
+           rebounds,
+           assists,
+           points)
+```
+
+## How do we make a vector from scratch?
+
+`c()` makes a vector if you gives a comma-seperated list of items between the parentheses. Or, in programming terms, each item is an _argument_ to the function `c()`, and the functions _returns_ you a vector.
+
+```
+variable_name <- c(...)
+```
+
+### Exercise: Jersey numbers
+
+Here's the jersey numbers of Bucks players:
+
+- Giannis Antetokounmpo: 34
+- P. J. Tucker: 17
+- Brook Lopez: 11
+- Jrue Holiday: 21
+- Khris Middleton: 22
+- Pat Connaughton: 24
+- Bobby Portis: 9
+- Bryn Forbes: 7
+- Thanasis Antetokounmpo: 43
+- Jeff Teague: 5
+
+```{r}
+# Assign a vector named jersey_number containing the jersey numbers of the players
+```
+
+```{r}
+# What is the **type** of jersey_number?
+```
+
+### Exercise: Type conversion
+
+Remember that jersey numbers are not really numbers -- not numbers in a sense that they should not be computed -- "The mean jersey number of the players in the starting lineup" means little if anything.
+
+To prevent R treating them as numbers, you might want to make it a character vector. Wait -- you don't have to go back and add quote to everyone of them. There are functions that _convert the types_.
+
+```{r}
+# Use as.character(), which takes a vector and converts it to a character vector.
+# Use as.character() on jersey_number and assign the output to jersey_number_chr
+```
+
+What is the type of `jersey_number_chr`?
+
+```{r}
+# What is the type of jersey_number_chr?
+```
+
+## Some type conversions are forbidden and create errors.
+
+You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.
+
+For example, how do you convert `"Roger Federer" to numbers?
+
+```{r}
+tennis_player <- "Roger Federer"
+federer_num <- as.numeric(tennis_player)
+
+print(federer_num)
+```
+
+`NA` means _not applicable_ in programming and is used to represent missing values. Missing values need special attention when we work with them, and we will discuss in detail on Thursday.
+
+### Exercise: What will happen if you convert "14-3-3" to a number?
+
+```{r}
+# Use as.numeric() to convert gene_name to a number
+gene_name <- "14-3-3"
+
+```
+
+## A `vector` is a series of items of the same type, but what if you tries to mix things up?
+
+```{r}
+# Make a vector containing: Michael Jordan (a quoted character), 23 (number), and Chicago Bulls (a quoted character)
+# What is the type of the vector?
+
+mj <- c("Michael Jordan", 23, "Chicago Bulls")
+print(mj)
+is(mj)
+```
+
+When you accidentally mixing types up in a vector, R will try to automatically convert them to the same type -- usually towards characters. This might result in something you did not expect, and we should always avoid mixing things of different types in a vector.
+
+## Useful functions when you work with vectors
+
+### Adding thing up: You can do per-item arithemetics on vectors
+
+We have covered arithemetic in R in the first session. For example, you can do:
+
+- `+` for adding
+- `-` for substraction
+- `/` for dividing
+- `*` for multiplication
+
+These also apply to vectors in an item-wise fashion, for example:
+
+```{r}
+stipend <- c(500, 800, 700)
+housing_subsidy <- c(100, 200, 300)
+
+total_income <- stipend + housing_subsidy
+print(total_income)
+```
+
+### Exercise: Average points gotten per minute on court
+
+In the previous example, the vector `minutes_playing` contains the duration each player played, and `points` contains the number of points each player scored. Let's calculate how many points per minute each player has scored.
+
+```{r}
+```
+
+### Exercise: How many points did the Bucks score in total?
+
+Hint: We learned about `sum()` last week.
+
+```{r}
+# How many points did the Bucks score in total?
+```
+
+### How many points did the player who score the most/least made?
+
+`max()` and `min()` take a vector as its argument, and returns the maximum/minimum value in the vector.
+
+```{r}
+## How many points was score by who scored the most?
+max(points)
+```
+
+```{r}
+## How many points were scored by who scored the least?
+```
+
+```{r}
+## How many minutes did the player who played the most played?
+## Hint: The vector is named minutes_playing
+```
+
+### Descriptive statistics: The average, the median, the standard deviation
+
+Similar to `sum()`, there are many other functions in R that calculates the descriptive statistics in R. We'll introduce 3 of them here, and offer two of them for you to Google them up if you are interested.
+
+- `mean()` gives the arithmetic mean of a numeric vector
+- `median()` gives the median of a numeric vector
+- `sd()` gives the standard deviation of a numeric vector
+
+You can also calculate the full _range_ of a vector or find specific `percentile` of a vector in R with relative ease.
+
+```{r}
+## What is the standard deviation of the points each player scored?
+## points
+
+sd(points)
+```
+
+```{r}
+## On average, how long did a player play in game 3?
+## minutes_playing
+```
+
+```{r}
+## What is the medium duration did a player play in game 3?
+## minutes_playing
+```
+
+## What we hope you to remember from today
+
+- Most data we process are series of items: Think about columns in a table.
+- Series of items are processed as vectors in R
+  - Vectors _always_ contain items of the same type, and you shall always make sure this is the case.
+- Many functions work with vectors:
+  - Functions that summarize a vector usually takes the whole vector as its input:
+    - `mean()`
+    - `median()`
+    - `sum()`
+    - `sd()`
+    - `min()`
+    - `max()`
+    - and there are many more, which you should be able to google it out when you needs them.
+  - Functions that perform calculation per item
+    - Arithmetics (`+`, `-`, `*`, `/`, `^`, `%%`...)
