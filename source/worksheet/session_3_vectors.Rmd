@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
 - [Go back to the syllabus](index.html)
-- [Get the source of this Rmd file]()
+- [Get the source of this Rmd file](https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/worksheet/session_3_vectors.Rmd)
 - [Go to solution sheet](source/solution/session_3_vectors.html)
 
 ## Quick recap: What is 14-3-3?
@@ -54,7 +54,7 @@ The keys of the definition are _series_ and _similar_:
 
 When do we need a series of similar things?
 
-## Example Busks Stats from game 3 of NBA East Conference finals 2021
+## Example: Busks Stats from game 3 of NBA East Conference finals 2021
 
 ```{r}
 players <- c(
@@ -140,7 +140,7 @@ What is the type of `jersey_number_chr`?
 
 You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.
 
-For example, how do you convert `"Roger Federer" to numbers?
+For example, how do you convert `"Roger Federer"` to numbers?
 
 ```{r}
 tennis_player <- "Roger Federer"

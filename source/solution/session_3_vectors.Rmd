@@ -54,7 +54,7 @@ The keys of the definition are _series_ and _similar_:
 
 When do we need a series of similar things?
 
-## Example Busks Stats from game 3 of NBA East Conference finals 2021
+## Example: Busks Stats from game 3 of NBA East Conference finals 2021
 
 ```{r}
 players <- c(
@@ -146,7 +146,7 @@ is(jersey_number_chr)
 
 You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.
 
-For example, how do you convert `"Roger Federer" to numbers?
+For example, how do you convert `"Roger Federer"` to numbers?
 
 ```{r}
 tennis_player <- "Roger Federer"
@@ -273,3 +273,20 @@ mean(minutes_playing)
 ## minutes_playing
 median(minutes_playing)
 ```
+
+## What we hope you to remember from today
+
+- Most data we process are series of items: Think about columns in a table.
+- Series of items are processed as vectors in R
+  - Vectors _always_ contain items of the same type, and you shall always make sure this is the case.
+- Many functions work with vectors:
+  - Functions that summarize a vector usually takes the whole vector as its input:
+    - `mean()`
+    - `median()`
+    - `sum()`
+    - `sd()`
+    - `min()`
+    - `max()`
+    - and there are many more, which you should be able to google it out when you needs them.
+  - Functions that perform calculation per item
+    - Arithmetics (`+`, `-`, `*`, `/`, `^`, `%%`...)

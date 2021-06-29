@@ -264,7 +264,7 @@ div.tocify {
 </blockquote>
 <ul>
 <li><a href="index.html">Go back to the syllabus</a></li>
-<li><a href>Get the source of this Rmd file</a></li>
+<li><a href="https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/worksheet/session_3_vectors.Rmd">Get the source of this Rmd file</a></li>
 <li><a href="source/solution/session_3_vectors.html">Go to solution sheet</a></li>
 </ul>
 <div id="quick-recap-what-is-14-3-3" class="section level2">
@@ -299,7 +299,7 @@ is(quoted)</code></pre>
 <p>When do we need a series of similar things?</p>
 </div>
 <div id="example-busks-stats-from-game-3-of-nba-east-conference-finals-2021" class="section level2">
-<h2>Example Busks Stats from game 3 of NBA East Conference finals 2021</h2>
+<h2>Example: Busks Stats from game 3 of NBA East Conference finals 2021</h2>
 <pre class="r"><code>players &lt;- c(
   &quot;Giannis Antetokounmpo&quot;,
   &quot;P. J. Tucker&quot;,
@@ -374,7 +374,7 @@ data.frame(players,
 <div id="some-type-conversions-are-forbidden-and-create-errors." class="section level2">
 <h2>Some type conversions are forbidden and create errors.</h2>
 <p>You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.</p>
-<p>For example, how do you convert `“Roger Federer” to numbers?</p>
+<p>For example, how do you convert <code>&quot;Roger Federer&quot;</code> to numbers?</p>
 <pre class="r"><code>tennis_player &lt;- &quot;Roger Federer&quot;
 federer_num &lt;- as.numeric(tennis_player)</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
@@ -529,6 +529,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

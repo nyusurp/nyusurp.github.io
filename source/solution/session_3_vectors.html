@@ -299,7 +299,7 @@ is(quoted)</code></pre>
 <p>When do we need a series of similar things?</p>
 </div>
 <div id="example-busks-stats-from-game-3-of-nba-east-conference-finals-2021" class="section level2">
-<h2>Example Busks Stats from game 3 of NBA East Conference finals 2021</h2>
+<h2>Example: Busks Stats from game 3 of NBA East Conference finals 2021</h2>
 <pre class="r"><code>players &lt;- c(
   &quot;Giannis Antetokounmpo&quot;,
   &quot;P. J. Tucker&quot;,
@@ -384,7 +384,7 @@ jersey_number_chr</code></pre>
 <div id="some-type-conversions-are-forbidden-and-create-errors." class="section level2">
 <h2>Some type conversions are forbidden and create errors.</h2>
 <p>You can use type conversion functions to change the type of variables, but sometimes there are things that cannot be converted.</p>
-<p>For example, how do you convert `“Roger Federer” to numbers?</p>
+<p>For example, how do you convert <code>&quot;Roger Federer&quot;</code> to numbers?</p>
 <pre class="r"><code>tennis_player &lt;- &quot;Roger Federer&quot;
 federer_num &lt;- as.numeric(tennis_player)</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
@@ -498,6 +498,33 @@ median(minutes_playing)</code></pre>
 <pre><code>## [1] 33</code></pre>
 </div>
 </div>
+<div id="what-we-hope-you-to-remember-from-today" class="section level2">
+<h2>What we hope you to remember from today</h2>
+<ul>
+<li>Most data we process are series of items: Think about columns in a table.</li>
+<li>Series of items are processed as vectors in R
+<ul>
+<li>Vectors <em>always</em> contain items of the same type, and you shall always make sure this is the case.</li>
+</ul></li>
+<li>Many functions work with vectors:
+<ul>
+<li>Functions that summarize a vector usually takes the whole vector as its input:
+<ul>
+<li><code>mean()</code></li>
+<li><code>median()</code></li>
+<li><code>sum()</code></li>
+<li><code>sd()</code></li>
+<li><code>min()</code></li>
+<li><code>max()</code></li>
+<li>and there are many more, which you should be able to google it out when you needs them.</li>
+</ul></li>
+<li>Functions that perform calculation per item
+<ul>
+<li>Arithmetics (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>%%</code>…)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 
 
 
@@ -542,6 +569,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
