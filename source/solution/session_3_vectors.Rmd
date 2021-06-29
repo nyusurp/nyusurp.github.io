@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [Go back to the syllabus](https://nyusurp.github.io)
 - [Go back to worksheet](session_3_vectors.html)
-- [The slide deck for the session](slide/session_2)
+- [The slide deck for the session](slide/session_3_vectors.html)
 
 ## Quick recap: What is 14-3-3?
 
