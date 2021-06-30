@@ -470,12 +470,12 @@ mean(minutes_playing)
 
 --
 
-## What is the medium duration did a player play in game 3?
+## What is the median duration did a player play in game 3?
 
 --
 
 ```{r}
-## What is the medium duration did a player play in game 3?
+## What is the median duration did a player play in game 3?
 ## minutes_playing
 median(minutes_playing)
 ```
