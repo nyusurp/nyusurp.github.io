@@ -1,5 +1,5 @@
 ---
-title: "Week 1-3 Practice"
+title: "Workshop 1-3 Practice"
 author: "Cassandra Buzby & Yen-Chung Chen"
 date: "6/29/2021"
 output: html_document
