@@ -5,9 +5,7 @@ date: "6/15/2021"
 output:
   html_document: 
     toc: yes
-    toc_depth: 4
     toc_float: true
-    code_folding: show
 ---
 
 ## Handouts
