@@ -64,7 +64,7 @@ players <- c(
   "Jrue Holiday",
   "Khris Middleton",
   "Pat Connaughton",
-  "Booby Portis",
+  "Bobby Portis",
   "Bryn Forbes"
 )
 starting <- c("Yes",
@@ -269,9 +269,32 @@ mean(minutes_playing)
 ```
 
 ```{r}
-## What is the medium duration did a player play in game 3?
+## What is the median duration did a player play in game 3?
 ## minutes_playing
 median(minutes_playing)
+```
+
+## Dealing with missing values
+
+Previously, we have seen that failed conversion of types could create `NA`s in your data. If `NA`s are introduced because of your analysis pipeline, there's a good chance that you would want to avoid it or correct it manually.
+
+When working with large datasets, you might not be able to notice `NA`s, but there are functions that would inspect the data for us.
+
+```{r}
+# is.na() takes a vector and returns a logical vector (TRUE/FALSE).
+# The corresponding items in the original vector to TRUE items in the returned vector are NAs
+
+## 8R is a typo when I keyed in my data
+expression <- c(1, 2, 5, "8R")
+
+## If I convert the vector to numeric, NAs will be created.
+expression_num <- as.numeric(expression)
+print(expression_num)
+```
+
+```{r}
+# is.na() returns a logical vector showing the items that are NAs
+is.na(expression_num)
 ```
 
 ## What we hope you to remember from today

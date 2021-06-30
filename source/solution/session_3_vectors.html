@@ -307,7 +307,7 @@ is(quoted)</code></pre>
   &quot;Jrue Holiday&quot;,
   &quot;Khris Middleton&quot;,
   &quot;Pat Connaughton&quot;,
-  &quot;Booby Portis&quot;,
+  &quot;Bobby Portis&quot;,
   &quot;Bryn Forbes&quot;
 )
 starting &lt;- c(&quot;Yes&quot;,
@@ -336,7 +336,7 @@ data.frame(players,
 ## 4          Jrue Holiday      Yes              42        4      12      6
 ## 5       Khris Middleton      Yes              42       11       7     38
 ## 6       Pat Connaughton       No              32        8       1      5
-## 7          Booby Portis       No              17        4       1     15
+## 7          Bobby Portis       No              17        4       1     15
 ## 8           Bryn Forbes       No               7        1       0      3</code></pre>
 </div>
 <div id="how-do-we-make-a-vector-from-scratch" class="section level2">
@@ -450,7 +450,7 @@ data.frame(players, minute_score)</code></pre>
 ## 4          Jrue Holiday   0.14285714
 ## 5       Khris Middleton   0.90476190
 ## 6       Pat Connaughton   0.15625000
-## 7          Booby Portis   0.88235294
+## 7          Bobby Portis   0.88235294
 ## 8           Bryn Forbes   0.42857143</code></pre>
 </div>
 <div id="exercise-how-many-points-did-the-bucks-score-in-total" class="section level3">
@@ -492,11 +492,30 @@ sd(points)</code></pre>
 ## minutes_playing
 mean(minutes_playing)</code></pre>
 <pre><code>## [1] 30</code></pre>
-<pre class="r"><code>## What is the medium duration did a player play in game 3?
+<pre class="r"><code>## What is the median duration did a player play in game 3?
 ## minutes_playing
 median(minutes_playing)</code></pre>
 <pre><code>## [1] 33</code></pre>
 </div>
+</div>
+<div id="dealing-with-missing-values" class="section level2">
+<h2>Dealing with missing values</h2>
+<p>Previously, we have seen that failed conversion of types could create <code>NA</code>s in your data. If <code>NA</code>s are introduced because of your analysis pipeline, there’s a good chance that you would want to avoid it or correct it manually.</p>
+<p>When working with large datasets, you might not be able to notice <code>NA</code>s, but there are functions that would inspect the data for us.</p>
+<pre class="r"><code># is.na() takes a vector and returns a logical vector (TRUE/FALSE).
+# The corresponding items in the original vector to TRUE items in the returned vector are NAs
+
+## 8R is a typo when I keyed in my data
+expression &lt;- c(1, 2, 5, &quot;8R&quot;)
+
+## If I convert the vector to numeric, NAs will be created.
+expression_num &lt;- as.numeric(expression)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>print(expression_num)</code></pre>
+<pre><code>## [1]  1  2  5 NA</code></pre>
+<pre class="r"><code># is.na() returns a logical vector showing the items that are NAs
+is.na(expression_num)</code></pre>
+<pre><code>## [1] FALSE FALSE FALSE  TRUE</code></pre>
 </div>
 <div id="what-we-hope-you-to-remember-from-today" class="section level2">
 <h2>What we hope you to remember from today</h2>
