@@ -1,12 +1,11 @@
 ---
 title: 'Workshop 4: Indexing and Missing values'
-author:
-- Eugene Plavskin
-- Grace Avecilla
-- Tobi Shraink
+author: Cassandra Buzby & Yen-Chung Chen
 subtitle: |
   |   - pulling specific elements out of vectors
   |   - creating, storing, and working with missing values
+  |   - logicals
+  |   - data frames
 output:
   html_document:
     toc: yes
@@ -104,7 +103,6 @@ To access the number at a specific position, we can use square brackets!
 # Make a vector called long_vector that goes from -1 to 50 and has 100 numbers inside
 
 # Let's check what the first number in long_vector is
-print(long_vector[1])
 
 # Now check what the 32nd number in long_vector is
 
@@ -123,7 +121,7 @@ print(long_vector[1])
 You don't have to just provide a single number as in index (the thing inside the square brackets); vectors work too!
 ```{r}
 # Print out the 4th, 5th, 6th, 7th, and 8th number in long_vector
-print(long_vector[c(4,5,6,7,8)])
+
 # Now do the same thing as above, but using a function we have learned today to
 # specificy the indices (4, 5, 6, 7, 8)
 
@@ -196,14 +194,92 @@ Finally, you can enter NA into your vector, just like you would any other value
 ```
 
 
-Lots of functions in R, including `sum()`, have a way of dealing with missing data automatically. There are lots of times when we may want to just ignore the missing values and work with the rest of the data we have. Take a look at the documentation for `sum()`; do you see anything in there that might suggest how you could get the function to ignore missing values and take the sum of *data_vector* anyways?
+Do you remember how to tell sum() not to use missing values? Check the documentation (using '?') if you've forgotten!
 ```{r}
 # Try using sum() to get the sum of the non-missing values in data_vector
 
 ```
 
+#Logicals 
+
+## What are Logicals?
+
+Logicals indicate a binary of true and false, and R encodes these as 0/1 or FALSE/TRUE respectively. When you select for something in R, you are usually asking R to return values that are TRUE.
+
+```{r}
+data_vector <- c(2,3,NA,12)
+```
+```{r}
+data_vector
+is.na(data_vector)
+```
+
+
+Logicals can also be used for comparison, such as if a value is greater than, less than, or equal to another value
+```{r}
+data_vector
+data_vector[1] > data_vector[2]
+```
+
+
+Asking R for the output of is.na is also a vector, even though it's made of TRUEs and FALSEs. What is the data type of elements in this vector?
+
+```{r}
+isnavector <- is.na(data_vector)
+typeof(isnavector)
+class(isnavector)
+is(isnavector)
+```
+
+
+Since logicals have a value of 0 (False) and 1 (True), you can also count the number of true values using sum().
+```{r}
+data_vector
+is.na(data_vector)
+sum(is.na(data_vector))
+
+```
+
+# Data Frames
+
+## What do you do with all of these vectors?
+
+Vectors can be combined to create data frames, or R's word for tables. First, let's make two vectors of equal length:
+```{r}
+vector1 <- 20:1
+vector2 <- seq(4,12,length.out = 20)
+length(vector1) == length(vector2)
+```
+
+Next, we can use the data.frame() function to combine these vectors into columns:
+```{r}
+mydataframe <- data.frame(vector1, vector2)
+
+```
+
+To view the top rows of a data frame, use head()
+```{r}
+head(mydataframe)
+```
+
+Some data frames have column **names** and all data frames have row-column **positions**. You can identify a value in a data frame by indicating the position in the column (essentially, the position in the vector) of a row, or by referencing the [row,column] number.
+
+```{r}
+mydataframe$vector1[2]
+mydataframe[2,1]
+mydataframe[1,2]
+```
+
+You can also reference each of the rows or columns by leaving the opposite position blank:
+```{r}
+mydataframe[,1] #column one
+mydataframe[2,] #row 2
+
+```
 
 # Things we hope you've learned today (and will hopefully remember next time)
 
-* Indexing!!!
-* When missing values arise
+* Vectors can be subsetted using []
+* Missing values can be identified using is.na() or na.rm = TRUE
+* Logicals indicate TRUE/FALSE statements
+* Data frames can be created using data.frame() and subsetted using []

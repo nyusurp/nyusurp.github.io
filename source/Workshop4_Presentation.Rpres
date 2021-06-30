@@ -1,0 +1,450 @@
+Workshop 4 Presentation
+========================================================
+author: Cassandra Buzby & Yen-Chung Chen
+date: `r Sys.Date()`
+autosize: true
+
+Review
+========================================================
+incremental: true
+Defining Vectors
+
+- Using c() for combine
+
+```{r}
+c(1,2,3,4,5)
+```
+
+- Defining vector variables
+```{r}
+myvector <- c(1:20)
+myvector
+```
+
+Review Exercises
+========================================================
+incremental: true
+Vector Math
+
+- How would you check the length of a vector?
+
+```{r}
+myvector
+length(myvector)
+```
+- Why is this important?
+
+ *** 
+
+Can you add 5 to every value of myvector? Can you multiply those two vectors together?
+```{r}
+vectorplus5 <- myvector + 5
+vectorplus5
+
+vectorplus5 * myvector
+```
+
+Review: vectors, functions, and types
+========================================================
+## Vectors and functions
+```{r}
+# Create a variable, vect_1 that holds a vector containing any 4 numbers
+
+# Calculate the sum of vect_1 and print it out on the screen
+
+# Create a new variable, vect_2, that contains each value of vect_1 squared
+# (Don't manually enter the numbers, use vect_1 to calculate this)
+```
+
+
+Review: vectors, functions, and types
+========================================================
+## Vectors and functions
+```{r}
+# Create a variable, vect_1 that holds a vector containing any 4 numbers
+
+# Calculate the sum of vect_1 and print it out on the screen
+
+# Create a new variable, vect_2, that contains each value of vect_1 squared
+# (Don't manually enter the numbers, use vect_1 to calculate this)
+```
+
+```{r}
+vect_1 <- c(23,5,47,12)
+vect_1
+```
+
+Review: vectors, functions, and types
+========================================================
+## Vectors and functions
+```{r}
+# Create a variable, vect_1 that holds a vector containing any 4 numbers
+
+# Calculate the sum of vect_1 and print it out on the screen
+
+# Create a new variable, vect_2, that contains each value of vect_1 squared
+# (Don't manually enter the numbers, use vect_1 to calculate this)
+```
+
+```{r}
+sum(vect_1)
+```
+
+Review: vectors, functions, and types
+========================================================
+## Vectors and functions
+```{r}
+# Create a variable, vect_1 that holds a vector containing any 4 numbers
+
+# Calculate the sum of vect_1 and print it out on the screen
+
+# Create a new variable, vect_2, that contains each value of vect_1 squared
+# (Don't manually enter the numbers, use vect_1 to calculate this)
+```
+
+```{r}
+vect_2 <- vect_1^2
+vect_2
+```
+
+Sequences of numbers
+========================================================
+incremental: true
+- What function can we use to make a vector of evenly spaced elements?
+
+```{r}
+# Create a vector of numbers from -5 to 5 containing 21 elements called review_vec
+```
+
+```{r}
+review_vec <- seq(-5,5,length.out = 21)
+```
+
+
+Getting specific elements from vectors
+========================================================
+Often, it's really useful to find out what the value of a specific position (or *index*) in a vector is. R makes this easy.
+
+```{r echo=FALSE}
+# This just makes sure the graphic is included
+if (dir.exists('class_1_figures')){
+  library(knitr)
+  include_graphics('class_1_figures/vector_illustration_names.png')
+}
+
+```
+
+Getting specific elements from vectors
+=======================================================
+Let's create a really long vector and ask R to tell us about specific points along that vector.
+```{r}
+# Create three variables, first_num, last_num, and num_of_elements
+# The first two can be whatever numbers you want, num_of_elements should be 100
+# DON'T use 1 for first_num, and don't use 100 for last_num. Be creative.
+
+# Use the function we learned during the last class to make a sequence of length
+# num_of_elements starting at first_num and going to last_num, and put that in a
+# vector called new_vector
+
+# Check the length of the vector you just created
+
+```
+
+
+Getting specific elements from vectors
+=======================================================
+Let's create a really long vector and ask R to tell us about specific points along that vector.
+```{r}
+first_num <- 34
+last_num <- 43
+num_of_elements <- 100
+
+new_vector <- seq(first_num, last_num, length.out = num_of_elements)
+```
+
+Getting specific elements from vectors
+=======================================================
+How long is your vector? How can you see just a subset of the values?
+```{r}
+# Check the length of the vector you just created
+length(new_vector)
+
+# Preview the new vector using 'head()'
+head(new_vector)
+```
+
+Getting specific elements from vectors
+=======================================================
+To access the number at a specific position, we can use square brackets!
+```{r}
+# Make a vector called long_vector that goes from -1 to 50 and has 100 numbers inside
+long_vector <- seq(-1, 50, length.out = 100)
+# Let's check what the first number in long_vector is
+print(long_vector[1])
+
+# Now check what the 32nd number in long_vector is
+print(long_vector[32])
+```
+
+
+Getting specific elements from vectors
+=======================================================
+incremental: true
+```{r}
+# Now check what the last number in long_vector is
+# (bonus: do this using a variable you've already created, rather than just
+# typing out 100)
+```
+```{r}
+long_vector[length(long_vector)]
+
+```
+
+Getting specific elements from vectors
+=======================================================
+incremental: true
+You don't have to just provide a single number as in index (the thing inside the square brackets); vectors work too!
+```{r}
+# Print out the 4th, 5th, 6th, 7th, and 8th number in long_vector
+```
+```{r}
+print(long_vector[c(4,5,6,7,8)])
+```
+```{r}
+# Now do the same thing as above, but using a function we have learned today to
+# specificy the indices (4, 5, 6, 7, 8)
+```
+```{r}
+print(long_vector[seq(4,8)])
+```
+
+Getting specific elements from vectors
+=======================================================
+incremental: true
+Actually, we can get even more creative here. Let's say you wanted to create a vector that had inside it **every other number** from a vector (i.e. the 1st, 3rd, 5th, etc numbers that are in that vector). Let's try this.
+
+_Hint: you can use `seq()` to create a vector of positions (*indices*) that you then use to get the positions you want from that vector_
+
+```{r}
+long_vector_2_start <- -1
+long_vector_2_end <- 50
+long_vector_2_length <- 20
+```
+```{r}
+long_vector_2 <-seq(long_vector_2_start, 
+                    long_vector_2_end, 
+                    length.out = long_vector_2_length)
+```
+
+
+Getting specific elements from vectors
+=======================================================
+Actually, we can get even more creative here. Let's say you wanted to create a vector that had inside it **every other number** from a vector (i.e. the 1st, 3rd, 5th, etc numbers that are in that vector). Let's try this.
+
+_Hint: you can use `seq()` to create a vector of positions (*indices*) that you then use to get the positions you want from that vector_
+
+
+```{r}
+# Create position_vector, which will hold the positions you want to get out of
+# long_vector_2 (i.e. c(1,3,5,....))
+```
+
+Getting specific elements from vectors
+=======================================================
+incremental: true
+```{r}
+# Create position_vector, which will hold the positions you want to get out of
+# long_vector_2 (i.e. c(1,3,5,....))
+```
+
+```{r}
+position_vector <- seq(1, long_vector_2_length, by = 2)
+```
+
+```{r}
+# Use long_vector together with position_vector to create shorter_vector, which
+# will hold every other number from long_vector
+```
+```{r}
+shorter_vector <- long_vector_2[position_vector]
+```
+```{r}
+# print out long_vector_2, then shorter_vector
+```
+```{r}
+print(long_vector_2)
+print(shorter_vector)
+```
+
+=======================================================
+# A Quick Review of Missing Values
+
+When we get missing values
+=======================================================
+incremental: true
+A **HUGE** part of analyzing real scientific data is dealing with missing values. There are lots of ways we can get missing values; these are probably the most common:
+
+* When we try to get R to do a nonsensical thing
+* When we perform some super taboo math operation
+* When we are using real data and we didn't collect every observation (*eg* you measured the height of a bunch of plants every week but by the third week, some of them died)
+
+Every programming language has its own special way of representing 'missing' data; R, ever so special, uses two: *NA* or *NaN*, depending on the situation; don't worry about the difference.
+
+Let's take a look at how these missing values work.
+
+Performing nonsensical operations
+=======================================================
+incremental: true
+Let's try to see what R does when we ask it to do something that clearly doesn't make sense. Remember that we can ask R to convert a list of characters to numbers. Let's try that again.
+```{r}
+weird_number_vector <- c('1', '4', 'koala', '18')
+
+# Convert weird_number_vector to numeric type, and print out the result
+as.numeric(weird_number_vector)
+```
+
+Taboo math operations
+=======================================================
+incremental: true
+Another way to get missing values is to perform a math operation that R doesn't like. Let's try doing this. Remember that we can perform operations on vectors, e.g. adding two vectors to each other. Let's try dividing vectors this way.
+```{r}
+vector_1 <- c(1, 2, 0, 3, 0, -5)
+vector_2 <- c(0, -3, 1, 6, 0, 0)
+
+# What do you think you'll get if you divide vector_1 by vector_2?
+
+# Try it
+vector_1 / vector_2
+```
+Notice that dividing non-zero by zero gives you `Inf` (or `-Inf` if the numerator is negative), dividing zero by non-zero gives you zero (this makes sense), but dividing zero by zero gives you `NaN`
+
+Real Missing Data
+=======================================================
+incremental: true
+Finally, you can enter NA into your vector, just like you would any other value
+```{r}
+# Create a vector, data_vector, which has some numbers and at least one NA value
+data_vector <- c(3, 8, NA, 9)
+```
+```{r}
+# What happens if you take the sum of data_vector?
+sum(data_vector)
+```
+
+Missing Data
+=======================================================
+incremental: true
+
+Do you remember how to tell sum() not to use missing values? Check the documentation (using '?') if you've forgotten!
+
+```{r}
+# Try using sum() to get the sum of the non-missing values in data_vector
+```
+```{r}
+sum(data_vector, na.rm = TRUE)
+```
+
+=======================================================
+# Logicals
+
+What are Logicals?
+=======================================================
+incremental: true
+
+Logicals indicate a binary of true and false, and R encodes these as 0/1 or FALSE/TRUE respectively. When you select for something in R, you are usually asking R to return values that are TRUE.
+
+```{r}
+data_vector
+is.na(data_vector)
+```
+
+What are Logicals?
+=======================================================
+incremental: true
+
+Logicals can also be used for comparison, such as if a value is greater than, less than, or equal to another value
+```{r}
+data_vector
+data_vector[1] > data_vector[2]
+```
+
+Logicals
+========
+incremental: true
+
+Asking R for the output of is.na is also a vector, even though it's made of TRUEs and FALSEs. What is the data type of elements in this vector?
+
+```{r}
+isnavector <- is.na(data_vector)
+typeof(isnavector)
+class(isnavector)
+is(isnavector)
+```
+
+Logicals
+===========
+incremental: true
+
+Since logicals have a value of 0 (False) and 1 (True), you can also count the number of true values using sum().
+```{r}
+data_vector
+is.na(data_vector)
+sum(is.na(data_vector))
+
+```
+
+============
+# Data Frames
+
+What do you do with all of these vectors?
+===========
+incremental: true
+Vectors can be combined to create data frames, or R's word for tables. First, let's make two vectors of equal length:
+```{r}
+vector1 <- 20:1
+vector2 <- seq(4,12,length.out = 20)
+length(vector1) == length(vector2)
+```
+
+Next, we can use the data.frame() function to combine these vectors into columns:
+```{r}
+mydataframe <- data.frame(vector1, vector2)
+
+```
+
+What do you do with all of these vectors?
+===========
+incremental: true
+To view the top rows of a data frame, use head()
+```{r}
+head(mydataframe)
+```
+
+Subsetting Data Frames
+==========
+Some data frames have column **names** and all data frames have row-column **positions**. You can identify a value in a data frame by indicating the position in the column (essentially, the position in the vector) of a row, or by referencing the [row,column] number.
+
+```{r}
+mydataframe$vector1[2]
+mydataframe[2,1]
+mydataframe[1,2]
+```
+
+Subsetting Data Frames
+==========
+You can also reference each of the rows or columns by leaving the opposite position blank:
+```{r}
+mydataframe[,1] #column one
+mydataframe[2,] #row 2
+
+```
+
+A review of what we've learned today
+==========
+incremental: true
+
+* Vectors can be subsetted using []
+* Missing values can be identified using is.na() or na.rm = TRUE
+* Logicals indicate TRUE/FALSE statements
+* Data frames can be created using data.frame() and subsetted using []
+
