@@ -4,6 +4,7 @@ author: "Cassandra Buzby & Yen-Chung Chen"
 date: "6/15/2021"
 output:
   html_document:
+      toc: true
       toc_depth: 4
       toc_float: true
       code_folding: show
