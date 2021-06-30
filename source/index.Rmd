@@ -2,10 +2,15 @@
 title: "SURP R Workshop"
 author: "Cassandra Buzby & Yen-Chung Chen"
 date: "6/15/2021"
-output: html_document
+output:
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    code_folding: show
 ---
 
-## Table of contents
+## Handouts
 
 ### [Session 1: Prepare your computer for R](session_1_environment.html)
 
@@ -15,9 +20,9 @@ output: html_document
 
 ### [Session 2: Storing things, types of things, and do stuff](Workshop_2.html)
 
-- variables
-- types
-- basic functions
+- Variables
+- Types
+- Basic functions
   
 ### [Session 3: Vectors are just a list of things](session_3_vectors.html)
 
@@ -25,6 +30,7 @@ output: html_document
 - We can convert types but there are some things to keep in mind
 - Arithmetic works on vectors in an item-wise fashion
 - There are functions that summarize vectors and gives you statistics of them
+- Be careful about `NA`s: What makes them? How to find them?
 
 ### Session 4: Working with vectors
 
@@ -41,3 +47,10 @@ output: html_document
 ### Session 7: Plotting with `ggplot2`
 
 ### Session 8: Summarizing things with `dplyr`
+
+## Optional practice worksheets
+
+### Session 1 - 3
+
+- [Worksheet](Week1to3_Practice.html)
+- [Solutions](source/Week1to3_Practice_Solutions.html)
