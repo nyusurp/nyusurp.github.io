@@ -32,13 +32,14 @@ output:
 - There are functions that summarize vectors and gives you statistics of them
 - Be careful about `NA`s: What makes them? How to find them?
 
-### Session 4: Working with vectors
+### [Session 4: Working with vectors](source/Workshop_4.html)
 
-- A table whose columns are vectors
-- Finding data in a table
-  - By index
-  - By name
-  - By criteria: Logical operations
+> [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
+
+- Working with numeric vectors
+  - How do I retrieve an element from a vector?
+- Working with missing values
+- Stacking vectors to make a table: Introduction to data frames
   
 ### Session 5: Is this a butterfly? Logical operations
 
