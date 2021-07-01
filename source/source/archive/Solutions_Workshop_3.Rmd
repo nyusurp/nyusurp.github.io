@@ -1,0 +1,205 @@
+---
+title: "Solutions to Workshop 3: Vectors"
+subtitle: |
+    |   - creating vectors (lists of things)
+    |   - consecutive sequences of numbers
+    |   - math with vectors
+    |   - vector types
+author:
+- Eugene Plavskin
+- Grace Avecilla
+- Tobi Schraink
+output:
+  html_notebook:
+    code_folding: show
+    depth: 3
+    tidy: yes
+    toc: yes
+---
+
+# Review from last time
+
+Let's review variables and types
+
+```{r}
+# Create a variable that holds the number 53
+var_1 <- 53
+# Create a variable that holds two times the value of the first variable
+var_2 <- var_1 * 2
+# Create a variable that holds the word "science"
+sci_var <- 'science'
+# Get R to tell you the "type" of the last variable you created
+is(sci_var)
+# What happens if you try to add two of the "science" variables together? Why?
+  # error, since characters can't be added together
+```
+
+# Introduction to vectors
+
+So far, we've been using R to do things we can easily do on our own, or with a simple calculator. We don't need R to add two numbers. But where programming languages start to get really powerful is when you have to do the same thing over and over. Today, we're going to learn how R deals with lists of multiple numbers or strings. These lists are called *vectors*. (Actually, a 'list' is also a thing in R, but it means something slightly different... very confusing. So let's stick with calling these things vectors.)
+
+We can create a vector by using `c()`, with the things we want to put inside the vector going in parentheses. (c stands for concatenate/combine.) For example:
+```{r}
+# Create a vector
+vector_1 <- c(1, 4, 3, 18)
+print(vector_1)
+```
+
+You can use variables to define vectors too! Try it below:
+```{r}
+# Create 3 variables, named variable_1, variable_2, and bob, and have each of
+# them hold a single number
+variable_1 <- 1
+variable_2 <- 2
+bob <- 9
+# Combine these variables in any order you want into a vector named bob_the_vector
+bob_the_vector <- c(variable_1, variable_2, bob)
+# print out bob_the_vector
+print(bob_the_vector)
+```
+
+Vectors can also hold character types!
+```{r}
+# Create a vector, char_vector_1 containing multiple strings, and print it out
+char_vector_1 = c('stuff', 'things')
+char_vector_1
+```
+
+Let's check the *types* that these vectors belong to
+```{r}
+# check the type of bob_the_vector
+is(bob_the_vector)
+# check the type of char_vector_1
+is(char_vector_1)
+# by the way... what is the type of c, as in, the thing you put before your vector?
+```
+The type of `c` (which we can get by running `is(c)`) is a function
+
+What if we wanted to store the number 3 and the character "3" together in a vector?
+```{r}
+# Create a vector, mix_vector, with 3 and "3"
+mix_vector <- c(3, '3')
+# check the type of mix_vector
+is(mix_vector)
+# why is this happening (check the "Description" section in documentation for c)
+```
+The description says that "All arguments are coerced to a common type". Programming languages usually have a formal 'hierarchy' for types, but the easiest way to think about which type is the 'common type' in this case is to think about whether it makes more sense to convert a number to a character, or a character to a number.
+
+Either way, you want to watch out for automatic type conversion like this. R has many defaults like this one that can easily trip up your future programs.
+
+# Converting between numeric and character types
+Finally, it's sometimes really helpful to be able to switch something between a numeric and a character type. Let's say you import some data and your computer insists on thinking it's letters, when it is clearly numbers (this happens a lot!) We can use the `as.numeric()` function to set things right.
+```{r}
+bad_numeric_vector <- c('1','3','4','7','11')
+
+# check the type of bad_numeric_vector
+is(bad_numeric_vector)
+# why is it not numeric?
+  # we put quotes around each number
+# use as.numeric() to create a new vector, good_numeric_vector, which has all
+# the values from bad_numeric_vector but as numbers instead of characters
+good_numeric_vector <- as.numeric(bad_numeric_vector)
+# check the type of good_numeric_vector
+is(good_numeric_vector)
+```
+
+We can also do this change backwards. Based on what you saw right above, what do you think the function is called that converts numeric values to character type?
+```{r}
+num_vector <- c(81, 243, 729)
+
+# convert num_vector to a character vector
+as.character(num_vector)
+```
+
+# Making consecutive sequences
+
+One really useful thing we can do in R is make vectors of evenly spaced numbers. To do this, we can use the `seq()` function. Let's try to use the built-in R documentation of `seq()` to figure out how to use it.
+```{r}
+# On your own:
+# Based on the documentation from of seq, make the sequence: 1, 2, 3, 4
+seq(1, 4)
+# In pairs:
+# Now make the sequence: 2, 2.5, 3, 3.5
+seq(2, 3.5, by = 0.5)
+# Identify what values are corresponding to what arguments
+```
+Here, the first value corresponds to the 'from' argument, the second to the 'to' argument, and in the second example we add a 'by' argument to tell `seq()` what the number to skip is.
+
+Seq can work in both directions (i.e., the numbers don't have to be going up)
+```{r}
+# Use seq to make the following sequence: 5, 3, 1, -1
+seq(5, -1, by = -2)
+```
+
+There are three things that make seq really powerful compared to just typing out vectors of numbers by hand:
+
+1. It can generate reaaaaaally long sequences of numbers
+
+2. Like all functions, it can use variables as inputs, which means you don't have to change your whole code every time you change your mind about what numbers you're interested in working with
+
+3. When you want to make a vector of a certain length, it will do the math for you of what the spacing between your numbers needs to look like
+
+Let's try using some of this!
+```{r}
+# Make a variable number_elements, which will tell you how many numbers you want
+# in your final vector
+number_elements <- 8
+# Make a variable first_number, containing any number you want your vector to
+# start with
+first_number <- 6
+# Make a variable last_number, containing any number you want your vector to
+# end with
+last_number <- 7
+# Use first_number, last_number, and number_elements as arguments to seq to
+# create your vector, final_vector
+final_vector <- seq(first_number, last_number, length.out = number_elements)
+print(final_vector)
+```
+
+Relatedly, a really useful function in R is `length()`. It can tell you how long your vector is (how many elements are in your vector)
+```{r}
+# Use length() to find out how long number_elements is
+length(number_elements)
+# Use length() to find out how long final_vector is
+length(final_vector)
+# Does this make sense?
+
+```
+
+# Operations on vectors of numbers
+
+One of the best things about vectors that will come up again and again soon is that you can do operations on them, just like with numbers. Here's one example:
+```{r}
+# Create a variable holding a vector that contains an evenly spaced sequence of
+# five numbers, from 2 to 4
+vector_2 <- seq(2, 4, length.out = 5)
+# Add 3 to the vector. What happens?
+3 + vector_2
+```
+
+You can also add vectors together!
+```{r}
+vector_a <- c(1,2,3)
+vector_b <- c(4,5,6)
+
+# Add vector_a and vector_b
+vector_a + vector_b
+```
+
+And finally... many math-related functions can work on vectors! `sum()` is a great example of this.
+```{r}
+# Create a vector of consecutive numbers between 1 and 100
+hundred_vec <- seq(1, 100)
+# Use sum() to add up those numbers
+sum(hundred_vec)
+```
+
+# Things we hope you've learned today (and will hopefully remember next time)
+
+* Vectors are lists of either numeric or character type
+* You can do math on numeric vectors
+* You can convert between numeric and character type vectors using `as.numeric()` and `as.character()`
+* You can use the `seq()` function to generate vectors of evenly spaced numbers
+
+
+

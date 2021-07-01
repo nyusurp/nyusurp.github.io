@@ -208,17 +208,25 @@ summary {
 <li><a href="#sequences-of-numbers">Sequences of numbers</a></li>
 </ul></li>
 <li><a href="#getting-specific-elements-from-vectors">Getting specific elements from vectors</a></li>
+<li><a href="#data-frames">Data Frames</a>
+<ul>
+<li><a href="#what-do-you-do-with-all-of-these-vectors">What do you do with all of these vectors?</a></li>
+</ul></li>
 <li><a href="#when-we-get-missing-values">When we get missing values</a>
 <ul>
 <li><a href="#performing-nonsensical-operations">Performing nonsensical operations</a></li>
 <li><a href="#taboo-math-operations">Taboo math operations</a></li>
 <li><a href="#real-missing-data">Real missing data</a></li>
-<li><a href="#what-are-logicals">What are Logicals?</a></li>
 </ul></li>
-<li><a href="#data-frames">Data Frames</a>
+<li><a href="#logicals">Logicals</a>
 <ul>
-<li><a href="#what-do-you-do-with-all-of-these-vectors">What do you do with all of these vectors?</a></li>
+<li><a href="#introduction-to-logicals">Introduction to logicals</a></li>
+<li><a href="#looking-for-missing-values-in-a-vector">Looking for missing values in a vector</a></li>
+<li><a href="#treating-numbers-as-logicals">Treating numbers as logicals</a></li>
+<li><a href="#exercise">Exercise</a></li>
 </ul></li>
+<li><a href="#selecting-and-replacing-values-from-vectors-based-on-logicals">Selecting and replacing values from vectors based on logicals</a></li>
+<li><a href="#operations-on-logicals-and-or">Operations on logicals (AND, OR)</a></li>
 <li><a href="#things-we-hope-youve-learned-today-and-will-hopefully-remember-next-time">Things we hope you’ve learned today (and will hopefully remember next time)</a></li>
 </ul>
 </div>
@@ -299,73 +307,6 @@ long_vector_2 &lt;-
 
 # print out long_vector_2, then shorter_vector</code></pre>
 </div>
-<div id="when-we-get-missing-values" class="section level1">
-<h1>When we get missing values</h1>
-<p>A <strong>HUGE</strong> part of analyzing real scientific data is dealing with missing values. There are lots of ways we can get missing values; these are probably the most common:</p>
-<ul>
-<li>When we try to get R to do a nonsensical thing</li>
-<li>When we perform some super taboo math operation</li>
-<li>When we are using real data and we didn’t collect every observation (<em>eg</em> you measured the height of a bunch of plants every week but by the third week, some of them died)</li>
-</ul>
-<p>Every programming language has its own special way of representing ‘missing’ data; R, ever so special, uses two: <em>NA</em> or <em>NaN</em>, depending on the situation; don’t worry about the difference, I (Eugene) literally learned it while preparing this class, after 5 years of programming in R.</p>
-<p>Let’s take a look at how these missing values work.</p>
-<div id="performing-nonsensical-operations" class="section level2">
-<h2>Performing nonsensical operations</h2>
-<p>Let’s try to see what R does when we ask it to do something that clearly doesn’t make sense. Remember that we can ask R to convert a list of characters to numbers. Let’s try that again.</p>
-<pre class="r"><code>weird_number_vector &lt;- c(&#39;1&#39;, &#39;4&#39;, &#39;koala&#39;, &#39;18&#39;)
-
-# Convert weird_number_vector to numeric type, and print out the result</code></pre>
-</div>
-<div id="taboo-math-operations" class="section level2">
-<h2>Taboo math operations</h2>
-<p>Another way to get missing values is to perform a math operation that R doesn’t like. Let’s try doing this. Remember that we can perform operations on vectors, e.g. adding two vectors to each other. Let’s try dividing vectors this way.</p>
-<pre class="r"><code>vector_1 &lt;- c(1, 2, 0, 3, 0, -5)
-vector_2 &lt;- c(0, -3, 1, 6, 0, 0)
-
-# What do you think you&#39;ll get if you divide vector_1 by vector_2?
-
-# Try it</code></pre>
-</div>
-<div id="real-missing-data" class="section level2">
-<h2>Real missing data</h2>
-<p>Finally, you can enter NA into your vector, just like you would any other value</p>
-<pre class="r"><code># Create a vector, data_vector, which has some numbers and at least one NA value
-
-# What happens if you take the sum of data_vector?</code></pre>
-<p>Do you remember how to tell sum() not to use missing values? Check the documentation (using ‘?’) if you’ve forgotten!</p>
-<pre class="r"><code># Try using sum() to get the sum of the non-missing values in data_vector</code></pre>
-<p>#Logicals</p>
-</div>
-<div id="what-are-logicals" class="section level2">
-<h2>What are Logicals?</h2>
-<p>Logicals indicate a binary of true and false, and R encodes these as 0/1 or FALSE/TRUE respectively. When you select for something in R, you are usually asking R to return values that are TRUE.</p>
-<pre class="r"><code>data_vector &lt;- c(2,3,NA,12)</code></pre>
-<pre class="r"><code>data_vector</code></pre>
-<pre><code>## [1]  2  3 NA 12</code></pre>
-<pre class="r"><code>is.na(data_vector)</code></pre>
-<pre><code>## [1] FALSE FALSE  TRUE FALSE</code></pre>
-<p>Logicals can also be used for comparison, such as if a value is greater than, less than, or equal to another value</p>
-<pre class="r"><code>data_vector</code></pre>
-<pre><code>## [1]  2  3 NA 12</code></pre>
-<pre class="r"><code>data_vector[1] &gt; data_vector[2]</code></pre>
-<pre><code>## [1] FALSE</code></pre>
-<p>Asking R for the output of is.na is also a vector, even though it’s made of TRUEs and FALSEs. What is the data type of elements in this vector?</p>
-<pre class="r"><code>isnavector &lt;- is.na(data_vector)
-typeof(isnavector)</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="r"><code>class(isnavector)</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="r"><code>is(isnavector)</code></pre>
-<pre><code>## [1] &quot;logical&quot; &quot;vector&quot;</code></pre>
-<p>Since logicals have a value of 0 (False) and 1 (True), you can also count the number of true values using sum().</p>
-<pre class="r"><code>data_vector</code></pre>
-<pre><code>## [1]  2  3 NA 12</code></pre>
-<pre class="r"><code>is.na(data_vector)</code></pre>
-<pre><code>## [1] FALSE FALSE  TRUE FALSE</code></pre>
-<pre class="r"><code>sum(is.na(data_vector))</code></pre>
-<pre><code>## [1] 1</code></pre>
-</div>
-</div>
 <div id="data-frames" class="section level1">
 <h1>Data Frames</h1>
 <div id="what-do-you-do-with-all-of-these-vectors" class="section level2">
@@ -402,12 +343,164 @@ length(vector1) == length(vector2)</code></pre>
 </div>
 </div>
 </div>
+<div id="when-we-get-missing-values" class="section level1">
+<h1>When we get missing values</h1>
+<p>A <strong>HUGE</strong> part of analyzing real scientific data is dealing with missing values. There are lots of ways we can get missing values; these are probably the most common:</p>
+<ul>
+<li>When we try to get R to do a nonsensical thing</li>
+<li>When we perform some super taboo math operation</li>
+<li>When we are using real data and we didn’t collect every observation (<em>eg</em> you measured the height of a bunch of plants every week but by the third week, some of them died)</li>
+</ul>
+<p>Every programming language has its own special way of representing ‘missing’ data; R, ever so special, uses two: <em>NA</em> or <em>NaN</em>, depending on the situation; don’t worry about the difference, I (Eugene) literally learned it while preparing this class, after 5 years of programming in R.</p>
+<p>Let’s take a look at how these missing values work.</p>
+<div id="performing-nonsensical-operations" class="section level2">
+<h2>Performing nonsensical operations</h2>
+<p>Let’s try to see what R does when we ask it to do something that clearly doesn’t make sense. Remember that we can ask R to convert a list of characters to numbers. Let’s try that again.</p>
+<pre class="r"><code>weird_number_vector &lt;- c(&#39;1&#39;, &#39;4&#39;, &#39;koala&#39;, &#39;18&#39;)
+
+# Convert weird_number_vector to numeric type, and print out the result</code></pre>
+</div>
+<div id="taboo-math-operations" class="section level2">
+<h2>Taboo math operations</h2>
+<p>Another way to get missing values is to perform a math operation that R doesn’t like. Let’s try doing this. Remember that we can perform operations on vectors, e.g. adding two vectors to each other. Let’s try dividing vectors this way.</p>
+<pre class="r"><code>vector_1 &lt;- c(1, 2, 0, 3, 0, -5)
+vector_2 &lt;- c(0, -3, 1, 6, 0, 0)
+
+# What do you think you&#39;ll get if you divide vector_1 by vector_2?
+
+# Try it</code></pre>
+</div>
+<div id="real-missing-data" class="section level2">
+<h2>Real missing data</h2>
+<p>Finally, you can enter NA into your vector, just like you would any other value</p>
+<pre class="r"><code># Create a vector, data_vector, which has some numbers and at least one NA value
+
+# What happens if you take the sum of data_vector?</code></pre>
+<p>Do you remember how to tell sum() not to use missing values? Check the documentation (using ‘?’) if you’ve forgotten!</p>
+<pre class="r"><code># Try using sum() to get the sum of the non-missing values in data_vector</code></pre>
+</div>
+</div>
+<div id="logicals" class="section level1">
+<h1>Logicals</h1>
+<div id="introduction-to-logicals" class="section level2">
+<h2>Introduction to logicals</h2>
+<p>In R, in addition to character and numeric values, we can have logical values. Logical values are <code>TRUE</code> and <code>FALSE</code>. These words, when you type them, are something like <code>NA</code> in that they’re special words.</p>
+<p>Logical values are often generated by comparisons between two values. These comparisons are made with logical operators. Many of them you will be familiar with.</p>
+<pre class="r"><code>3 &gt; 4</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>8 &lt; 5</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>4 &lt;= 4</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Note that the logical operator “is equal to” is <code>==</code> in R. If you only use <code>=</code>, you will reassign your variable (that is <code>=</code> in R is the same as <code>&lt;-</code>).<br />
+“Not” is specified by <code>!</code>. So “is not equal to” is <code>!=</code>.</p>
+<p>Try to figure out what the output of each of the following lines will be before running them.</p>
+<pre class="r"><code>TRUE == TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>TRUE == FALSE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>TRUE != FALSE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>3 != 4</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>char = &#39;a&#39;
+char == &#39;a&#39;</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>char = &#39;b&#39;
+char == &#39;a&#39;</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+</div>
+<div id="looking-for-missing-values-in-a-vector" class="section level2">
+<h2>Looking for missing values in a vector</h2>
+<p>One useful function that results in a logical value is <code>is.na()</code></p>
+<pre class="r"><code># try using is.na() on data_vector (which you created above)
+
+# try using is.na() on position 2 in data_vector</code></pre>
+<p>Just like you can make a vector of characters or a vector of numeric values, you can also make a vector of logicals.</p>
+<pre class="r"><code># Make a vector with 3 TRUEs and 2 FALSEs, save it as logical_vec1
+
+# Make a vector called num_vec that starts at 2 and ends at 10 (increasing by 1)</code></pre>
+<pre class="r"><code>logical_vec2 &lt;- num_vec %% 3 == 2 #what is this line of code doing?</code></pre>
+</div>
+<div id="treating-numbers-as-logicals" class="section level2">
+<h2>Treating numbers as logicals</h2>
+<p>In R, FALSE is also encoded as 0, and TRUE is encoded as 1.</p>
+<pre class="r"><code>0==FALSE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>1==TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code># How do you think we could easily figure out how many TRUEs there are in logical_vec2?
+
+# How can you get R to tell you the number of missing values in data_vector?</code></pre>
+</div>
+<div id="exercise" class="section level2">
+<h2>Exercise</h2>
+<p>Imagine that you’re doing an experiment measuring plant height, but some of the plants didn’t grow. You decide those should be considered missing values, so they entered <code>NA</code> for those plants. Let’s count the number of plants that DID grow in your experiment.</p>
+<pre class="r"><code>plant_heights &lt;- c(1.9, 0.1, NA, 0.8, 0.4, 0.2, 7.9, NA, 16.8, 3.5)
+
+# create a logical vector, plant_NA_vector, that contains information on whether
+# each value in plant_heights is missing (NA)
+
+# use plant_NA_vector to figure out how many plants total didn&#39;t grow
+# assign this number to a variable and print it out
+
+# use plant_NA_vector to figure out how many plants DID grow
+# assign this number to a variable and print it out
+
+# bonus:figure out what PROPORTION of plants grew
+# assign this number to a variable and print it out</code></pre>
+</div>
+</div>
+<div id="selecting-and-replacing-values-from-vectors-based-on-logicals" class="section level1">
+<h1>Selecting and replacing values from vectors based on logicals</h1>
+<p>In addition to using indices to get R to tell us a specific position in a vector, we can also use them to replace specific values. Take a look at this example.</p>
+<pre class="r"><code>vector_to_sub &lt;- c(12, 13, 14, 15, NA, 17, 18, 19)
+
+# replace the 2nd value in vector_to_sub with 54
+vector_to_sub[2] &lt;- 54
+print(vector_to_sub)</code></pre>
+<pre><code>## [1] 12 54 14 15 NA 17 18 19</code></pre>
+<pre class="r"><code># now, try replacing the 1st, 3rd, and 8th values in vector_to_sub with 28,
+# using only one line of code (i.e. do it all at once)</code></pre>
+<p>One really powerful way to use this vector substitution is to combine it with logical vectors. Take a look at the example below:</p>
+<pre class="r"><code>vector_to_sub2 &lt;- 1:3
+vector_to_sub2[c(TRUE, FALSE, TRUE)] &lt;- 42
+
+# What do you think vector_to_sub2 looks like now? Print it out to check</code></pre>
+<p>Try this for yourself. Lots of times, we want to replace missing values in vectors. Let’s say that, when you do your analysis on the plant example above, you want to treat the plants that didn’t grow as having a height of 0 rather than being missing.</p>
+<pre class="r"><code># use plant_NA_vector to replace every missing value in plant_heights with a 0
+
+# print the modified plant_heights vector</code></pre>
+</div>
+<div id="operations-on-logicals-and-or" class="section level1">
+<h1>Operations on logicals (AND, OR)</h1>
+<p>We can also do “and” (<code>&amp;</code>) and “or” (<code>|</code>, all the way on the right side of your keyboard). “And” only returns true if both things are true. “Or” returns true if at least one thing is true.</p>
+<p>Try predicting what all the operations below will return</p>
+<pre class="r"><code>TRUE &amp; TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>TRUE &amp; FALSE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>FALSE &amp; FALSE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>FALSE | TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>TRUE | TRUE</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>FALSE | FALSE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># bonus: perform some operations on the following variables (unicorns and
+# rainbows) that will result in a TRUE value being returned
+unicorns &lt;- FALSE
+rainbows &lt;- FALSE</code></pre>
+</div>
 <div id="things-we-hope-youve-learned-today-and-will-hopefully-remember-next-time" class="section level1">
 <h1>Things we hope you’ve learned today (and will hopefully remember next time)</h1>
 <ul>
 <li>Vectors can be subsetted using []</li>
 <li>Missing values can be identified using is.na() or na.rm = TRUE</li>
-<li>Logicals indicate TRUE/FALSE statements</li>
+<li>Logicals</li>
+<li>Using logicals as indices to pull out or substitute elements of a vector that match some criteria</li>
+<li>Operations that can be performed on logicals (<code>&amp;</code> and <code>|</code>)</li>
 <li>Data frames can be created using data.frame() and subsetted using []</li>
 </ul>
 </div>

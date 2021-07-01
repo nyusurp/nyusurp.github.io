@@ -1,0 +1,110 @@
+---
+title: 'Session 2: Interact with R'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "6/15/2021"
+output: html_document
+---
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The art of asking questions
+
+One of the _most_ important skills in programming is knowing how to find information. No amount of experience will teach you how to do everything, and it’s incredibly easy to forget how to do things that you’ve done many times before but haven’t had to use in a while. Fortunately, we have google!
+
+Try to find out how to do these:
+
+- Take 3 to the 5th power
+- Find the remainder when 8 is divided by 3
+
+As you google, you may have see some answers on a website called *StackOverflow*. This is a great site that allows people to ask questions and they are answered by members of the R community (or any other community--StackOverflow has sections for most programming languages, and subjects as diverse as Biology and Cooking!). In most cases, there was already someone who had your question at some point, which is why a clever google search can usually help you figure out how to do most things. There are also a ton of blogs online that teach you specific skills in R.
+
+
+## How R remembers things: Variables
+
+Oftentimes, we not only want to do calculations, we also want to keep the results for future use. In R (and most programming languages), this can be achieved by assigning it to a _variable_ with an equal sign. Please enter the following line of code into the console: 
+
+```{r}
+mysum = 17 + 24
+```
+
+Let's look at the environment tab in the upper-right quadrant. Do you see a `mysum` listed in it? This implies that we have successfully assigned our result to a variable.
+
+The content of a variable can be shown in the console by `print`ing it.
+
+```{r}
+print(mysum)
+```
+
+A variable can also be used in calculations.
+
+```{r}
+mypower = 3
+
+mysum ^ mypower
+```
+
+Naming of variable matters because when we assign to an existing variable, it gets overwritten silently.
+
+```{r}
+print(mysum)
+
+mysum = 123
+
+print(mysum)
+```
+
+## Functions: Commands that R understands
+
+While we haven't formally introduced it, when we want to command R to do something, we use a `function`. It generally looks like `function(arguments)`. For example, you just used `print()`, which takes a variable and show the content in the console.
+
+We'll learn more about functions during the workshop, and as a rule of thumb, when you see a function, it's always a good idea to ask/think:
+
+1. What are the arguments it's taking?
+2. What does the function do?
+
+You can often find these information in the help page. The help page of a function can be accessed by typing a question mark before the function in the console. Let's type this in the console to see how `print()` works:
+
+```
+?print
+```
+
+## Packages: Basically just a set of functions that does complicated stuffs
+
+One of the main reasons that people use R is because there are many tools developed in R to make complicated things like analyzing single-cell RNA-seq becomes [fairly simple](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html).
+
+You can often find a package and relevant tutorial for these kind of things so you don't have to reinvent the wheel.
+
+The most simple way to retrieve a package is to use a function called `install.packages()`. It takes an argument: The name of a package (quoted).
+
+To practice how to retrieve packages, let's install three packages that we are going to use during the workshop:
+
+- `rmarkdown`: Enabling you to write documents with R code. The course website is written with it.
+- `ggplot2`: A package that makes plots.
+- `dplyr`: A package that provides functions that help summarize tables.
+
+
+
+```{r, eval=FALSE}
+install.packages('rmarkdown')
+library(rmarkdown)
+
+library(dplyr)
+```
+
+## A brief taste of R Notebook
+
+R Notebook allows you to write descriptions and code together and allows the results of your code to be shown next to your code.
+
+Let's try to use R Notebook to do some basic arithmetics.
+
+## Things that are good to know
+
+- Naming variable with a simple name that's indicative of its content is difficult, but it's a good habit that will make things easier when you start to write more complicated code.
+- It's a good idea to put spaces around arithmetic operators and equal signs because R interprets `<-` as `=` for [historical reasons](https://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html). If we don't put spaces around them, it will be impossible to tell whether `mysum<-3` means _assign 3 to `mysum`_ or _check if `mysum` is smaller than -3 (Comparison will be covered later in the workshop).
+- `install.packages()` only look for packages on CRAN, but there are other places that you might find R packages. For example, [bioconductor](http://bioconductor.org) hosts many genomics packages, and many labs will release there software and data on [Github](https://github.com) or [Gitlab](https://gitlab.com).
+  - To install from bioconductor, there is a special package for it. Fortunately, every package homepage on bioconductor has a short tutorial on how to install packages from it.
+  - To install from `Github` or `Gitlab`, you'll need a package called `devtools`, which can be installed with `install.packages()`. `devtools` than provides `install_github()` and `install_gitlab()` that retrives and install packages.
