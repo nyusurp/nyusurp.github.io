@@ -32,7 +32,7 @@ output:
 - There are functions that summarize vectors and gives you statistics of them
 - Be careful about `NA`s: What makes them? How to find them?
 
-### [Session 4: Working with vectors](source/Workshop_4.html)
+### [Session 4: Workshop 4: Indexing, Missing values, Data Frames, and Logicals](source/Workshop_4.html)
 
 > [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
 
