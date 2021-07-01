@@ -1,5 +1,5 @@
 ---
-title: 'Workshop 4: Indexing and Missing values'
+title: 'Workshop 4: Indexing, Missing values, Data Frames, and Logicals'
 author: Cassandra Buzby & Yen-Chung Chen
 subtitle: |
   |   - pulling specific elements out of vectors
