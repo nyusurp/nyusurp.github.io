@@ -1,0 +1,329 @@
+---
+title: 'Session 5: Data frames and logical operation'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "7/6/2021"
+output: 
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+- [Go back to the syllabus](https://nyusurp.github.io)
+- [Go back to worksheet](https://nyusurp.github.io/session_5_df_logi_ws.html)
+- [The slide deck for the session](../../slide/session_5_df_logi.html)
+
+## Review from the last session
+
+### A vector is a series of similar items
+
+Let's first execute this chunk to assign the example variables containing the [recent Nobel laureates in physiology or medicine](https://www.nobelprize.org/prizes/lists/all-nobel-laureates-in-physiology-or-medicine/).
+
+```{r}
+nobel_prize_winners <- c(
+  "Harvey Alter",
+  "Michael Houghton",
+  "Charles Rice",
+  "Peter Ratcliffe",
+  "William Kaelin Jr.",
+  "Gregg Semenza",
+  "James Allison",
+  "Tasuku Honjo",
+  "Jeffery Hall",
+  "Michael Rosbach",
+  "Michael Young"
+)
+nobel_prize_year <- c(
+  2020, 2020, 2020, 2019, 2019, 2019, 2018, 2018, 2017, 2017, 2017
+)
+nobel_prize_topic <- c(
+  "Discovery of hepatitis C virus",
+  "Discovery of hepatitis C virus",
+  "Discovery of hepatitis C virus",
+  "Discovery of how cells sense and adapt to oxygen availability",
+  "Discovery of how cells sense and adapt to oxygen availability",
+  "Discovery of how cells sense and adapt to oxygen availability",
+  "Cancer immunotherapy by inhibiting the negative regulation of immune response",
+  "Cancer immunotherapy by inhibiting the negative regulation of immune response",
+  "Discovery of the molecular basis of circadian rhythm",
+  "Discovery of the molecular basis of circadian rhythm",
+  "Discovery of the molecular basis of circadian rhythm"
+  )
+```
+
+### You can _subset_ a vector by its index.
+
+```{r}
+# Index can be numbers indicating which item you want to retrieve from the vector.
+# An index should be put between a pair of square brackets
+# Who is the third person that won Nobel prize in the vector?
+
+nobel_prize_winners[3]
+```
+
+```{r}
+# When did the third person in the vector won Nobel prize?
+nobel_prize_year[3]
+```
+
+```{r}
+# Index can be a numeric vector
+# Let's retrieve the topic of the 3rd to 6th person in the vector
+index_to_retrieve <- c(3, 4, 5, 6)
+nobel_prize_topic[index_to_retrieve]
+```
+
+```{r}
+# Note that the above chunk is exactly the same as
+nobel_prize_topic[c(3, 4, 5, 6)]
+
+# and also the same as
+nobel_prize_topic[3:6]
+
+# and also
+nobel_prize_topic[seq(3, 6, by = 1)]
+```
+
+## What we will discuss today
+
+1. Why would I ever want to subset vectors with indices?
+
+2. How do I make data frames and use them?
+
+
+## Who did win Nobel prize in 2018?
+
+```{r}
+# Just showing the vectors since I don't remember what's inside
+print(nobel_prize_winners)
+print(nobel_prize_year)
+```
+
+## Logical data is just the answers to yes/no questions.
+
+You can ask R yes/no questions with _logical operators_. `TRUE` is yes while `FALSE` is no.
+
+- `A == B`: Is A _exactly_ equal to B?
+- `A != B`: Is A not equal to B?
+- `A < B`: Is A smaller than B?
+- `A > B`: Is A larger than B?
+- `A %in% B`: Is A an element of B? (Or, does B contain A? B is a vector).
+
+```{r}
+1 + 1 == 2
+```
+
+```{r}
+-3 < 5
+```
+
+```{r eval=FALSE}
+# Weird things will happen here
+3<-5
+```
+
+```{r}
+3 %in% c(1, 2, 3, 4, 5)
+```
+
+### Exercise: Do I have 2018 in `nobel_prize_year`?
+
+```{r}
+# Hint: %in%
+2018 %in% nobel_prize_year
+```
+
+### Exercise: Who won Nobel prize in 2018?
+
+Just like arithmetic operators, logical operators also work on vectors. Not only can you as if A is equal to B with `A == B`, you can also ask if every element of A is equal to B with the same syntax.
+
+```{r}
+count_to_3 <- c(1:3)
+
+count_to_3 == 2
+```
+
+Instead of looking at a vector of `TRUE` or `FALSE`, you might want to ask _which items are `TRUE`?_. Not surprisingly, there's a function for it, named `which()`.
+
+`which()` takes a logical vector as its argument, and returns the indicies of the `TRUE` items.
+
+```{r}
+odds_are_true <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
+which(odds_are_true)
+```
+
+```{r}
+# In vector count_to_3, use which() to tell which item is 3.
+which(count_to_3 == 3)
+```
+
+
+```{r}
+# Which items in nobel_prize_year are 2018?
+index_2018 <- which(nobel_prize_year == 2018)
+print(index_2018)
+```
+
+```{r}
+# Who won Nobel prize in 2018, and what is their research contribution?
+print(nobel_prize_winners[index_2018])
+print(nobel_prize_topic[index_2018])
+```
+
+## You might prefer a table, and so do I.
+
+Most of the times, we prefer to work with tables because our data usually does not fit in a vector, and it's tedious to have vectors scattering around.
+
+### `data.frame()` is used to construct a data frame like `c()` is used to make a vector.
+
+`data.frame()` take multiple vectors separated by commas as its argument, and returns a data.frame.
+
+```{r}
+recent_nobel_med <- data.frame(
+  nobel_prize_winners,
+  nobel_prize_year,
+  nobel_prize_topic
+)
+print(recent_nobel_med)
+```
+
+### Cells of a data frame can be accessed by its index in the form of [row, column]
+
+```{r}
+recent_nobel_med[1, 3]
+```
+
+```{r}
+# If we leave row/column index blank, the whole column/row will be retrieved
+
+## Getting the first row
+recent_nobel_med[1, ]
+
+## Getting the second column
+recent_nobel_med[ , 2]
+```
+
+### Subseting a data frame by row: What if you only want the data from 2017?
+
+```{r}
+# You already know how to get the year column
+recent_nobel_med[ , 2]
+```
+
+```{r}
+# Hello vector my old friend
+is(recent_nobel_med[ , 2])
+```
+
+```{r}
+# Assign a index_2017 to subset the data frame
+index_2017 <- which(recent_nobel_med[ , 2] == 2017)
+print(index_2017)
+```
+
+```{r}
+# Subset the data frame with the index you just get
+recent_nobel_med[index_2017, ]
+```
+
+### Columns can by accessed by their names
+
+It can be very painful to remember the indices of columns when you have a large table, so R provides other ways for you to access a column.
+
+```{r}
+recent_nobel_med
+```
+
+You can check the column names by viewing the data frame, or by using `colnames()`, which takes a data frame and returns the column names as a character vector.
+
+```{r}
+colnames(recent_nobel_med)
+```
+
+You can retrieve columns by their names using a dollar sign `$`.
+
+```{r}
+# Get the laureate column
+recent_nobel_med$nobel_prize_winners
+```
+
+You can rename a column using `colnames()`.
+
+```{r}
+colnames(recent_nobel_med)
+```
+
+```{r}
+# Rename the first column "laureates"
+colnames(recent_nobel_med)[1] <- "laureates"
+```
+
+```{r}
+print(recent_nobel_med)
+```
+
+```{r}
+## Rename the second column "year" and the third "research_topic"
+colnames(recent_nobel_med)[2:3] <- c("year", "research_topic")
+print(recent_nobel_med)
+```
+
+### Rows can be accessed with their names too, but in a different fashion.
+
+We'll use a small gene information table that makes more sense. Note that you can also name columns when you construct it.
+
+```{r}
+gene_model <- data.frame(
+  row.names = c("Gapdh", "Mnx1", "Chat", "Vglut1"),
+  # Naming columns with column name = vector
+  gene_type = c("Enzyme", "Transcription factor", "Enzyme", "Transporter"),
+  id = c(
+    "ENSMUSG00000057666",
+    "ENSMUSG00000001566",
+    "ENSMUSG00000100241",
+    "ENSMUSG00000070570"
+    )
+  )
+print(gene_model)
+```
+
+Note that there are no column named "row.names". The gene symbols were not stored in a column but as row names, which can be accessed by `rownames()`, which takes a data frame as its argument, and returns the row names.
+
+```{r}
+rownames(gene_model)
+```
+
+`rownames()` works very similar to `colnames()` when you want to rename things. For example, the official symbol for Chat (CHoline AcetylTransferase) is Slc18a3. Let's rename it to the official symbol.
+
+```{r}
+rownames(gene_model)[3] <- "Slc18a3"
+print(gene_model)
+```
+
+You can access rows by their names using the square bracket syntax.
+
+```{r}
+# Get the Mnx1 row
+gene_model["Mnx1", ]
+```
+
+```{r}
+# Get both the Mnx1 and Vglut1 row
+gene_model[c("Mnx1", "Vglut1"), ]
+```
+
+
+## Take-home messages
+
+- Vectors can be subset with indices.
+- You can generate index vector (just a numeric vector) by first setting a criteria with logical operations and then turnning it into a numeric vector.
+- Vectors of the same length can be used to build a data frame in which each vector becomes a column.
+- Data in a data frame can be accessed by indices, too.
+- In a data frame, rows and columns have names that can also be used to access items.

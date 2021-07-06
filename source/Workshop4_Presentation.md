@@ -1,7 +1,7 @@
 Workshop 4 Presentation
 ========================================================
 author: Cassandra Buzby & Yen-Chung Chen
-date: 2021-07-01
+date: 2021-07-06
 autosize: true
 
 Review
@@ -173,6 +173,12 @@ incremental: true
 
 ```r
 review_vec <- seq(-5,5,length.out = 21)
+review_vec
+```
+
+```
+ [1] -5.0 -4.5 -4.0 -3.5 -3.0 -2.5 -2.0 -1.5 -1.0 -0.5  0.0  0.5  1.0  1.5  2.0
+[16]  2.5  3.0  3.5  4.0  4.5  5.0
 ```
 
 
@@ -201,6 +207,7 @@ Let's create a really long vector and ask R to tell us about specific points alo
 
 Getting specific elements from vectors
 =======================================================
+incremental: true
 Let's create a really long vector and ask R to tell us about specific points along that vector.
 
 ```r
@@ -209,10 +216,28 @@ last_num <- 43
 num_of_elements <- 100
 
 new_vector <- seq(first_num, last_num, length.out = num_of_elements)
+new_vector
+```
+
+```
+  [1] 34.00000 34.09091 34.18182 34.27273 34.36364 34.45455 34.54545 34.63636
+  [9] 34.72727 34.81818 34.90909 35.00000 35.09091 35.18182 35.27273 35.36364
+ [17] 35.45455 35.54545 35.63636 35.72727 35.81818 35.90909 36.00000 36.09091
+ [25] 36.18182 36.27273 36.36364 36.45455 36.54545 36.63636 36.72727 36.81818
+ [33] 36.90909 37.00000 37.09091 37.18182 37.27273 37.36364 37.45455 37.54545
+ [41] 37.63636 37.72727 37.81818 37.90909 38.00000 38.09091 38.18182 38.27273
+ [49] 38.36364 38.45455 38.54545 38.63636 38.72727 38.81818 38.90909 39.00000
+ [57] 39.09091 39.18182 39.27273 39.36364 39.45455 39.54545 39.63636 39.72727
+ [65] 39.81818 39.90909 40.00000 40.09091 40.18182 40.27273 40.36364 40.45455
+ [73] 40.54545 40.63636 40.72727 40.81818 40.90909 41.00000 41.09091 41.18182
+ [81] 41.27273 41.36364 41.45455 41.54545 41.63636 41.72727 41.81818 41.90909
+ [89] 42.00000 42.09091 42.18182 42.27273 42.36364 42.45455 42.54545 42.63636
+ [97] 42.72727 42.81818 42.90909 43.00000
 ```
 
 Getting specific elements from vectors
 =======================================================
+incremental: true
 How long is your vector? How can you see just a subset of the values?
 
 ```r
@@ -235,6 +260,7 @@ head(new_vector)
 
 Getting specific elements from vectors
 =======================================================
+incremental: true
 To access the number at a specific position, we can use square brackets!
 
 ```r
@@ -352,6 +378,11 @@ incremental: true
 
 ```r
 position_vector <- seq(1, long_vector_2_length, by = 2)
+position_vector
+```
+
+```
+ [1]  1  3  5  7  9 11 13 15 17 19
 ```
 
 
@@ -364,9 +395,14 @@ position_vector <- seq(1, long_vector_2_length, by = 2)
 shorter_vector <- long_vector_2[position_vector]
 ```
 
+Getting specific elements from vectors
+=======================================================
+incremental: true
+
 ```r
 # print out long_vector_2, then shorter_vector
 ```
+
 
 ```r
 print(long_vector_2)
@@ -386,6 +422,119 @@ print(shorter_vector)
  [1] -1.000000  4.368421  9.736842 15.105263 20.473684 25.842105 31.210526
  [8] 36.578947 41.947368 47.315789
 ```
+
+
+============
+# Data Frames
+
+What do you do with all of these vectors?
+===========
+incremental: true
+Vectors can be combined to create data frames, or R's word for tables. First, let's make two vectors of equal length:
+
+```r
+vector1 <- 20:1
+vector2 <- seq(4,12,length.out = 20)
+length(vector1)
+```
+
+```
+[1] 20
+```
+
+```r
+length(vector2)
+```
+
+```
+[1] 20
+```
+
+Next, we can use the data.frame() function to combine these vectors into columns:
+
+```r
+mydataframe <- data.frame(vector1, vector2)
+```
+
+What do you do with all of these vectors?
+===========
+incremental: true
+To view the top rows of a data frame, use head()
+
+```r
+dim(mydataframe)
+```
+
+```
+[1] 20  2
+```
+
+```r
+head(mydataframe)
+```
+
+```
+  vector1  vector2
+1      20 4.000000
+2      19 4.421053
+3      18 4.842105
+4      17 5.263158
+5      16 5.684211
+6      15 6.105263
+```
+
+Subsetting Data Frames
+==========
+incremental: true
+Some data frames have column **names** and all data frames have row-column **positions**. You can identify a value in a data frame by indicating the position in the column (essentially, the position in the vector) of a row, or by referencing the [row,column] number.
+
+
+```r
+mydataframe$vector1[2]
+```
+
+```
+[1] 19
+```
+
+```r
+mydataframe[2,1]
+```
+
+```
+[1] 19
+```
+
+```r
+mydataframe[1,2]
+```
+
+```
+[1] 4
+```
+
+Subsetting Data Frames
+==========
+incremental: true
+You can also reference each of the rows or columns by leaving the opposite position blank:
+
+```r
+mydataframe[2,] #row 2
+```
+
+```
+  vector1  vector2
+2      19 4.421053
+```
+
+```r
+mydataframe[,1] #column one
+```
+
+```
+ [1] 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+```
+
 
 =======================================================
 # A Quick Review of Missing Values
@@ -412,6 +561,9 @@ Let's try to see what R does when we ask it to do something that clearly doesn't
 weird_number_vector <- c('1', '4', 'koala', '18')
 
 # Convert weird_number_vector to numeric type, and print out the result
+```
+
+```r
 as.numeric(weird_number_vector)
 ```
 
@@ -431,6 +583,9 @@ vector_2 <- c(0, -3, 1, 6, 0, 0)
 # What do you think you'll get if you divide vector_1 by vector_2?
 
 # Try it
+```
+
+```r
 vector_1 / vector_2
 ```
 
@@ -480,96 +635,122 @@ sum(data_vector, na.rm = TRUE)
 =======================================================
 # Logicals
 
-What are Logicals?
-=======================================================
+
+Introduction to logicals
+===========
 incremental: true
 
-Logicals indicate a binary of true and false, and R encodes these as 0/1 or FALSE/TRUE respectively. When you select for something in R, you are usually asking R to return values that are TRUE.
+In R, in addition to character and numeric values, we can have logical values. Logical values are `TRUE` and `FALSE`. These words, when you type them, are something like `NA` in that they're special words. 
 
-
-```r
-data_vector
-```
-
-```
-[1]  3  8 NA  9
-```
+Logical values are often generated by comparisons between two values. These comparisons are made with logical operators. Many of them you will be familiar with.
 
 ```r
-is.na(data_vector)
-```
-
-```
-[1] FALSE FALSE  TRUE FALSE
-```
-
-What are Logicals?
-=======================================================
-incremental: true
-
-Logicals can also be used for comparison, such as if a value is greater than, less than, or equal to another value
-
-```r
-data_vector
-```
-
-```
-[1]  3  8 NA  9
-```
-
-```r
-data_vector[1] > data_vector[2]
+3 > 4
 ```
 
 ```
 [1] FALSE
 ```
 
-Logicals
-========
+```r
+8 < 5
+```
+
+```
+[1] FALSE
+```
+
+```r
+4 <= 4
+```
+
+```
+[1] TRUE
+```
+
+Introduction to logicals
+================
 incremental: true
 
-Asking R for the output of is.na is also a vector, even though it's made of TRUEs and FALSEs. What is the data type of elements in this vector?
+Note that the logical operator "is equal to" is `==` in R. If you only use `=`, you will reassign your variable (that is `=` in R is the same as `<-`).  
+"Not" is specified by `!`. So "is not equal to" is `!=`.
 
-
-```r
-isnavector <- is.na(data_vector)
-typeof(isnavector)
-```
-
-```
-[1] "logical"
-```
+Try to figure out what the output of each of the following lines will be before running them.
 
 ```r
-class(isnavector)
+TRUE == TRUE
 ```
 
 ```
-[1] "logical"
+[1] TRUE
 ```
 
 ```r
-is(isnavector)
+TRUE == FALSE
 ```
 
 ```
-[1] "logical" "vector" 
+[1] FALSE
 ```
 
-Logicals
-===========
+```r
+TRUE != FALSE
+```
+
+```
+[1] TRUE
+```
+
+```r
+3 != 4
+```
+
+```
+[1] TRUE
+```
+
+Introduction to logicals
+================
 incremental: true
 
-Since logicals have a value of 0 (False) and 1 (True), you can also count the number of true values using sum().
+These also work with characters!
+
 
 ```r
+char = 'a'
+char == 'a'
+```
+
+```
+[1] TRUE
+```
+
+```r
+char = 'b'
+char == 'a'
+```
+
+```
+[1] FALSE
+```
+
+Looking for missing values in a vector
+=============
+incremental: true
+
+One useful function that results in a logical value is `is.na()`
+
+```r
+# try using is.na() on data_vector (which you created above)
+
+# try using is.na() on position 2 in data_vector
 data_vector
 ```
 
 ```
 [1]  3  8 NA  9
 ```
+
 
 ```r
 is.na(data_vector)
@@ -578,6 +759,64 @@ is.na(data_vector)
 ```
 [1] FALSE FALSE  TRUE FALSE
 ```
+
+```r
+is.na(data_vector[2])
+```
+
+```
+[1] FALSE
+```
+
+Looking for missing values in a vector
+==================
+incremental: true
+
+Just like you can make a vector of characters or a vector of numeric values, you can also make a vector of logicals.
+
+```r
+# Make a vector with 3 TRUEs and 2 FALSEs, save it as logical_vec1
+
+# Make a vector called num_vec that starts at 2 and ends at 10 (increasing by 1)
+```
+
+```r
+logical_vec1 <- c(TRUE,TRUE,TRUE,FALSE,FALSE)
+num_vec <- c(2:10)
+```
+
+```r
+logical_vec2 <- num_vec %% 3 == 2 #what is this line of code doing?
+```
+
+Treating numbers as logicals
+================
+incremental: true
+
+In R, FALSE is also encoded as 0, and TRUE is encoded as 1. 
+
+```r
+0==FALSE
+```
+
+```
+[1] TRUE
+```
+
+```r
+1==TRUE
+```
+
+```
+[1] TRUE
+```
+
+```r
+# How do you think we could easily figure out how many TRUEs there are in logical_vec2?
+
+# How can you get R to tell you the number of missing values in data_vector?
+```
+
 
 ```r
 sum(is.na(data_vector))
@@ -587,98 +826,245 @@ sum(is.na(data_vector))
 [1] 1
 ```
 
-============
-# Data Frames
 
-What do you do with all of these vectors?
-===========
+Treating numbers as logicals
+==============
 incremental: true
-Vectors can be combined to create data frames, or R's word for tables. First, let's make two vectors of equal length:
+Imagine that you're doing an experiment measuring plant height, but some of the plants didn't grow. You decide those should be considered missing values, so they entered `NA` for those plants. Let's count the number of plants that DID grow in your experiment.
+
 
 ```r
-vector1 <- 20:1
-vector2 <- seq(4,12,length.out = 20)
-length(vector1) == length(vector2)
+plant_heights <- c(1.9, 0.1, NA, 0.8, 0.4, 0.2, 7.9, NA, 16.8, 3.5)
+
+# create a logical vector, plant_NA_vector, that contains information on whether
+# each value in plant_heights is missing (NA)
+
+# use plant_NA_vector to figure out how many plants total didn't grow
+# assign this number to a variable and print it out
+
+# use plant_NA_vector to figure out how many plants DID grow
+# assign this number to a variable and print it out
+
+# bonus:figure out what PROPORTION of plants grew
+# assign this number to a variable and print it out
+```
+
+Treating numbers as logicals
+==============
+incremental: true
+
+
+
+```r
+# create a logical vector, plant_NA_vector, that contains information on whether
+# each value in plant_heights is missing (NA)
+```
+
+```r
+plant_NA_vector <- is.na(plant_heights)
+```
+
+```r
+# use plant_NA_vector to figure out how many plants total didn't grow
+# assign this number to a variable and print it out
+```
+
+```r
+sum(plant_NA_vector)
+```
+
+```
+[1] 2
+```
+
+```r
+# use plant_NA_vector to figure out how many plants DID grow
+# assign this number to a variable and print it out
+```
+
+```r
+howmanyplants <- length(plant_heights) - sum(plant_NA_vector)
+```
+
+```r
+# bonus:figure out what PROPORTION of plants grew
+# assign this number to a variable and print it out
+```
+
+```r
+proportionofplants <- howmanyplants/length(plant_heights)
+```
+
+Selecting and replacing values from vectors based on logicals
+=======
+incremental: true
+
+In addition to using indices to get R to tell us a specific position in a vector, we can also use them to replace specific values. Take a look at this example.
+
+```r
+vector_to_sub <- c(12, 13, 14, 15, NA, 17, 18, 19)
+
+# replace the 2nd value in vector_to_sub with 54
+```
+
+```r
+vector_to_sub[2] <- 54
+print(vector_to_sub)
+```
+
+```
+[1] 12 54 14 15 NA 17 18 19
+```
+
+```r
+# now, try replacing the 1st, 3rd, and 8th values in vector_to_sub with 28,
+# using only one line of code (i.e. do it all at once)
+```
+
+```r
+vector_to_sub[c(1,3,8)] <- 28
+vector_to_sub
+```
+
+```
+[1] 28 54 28 15 NA 17 18 28
+```
+
+Selecting and replacing values from vectors based on logicals
+=======
+incremental: true
+
+One really powerful way to use this vector substitution is to combine it with logical vectors. Take a look at the example below:
+
+```r
+vector_to_sub2 <- 1:3
+vector_to_sub2[c(TRUE, FALSE, TRUE)] <- 42
+
+# What do you think vector_to_sub2 looks like now? Print it out to check
+```
+
+```r
+vector_to_sub2
+```
+
+```
+[1] 42  2 42
+```
+
+Selecting and replacing values from vectors based on logicals
+=======
+incremental: true
+Try this for yourself. Lots of times, we want to replace missing values in vectors. Let's say that, when you do your analysis on the plant example above, you want to treat the plants that didn't grow as having a height of 0 rather than being missing.
+
+```r
+# use plant_NA_vector to replace every missing value in plant_heights with a 0
+
+# print the modified plant_heights vector
+```
+
+
+Selecting and replacing values from vectors based on logicals
+=======
+incremental: true
+Try this for yourself. Lots of times, we want to replace missing values in vectors. Let's say that, when you do your analysis on the plant example above, you want to treat the plants that didn't grow as having a height of 0 rather than being missing.
+
+```r
+# use plant_NA_vector to replace every missing value in plant_heights with a 0
+plant_heights
+```
+
+```
+ [1]  1.9  0.1   NA  0.8  0.4  0.2  7.9   NA 16.8  3.5
+```
+
+```r
+plant_heights[plant_NA_vector] <- 0
+
+# print the modified plant_heights vector
+plant_heights
+```
+
+```
+ [1]  1.9  0.1  0.0  0.8  0.4  0.2  7.9  0.0 16.8  3.5
+```
+
+Operations on logicals (AND, OR)
+=======
+incremental: true
+We can also do "and" (`&`) and "or" (`|`, all the way on the right side of your keyboard). "And" only returns true if both things are true. "Or" returns true if at least one thing is true.
+
+Try predicting what all the operations below will return
+
+```r
+TRUE & TRUE
 ```
 
 ```
 [1] TRUE
 ```
 
-Next, we can use the data.frame() function to combine these vectors into columns:
-
 ```r
-mydataframe <- data.frame(vector1, vector2)
+TRUE & FALSE
 ```
 
-What do you do with all of these vectors?
-===========
+```
+[1] FALSE
+```
+
+```r
+FALSE & FALSE
+```
+
+```
+[1] FALSE
+```
+
+```r
+FALSE | TRUE
+```
+
+```
+[1] TRUE
+```
+
+```r
+TRUE | TRUE
+```
+
+```
+[1] TRUE
+```
+
+```r
+FALSE | FALSE
+```
+
+```
+[1] FALSE
+```
+
+Operations on logicals (AND, OR)
+=======
 incremental: true
-To view the top rows of a data frame, use head()
+We can also do "and" (`&`) and "or" (`|`, all the way on the right side of your keyboard). "And" only returns true if both things are true. "Or" returns true if at least one thing is true.
 
 ```r
-head(mydataframe)
-```
+# bonus: perform some operations on the following variables (unicorns and
+# rainbows) that will result in a TRUE value being returned
 
+unicorns <- FALSE
+rainbows <- FALSE
 ```
-  vector1  vector2
-1      20 4.000000
-2      19 4.421053
-3      18 4.842105
-4      17 5.263158
-5      16 5.684211
-6      15 6.105263
-```
-
-Subsetting Data Frames
-==========
-Some data frames have column **names** and all data frames have row-column **positions**. You can identify a value in a data frame by indicating the position in the column (essentially, the position in the vector) of a row, or by referencing the [row,column] number.
 
 
 ```r
-mydataframe$vector1[2]
+unicorns == rainbows
 ```
 
 ```
-[1] 19
+[1] TRUE
 ```
 
-```r
-mydataframe[2,1]
-```
-
-```
-[1] 19
-```
-
-```r
-mydataframe[1,2]
-```
-
-```
-[1] 4
-```
-
-Subsetting Data Frames
-==========
-You can also reference each of the rows or columns by leaving the opposite position blank:
-
-```r
-mydataframe[,1] #column one
-```
-
-```
- [1] 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
-```
-
-```r
-mydataframe[2,] #row 2
-```
-
-```
-  vector1  vector2
-2      19 4.421053
-```
 
 A review of what we've learned today
 ==========

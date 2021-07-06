@@ -32,7 +32,7 @@ output:
 - There are functions that summarize vectors and gives you statistics of them
 - Be careful about `NA`s: What makes them? How to find them?
 
-### [Session 4: Workshop 4: Indexing, Missing values, Data Frames, and Logicals](source/Workshop_4.html)
+### [Session 4: Indexing, Missing values, Data Frames, and Logicals](source/Workshop_4.html)
 
 > [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
 
@@ -41,7 +41,11 @@ output:
 - Working with missing values
 - Stacking vectors to make a table: Introduction to data frames
   
-### Session 5: Is this a butterfly? Logical operations
+### [Session 5: Logical operation and data frames, continued](session_5_df_logical_ws.html)
+
+- Making comparisons and asking yes/no questions with logical operations
+- Making data frames with vectors
+- Working with data frames
 
 ### Session 6: R people call a table a data frame
 
