@@ -19,7 +19,7 @@ class: center, middle
 options(htmltools.dir.version = FALSE)
 ```
 
-Adpated from material curated by Eugene Plavskin and Grace Avecilla
+Adapted from material curated by Eugene Plavskin and Grace Avecilla
 
 
 ---

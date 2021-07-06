@@ -1,22 +1,42 @@
+.title-slide {
+  background-image: url("../../img/titlebg.jpg");
+  background-size: cover;
+}
+.title-slide h2, .title-slide h3{
+  font-weight: normal;
+}
+.title-slide .remark-slide-number {
+  display: none;
+}
+.remark-slide-content {
+  font-size: 18pt;
+}
+.remark-slide-content h1 {
+  font-size: 180%;
+}
+.remark-slide-content h2 {
+  font-size: 150%;
+}
+.remark-slide-content h3 {
+  font-size: 120%;
+}
 a, a > code {
-  color: rgb(249, 38, 114);
+  color: #8900e1;
   text-decoration: none;
 }
 .footnote {
   position: absolute;
-  bottom: 3em;
-  padding-right: 4em;
-  font-size: 90%;
+  bottom: 0em;
+  padding-right: 1em;
+  font-size: 60%;
+  max-width: 80%;
 }
 .remark-code-line-highlighted     { background-color: #ffff88; }
 
 .inverse {
-  background-color: #272822;
-  color: #d6d6d6;
-  text-shadow: 0 0 20px #333;
-}
-.inverse h1, .inverse h2, .inverse h3 {
-  color: #f3f3f3;
+  background-color: #f2f2f2;
+  color: #57068c;
+  text-shadow: 0 0 20px #ffffff;
 }
 /* Two-column layout */
 .left-column {
@@ -33,6 +53,9 @@ a, a > code {
   float: right;
   padding-top: 1em;
 }
+.right-column .tab-in {
+  margin-left: 2em;
+}
 .pull-left {
   float: left;
   width: 47%;
@@ -41,11 +64,14 @@ a, a > code {
   float: right;
   width: 47%;
 }
-.pull-right + * {
+.pull-right ~ * {
   clear: both;
 }
 img, video, iframe {
   max-width: 100%;
+  max-height: 65vh;
+  display: block;
+  margin: 0 auto;
 }
 blockquote {
   border-left: solid 5px lightgray;

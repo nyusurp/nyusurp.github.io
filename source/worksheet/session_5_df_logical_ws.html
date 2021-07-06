@@ -401,7 +401,7 @@ which(odds_are_true)</code></pre>
 </div>
 <div id="you-might-prefer-a-table-and-so-do-i." class="section level2">
 <h2>You might prefer a table, and so do I.</h2>
-<p>Most of the times, we prefer to work with tables because our data usually does not fit in a vector, and it’s tedious to have vectors scattering around.</p>
+<p>Most of the time, we prefer to work with tables because our data usually does not fit in a vector, and it’s tedious to have vectors scattering around.</p>
 <div id="data.frame-is-used-to-construct-a-data-frame-like-c-is-used-to-make-a-vector." class="section level3">
 <h3><code>data.frame()</code> is used to construct a data frame like <code>c()</code> is used to make a vector.</h3>
 <p><code>data.frame()</code> take multiple vectors separated by commas as its argument, and returns a data.frame.</p>
@@ -561,12 +561,21 @@ print(gene_model)</code></pre>
 ## Mnx1    Transcription factor ENSMUSG00000001566
 ## Slc18a3               Enzyme ENSMUSG00000100241
 ## Vglut1           Transporter ENSMUSG00000070570</code></pre>
+<p>Your turn: The official symbol for Vglut1 is “Slc17a7”. Let’s rename the row.</p>
 <p>You can access rows by their names using the square bracket syntax.</p>
 <pre class="r"><code># Get the Mnx1 row
 gene_model[&quot;Mnx1&quot;, ]</code></pre>
 <pre><code>##                 gene_type                 id
 ## Mnx1 Transcription factor ENSMUSG00000001566</code></pre>
 <pre class="r"><code># Get both the Mnx1 and Vglut1 row</code></pre>
+<p>Square brackets can be used for colnames, too, and this can be useful when you need to get multiple columns by their names.</p>
+<pre class="r"><code># Get the gene_type and id column
+gene_model[, c(&quot;gene_type&quot;, &quot;id&quot;)]</code></pre>
+<pre><code>##                    gene_type                 id
+## Gapdh                 Enzyme ENSMUSG00000057666
+## Mnx1    Transcription factor ENSMUSG00000001566
+## Slc18a3               Enzyme ENSMUSG00000100241
+## Vglut1           Transporter ENSMUSG00000070570</code></pre>
 </div>
 </div>
 <div id="take-home-messages" class="section level2">

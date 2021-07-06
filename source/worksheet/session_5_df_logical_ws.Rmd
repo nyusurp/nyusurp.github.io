@@ -179,7 +179,7 @@ which(odds_are_true)
 
 ## You might prefer a table, and so do I.
 
-Most of the times, we prefer to work with tables because our data usually does not fit in a vector, and it's tedious to have vectors scattering around.
+Most of the time, we prefer to work with tables because our data usually does not fit in a vector, and it's tedious to have vectors scattering around.
 
 ### `data.frame()` is used to construct a data frame like `c()` is used to make a vector.
 
@@ -307,6 +307,12 @@ rownames(gene_model)[3] <- "Slc18a3"
 print(gene_model)
 ```
 
+Your turn: The official symbol for Vglut1 is "Slc17a7". Let's rename the row.
+
+```{r}
+
+```
+
 You can access rows by their names using the square bracket syntax.
 
 ```{r}
@@ -319,6 +325,12 @@ gene_model["Mnx1", ]
 
 ```
 
+Square brackets can be used for colnames, too, and this can be useful when you need to get multiple columns by their names.
+
+```{r}
+# Get the gene_type and id column
+gene_model[, c("gene_type", "id")]
+```
 
 ## Take-home messages
 
