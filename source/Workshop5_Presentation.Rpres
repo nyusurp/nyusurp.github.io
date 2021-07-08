@@ -173,7 +173,7 @@ incremental: true
 Once you have this data, you might want to select from the data frame all of the values that are in the top or bottom 10% of a value. Use quantile() to find these values for Petal Length in the iris dataset.
 
 ```{r}
-quantile(iris$Petal.Length, 0.1, 0.9)
+quantile(iris$Petal.Length, c(0.1, 0.9))
 ```
 
 Exercise
@@ -188,7 +188,7 @@ You want to extract the **rows** which include the top 10% of your Petal Length 
 
 ```{r}
 quantile(iris$Petal.Length, 0.9)
-which(iris$Petal.Length > quantile(iris$Petal.Length, 0.9))
+which(iris$Petal.Length >= quantile(iris$Petal.Length, 0.9))
 ```
 
 Exercise
@@ -232,7 +232,7 @@ With your partner, pick one of the following tasks to complete:
 1. Which species of penguin has the largest average bill length? Which species has the smallest bill depth?
 2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
 3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
-4. Was the sampling by sex equal each year? What percentage of penguins were female each year?
+4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
 
 Exercise
 =============
@@ -375,5 +375,5 @@ complimentme <- function(x = 1){
 ```
 
 ```{r}
-complimentme(2)
+complimentme(3)
 ```
