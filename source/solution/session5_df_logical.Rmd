@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
 - [Go back to the syllabus](https://nyusurp.github.io)
-- [Go back to worksheet](https://nyusurp.github.io/session_5_df_logi_ws.html)
+- [Go back to worksheet](../worksheet/session_5_df_logi_ws.html)
 - [The slide deck for the session](../../slide/session_5_df_logi.html)
 
 ## Review from the last session
