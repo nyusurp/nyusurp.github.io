@@ -1,7 +1,7 @@
 ---
 title: "SURP R Workshop"
 author: "Cassandra Buzby & Yen-Chung Chen"
-date: "6/15/2021"
+date: "Last updated: `r Sys.Date()`"
 output:
   html_document:
       toc: true
