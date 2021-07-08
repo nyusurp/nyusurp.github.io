@@ -47,7 +47,11 @@ output:
 - Making data frames with vectors
 - Working with data frames
 
-### Session 6: R people call a table a data frame
+### [Session 6: Working (more) with Data Frames]()
+
+> [Slides for this session](source/Workshop5_Presentation.Rpres): Download & play in RStudio
+
+> [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
 
 ### Session 7: Plotting with `ggplot2`
 
