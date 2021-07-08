@@ -34,8 +34,7 @@ output:
 
 ### [Session 4: Indexing, Missing values, Data Frames, and Logicals](source/Workshop_4.html)
 
-> [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
-
+- [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
 - Working with numeric vectors
   - How do I retrieve an element from a vector?
 - Working with missing values
@@ -47,11 +46,11 @@ output:
 - Making data frames with vectors
 - Working with data frames
 
-### [Session 6: Working (more) with Data Frames]()
+### [Session 6: Working (more) with Data Frames](https://nyusurp.github.io/source/Workshop6_2021.html)
 
-> [Slides for this session](source/Workshop5_Presentation.Rpres): Download & play in RStudio
-
-> [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
+- [Slides for this session](source/Workshop5_Presentation.Rpres): Download & play in RStudio
+- [Worksheet for this session](source/Workshop6_2021.Rmd)
+- [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
 
 ### Session 7: Plotting with `ggplot2`
 
