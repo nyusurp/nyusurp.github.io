@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [Go back to the syllabus](https://nyusurp.github.io)
 - [Source code of this worksheet](session_5_df_logical_ws.Rmd) (Right-click -> download linked file)
-- [Go to solution](../solution/session_5_df_logi.html)
+- [Go to solution](../solution/session_5_df_logical.html)
 - [The slide deck for the session](https://nyusurp.github.io/slide/session_5_logical_df.html)
 
 ## Review from the last session
