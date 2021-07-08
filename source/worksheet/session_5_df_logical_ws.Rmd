@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
 - [Go back to the syllabus](https://nyusurp.github.io)
-- [Source code of this worksheet](https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/worksheet/session_5_df_logical_ws.Rmd)
+- [Source code of this worksheet](source/worksheet/session_5_df_logical_ws.Rmd) (Right-click -> download linked file)
 - [Go to solution](source/solution/session_5_df_logi.html)
 - [The slide deck for the session](https://nyusurp.github.io/slide/session_5_logical_df.html)
 
