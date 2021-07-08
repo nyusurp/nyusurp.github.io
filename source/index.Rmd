@@ -48,7 +48,7 @@ output:
 
 ### [Session 6: Working (more) with Data Frames](https://nyusurp.github.io/source/Workshop6_2021.html)
 
-- [Slides for this session](source/Workshop5_Presentation.Rpres): Download & play in RStudio
+- [Slides for this session](source/Workshop6_Presentation.Rpres): Download & play in RStudio
 - [Worksheet for this session](source/Workshop6_2021.Rmd): Right-click -> Download linked file
 - [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
 
