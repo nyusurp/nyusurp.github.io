@@ -1,5 +1,5 @@
 ---
-title: "SURP R Workshop"
+title: "SURP R Workshop "
 author: "Cassandra Buzby & Yen-Chung Chen"
 date: "Last updated: `r Sys.Date()`"
 output:
@@ -9,6 +9,8 @@ output:
       toc_float: true
       code_folding: show
 ---
+
+<img src="../img/gsas_long_color.png" alt="NYU GSAS logo" width="240" align="right"/>
 
 ## Handouts
 
