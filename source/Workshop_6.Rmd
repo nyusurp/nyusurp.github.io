@@ -1,20 +1,25 @@
 ---
 title: "Workshop 6:Dataframes"
-subtitle: |
-    |   - formatting data for analysis and reading excel data into R dataframes
-    |   - selecting rows and columns of interest
-    |   - adding columns to dataframes
-    |   - exporting data from R
-    |   - performing operations on individual columns of data
 author:
-  - Eugene Plavskin
-  - Grace Avecilla
-  - Tobi Shraink
+- Eugene Plavskin
+- Grace Avecilla
+- Tobi Shraink
+subtitle: |
+  |   - formatting data for analysis and reading excel data into R dataframes
+  |   - selecting rows and columns of interest
+  |   - adding columns to dataframes
+  |   - exporting data from R
+  |   - performing operations on individual columns of data
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     code_folding: show
     depth: 3
     tidy: yes
+    toc: yes
+  pdf_document:
     toc: yes
 ---
 **Solutions to this workshop can be found [here](Solutions_Workshop_6.nb.html)**
