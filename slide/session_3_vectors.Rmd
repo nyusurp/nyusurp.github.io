@@ -6,6 +6,7 @@ institute: "Desplan Lab, New York University"
 date: "2021/06/29"
 output:
   xaringan::moon_reader:
+    css: ["libs/default.css", "libs/default-fonts.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
