@@ -1,0 +1,444 @@
+---
+title: 'Session 7: Exploring data'
+author: "Cassandra Buzby & Yen-Chung Chen"
+date: "7/13/2021"
+output: 
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Adpated from material curated by Eugene Plavskin and Grace Avecilla
+
+- [Go back to the syllabus](https://nyusurp.github.io)
+- [Source code of this worksheet](session7_data_exploration.Rmd) (Right-click -> download linked file)
+- [Go to solution](../solution/session7_data_exploration.html)
+- [The slide deck for the session](https://nyusurp.github.io/slide/session7_data_exploration.html)
+
+
+## Review from the last session
+
+### Working with logical variables
+
+Logical variables are either `TRUE` or `FALSE` and often used to store the result of comparisons that could be answered by yes/no. We call these comparisons _logical operations_.
+
+`TRUE` is stored as 1, while `FALSE` is 0 by R, and as a result, many functions like `sum()` or `mean()` works on logical vectors.
+
+```{r}
+# How many of these numbers are even numbers?
+numbers <- c(15, 37, 24, 18, 16, 42, 33, 5, 1, 0)
+even <- numbers %% 2 == 0
+print(even)
+sum(even)
+mean(even)
+```
+
+
+### Computing with logical variables
+
+We can ask a more complicated question with multiple criterias with logical operators `AND (&)`, `OR (|)` and `NOT (!)`.
+
+- `AND`: Only return `TRUE` when both sides are `TRUE`. Otherwise, return `FALSE`.
+- `OR`: Return `TRUE` when either or both sides are `TRUE`. When both sides are `FALSE`, return `FALSE`
+- `NOT`: If given `TRUE`, return `FALSE`; if given `FALSE` return `TRUE`.
+
+```{r}
+# Which numbers are (1) even AND (2) not divisible by 3?
+even <- numbers %% 2 == 0
+multiples_of_3 <- numbers %%3 == 0
+
+combining_criteria <- even & !multiples_of_3
+print(combining_criteria)
+
+numbers[which(even)]
+numbers[which(combining_criteria)]
+```
+
+### Your turn: Leap years
+
+You can tell if a year is a leap year if:
+
+1. The year number is divisible by 4.
+
+2. The year number is not divisible by 100
+
+3. If a year is divisible by 400, it is still a leap year.
+
+How many leap years are there between 1900 - 2020?
+
+```{r}
+# Hint:
+# 1. Assign a vector that counts from 1900 - 2020
+# 2. Define the three rules as logical operations
+# 3. It might be easier if you first try to combine rule #2 & #3, and then #1.
+```
+
+### Working with data frames
+
+Data frames are just multiple vectors of the same length put together as columns. You can subset part of the data frame by their index or by their names.
+
+```{r}
+genes <- data.frame(
+  row.names = c("P53", "MYC", "KCNQ1OT1", "AKT", "RB", "ERK", "MALAT1"),
+  gene_type = c("Coding", "Coding", "Non-coding", "Coding", "Coding", "Coding", "Non-coding"),
+  MW = c(44, 48, NA, 56, 107, 42, NA),
+  gene_function = c("transcription factor", "transcription factor", "lncRNA", "kinase",
+                    "transcription factor", "kinase", "lncRNA")
+)
+print(genes)
+```
+
+```{r}
+# Subsetting a data frame with indices
+## Getting the 3rd and 7th row
+print(genes[c(3, 7), ])
+
+## You can also assign what you subset as a new variable
+lncrnas <- genes[c(3, 7), ]
+print(lncrnas)
+```
+
+You can also subset a data frame with it's column and row name.
+
+
+```{r}
+# Subset by column names
+print(genes$MW)
+print(genes[ , "MW"])
+
+# Subset by row names
+print(genes[c("P53", "KCNQ1OT1"), ])
+```
+
+Subsetting a data frame by a criteria can usually be solved by the following three steps:
+
+1. Defining your criteria as a logical operation
+2. Apply that operation on a row/column
+3. (Optional) Converting the result into row/column indices so you can put it into the square brackets.
+
+```{r}
+# Let "high MW" defined as MW > 50 kDa
+# Only keep the the genes that are of high MW and assign it as high_MW
+is_high <- genes$MW > 50
+is_high_index <- which(is_high)
+high_MW <- genes[is_high_index, ]
+print(high_MW)
+```
+
+### Your turn: Subset the transcription factors from the data frame
+
+```{r}
+# Subset the genes that are transcription factors, and assign the subset into a new variable tf
+```
+
+## Load external data into R
+
+The main reason why people use R is to work with larger datasets, so most of the time, we are not typing the data in as we have been doing. Instead, we usually retrieve data from elsewhere and import it into R.
+
+Common format that you might load into R are `txt`, `csv`, and excel spreadsheets. To keep things simple, we will not be discussing importing xls/xlsx files, but the common package to use is `readxl` (you can install it by `install.packages("readxl"))`).
+
+Comma-separated values (csv files) is a commonly used format to store tables. In this kind of files, each row is a line, while each column is separated by a common.
+
+If we were to save the `tf` variable into csv format, it will look like:
+
+```
+gene_type, MW, gene_function
+P53, Coding, 44, transcription factor
+MYC, Coding, 48, transcription factor
+RB, Coding, 107, transcription factor
+```
+
+In this session, we will be using `penguins.csv` to practice, which you can download from [here](https://nyusurp.github.io/source/penguins.csv).
+
+```{r}
+# Replace this path with where you store your penguins
+path <- "penguins.csv"
+# file.choose()
+
+penguins <- read.csv(
+  file = path,
+  header = TRUE,
+  row.names = 1
+)
+```
+
+The most commonly used arguments for `read.csv()` includes:
+
+- `file`: You need to provide the path (a character variable) so `read.csv()` knows where to find the file.
+- `header`: Whether this file contains column names (If yes, then `header = TRUE`)
+- `row.names`: Which column should be used as row names.
+
+### Your turn: Pick one of the 4 exercises
+
+1. Which species of penguin has the largest average bill length? Which species has the smallest bill depth?
+2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
+3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
+4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
+
+### Saving tables for later use
+
+Oftentimes, our analyses result in other tables, and we might want to save it outside of R. CSV file is also a good format for this purpose, and you can do it with `write.csv()`.
+
+```{r}
+# Saving only the 2008 part of the data
+is_2008 <- penguins$year == 2008
+penguins_2008 <- penguins[which(is_2008), ]
+
+write.csv(x = penguins_2008,
+          file = "penguins_2008.csv")
+```
+
+## Functions: A shortcut for repeated things
+
+### The basic parts of a function
+
+One of the most powerful features of programming languages is that whatever complicated things you do, one you've writen it, you can reused it with no sweat over and over again.
+
+To make a function, you need to know clearly:
+
+1. The _input_: What you are providing to a function. In R, they are also called `arguments`.
+2. The _action_: What you want to do with the input
+3. The _output_: What you want the function to give you
+
+Let's build a very simple function that _adds 2 to its input_ and gives the result as its output,
+
+```
+# Syntax of a function
+name_of_the_function <- function(arg1, arg2, arg3, ...) {
+  # Actions per se
+  return(output)
+}
+
+```
+
+```{r}
+plus_two <- function(input) {
+  output <- input + 2
+  return(output)
+}
+```
+
+```{r error = TRUE}
+plus_two(input = 5)
+plus_two(input = 3)
+plus_two("two")
+```
+
+
+### A function that finds leap years
+
+Of course, usually the _action_ part is much more complicated. Usually, once we've done with something complicated, we can review the code and see if we can make it a function. Let's use the leap year rules as another example.
+
+Previously, we've tried to count the leap years between 1900 - 2020. The code should look like this
+
+```
+year_interval <- 1900:2020
+
+# Whether the year can be divided by 4
+rule1 <- year_interval %% 4 == 0
+
+# Whether the year can be divided by 100
+rule2 <- year_interval %% 100 != 0
+
+# Whether the year can be divided by 400
+rule3 <- year_interval %% 400 == 0
+
+# Combining the rules
+leap_year <- rule1 & (rule2 | rule3)
+```
+
+To make it a function, we need to find the input, the actions, and the output.
+
+```
+##### The input ######
+year_interval <- 1900:2020
+
+##### The action ########
+# Whether the year can be divided by 4
+rule1 <- year_interval %% 4 == 0
+
+# Whether the year can be divided by 100
+rule2 <- year_interval %% 100 != 0
+
+# Whether the year can be divided by 400
+rule3 <- year_interval %% 400 == 0
+
+##### The output #########
+# Combining the rules
+leap_year <- rule1 & (rule2 | rule3)
+```
+
+And then put it in the function syntax:
+
+```{r}
+is_leap <- function(year){
+  ##### The action ########
+  # Whether the year can be divided by 4
+  rule1 <- year %% 4 == 0
+  
+  # Whether the year can be divided by 100
+  rule2 <- year %% 100 != 0
+  
+  # Whether the year can be divided by 400
+  rule3 <- year %% 400 == 0
+  
+  ##### The output #########
+  # Combining the rules
+  leap_year <- rule1 & (rule2 | rule3)
+  return(leap_year)
+}
+```
+
+```{r}
+is_leap(2025)
+is_leap(2000)
+is_leap(1900)
+```
+
+### Your turn: Make a BMI calculating function
+
+Body mass index is defined as:
+
+$$BMI=\frac{Weight (kg)}{Height^{2} (m)}$$
+
+```{r}
+# Define a calculate_bmi function that takes two arguments: weight and height
+```
+
+
+
+## Conditions
+
+`TRUE` and `FALSE` are not very intuitive (at least for me), so it will be nice if our function could explicitly say "No, 2025 is not a leap year".
+
+We already know how to make R _say_ things.
+
+```{r}
+useless_saying <- function(year) {
+  print("No, 2025 is not a leap year.")
+}
+```
+
+This is not super-useful. It doesn't even care for the `year` argument.
+
+```{r}
+useless_saying(1989)
+```
+
+If we can `paste` the `year` argument with the rest with the sentence, it will be better.
+
+```{r}
+useless_saying <- function(year) {
+  to_say <- paste(
+    "No,",
+    year,
+    "is not a leap year."
+  )
+  print(to_say)
+}
+
+useless_saying(2004)
+```
+
+This seems better except that the information is terribly wrong. The thing we want is that:
+
+Only when `is_leap()` returns `TRUE`, say the year is a leap year. We can tell R to understand this condition with a `if()` syntax.
+
+```
+# Condition being a logical variable
+if (condition) {
+    # Actions that is only done if condition is TRUE
+}
+```
+
+```{r}
+author <- "JRR Tolkien"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+}
+```
+
+```{r}
+author <- "JK Rowling"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+}
+```
+
+We can define if what to excute if the condition is not met with `else`.
+
+```{r}
+author <- "JK Rowling"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+} else {
+  print("This author did not write the LotR series.")
+}
+```
+
+```{r}
+announce_leap <- function(year, condition) {
+  if (condition) {
+    to_say <- paste(
+      "Yes,",
+      year,
+      "is a leap year."
+    )
+  } else {
+    to_say <- paste(
+      "No,",
+      year,
+      "is not a leap year"
+    )
+  }
+  print(to_say)
+}
+
+announce_leap(1995, FALSE)
+```
+
+Functions can be used as part of other functions, so we are pretty close:
+
+```{r}
+is_leap_verbose <- function(year) {
+  condition <- is_leap(year)
+  announce_leap(year, condition)
+}
+
+is_leap_verbose(2055)
+```
+
+### Your turn: Create a function to evaluate BMI
+
+The normal range for adult BMI is 18.5 - 24.9. Let's make a function that:
+
+1. Tell you your current BMI if you give it the weight and height
+
+2. If the calculated BMI is within normal range, print "Your BMI is [BMI] and within normal range for adults."; otherwise, print "Your BMI is [BMI] and might need your attention."
+
+```{r}
+# Define a function that prints messages for different evaluation (normal or not)
+# announce_bmi
+
+# Then, define a master function that calculate, evaluate, and then annouce the BMI.
+# evaluate_bmi
+
+```
+
+## Take-home messages
+
+1. We often with larger datasets in R. Most file formats have a corresponding import function in `R`, so most of the time, you just need to google "import [file type] in R" and you are good. We covered importing CSV files with `read.csv()` and exporting with `write.csv()`.
+
+2. It's a good practice to always think about what a line of code is dealing with, and what it is doing to the input.
+
+3. Most of the time, you can make what you have done a function for re-use if you can tell what is the input and output and what you have done to the data.
+
+4. Functions are like Russian dolls, where small and simple functions become a part of a larger function. It's advisable to keep functions as small and simple as possible, and build up complexity hierarchically because this will make trouble shooting easier.
+
+5. Control structures make your functions more versatile. We covered `if()` statements, which allows you do only do certain action if some criteria are met. We will be cover `for()` loops in the next session due to time constraint, which allows you to apply the same function on a series of different things. Or in other words, using a vector/list as your input and run your function on every element.
