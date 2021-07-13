@@ -1,5 +1,5 @@
 ---
-title: 'Session 7: Exploring data'
+title: 'Session 7: Exploring data & making functions'
 author: "Cassandra Buzby & Yen-Chung Chen"
 date: "7/13/2021"
 output: 
@@ -143,7 +143,7 @@ The main reason why people use R is to work with larger datasets, so most of the
 
 Common format that you might load into R are `txt`, `csv`, and excel spreadsheets. To keep things simple, we will not be discussing importing xls/xlsx files, but the common package to use is `readxl` (you can install it by `install.packages("readxl"))`).
 
-Comma-separated values (csv files) is a commonly used format to store tables. In this kind of files, each row is a line, while each column is separated by a common.
+Comma-separated values (csv files) is a commonly used format to store tables. In this kind of files, each row is a line, while each column is separated by a comma.
 
 If we were to save the `tf` variable into csv format, it will look like:
 
