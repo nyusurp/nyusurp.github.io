@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session 7: Exploring data &amp; making functions</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Yen-Chung Chen" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Session 7: Exploring data &amp; making functions
+### Yen-Chung Chen
+### Desplan Lab, New York University
+### 2021/07/13
+
+---
+
+class: center, middle
+
+
+
+Adapted from material curated by Eugene Plavskin and Grace Avecilla
+
+---
+
+class: inverse, right, middle
+
+# Quick recap:
+## Working with logical variables
+
+---
+
+# Logical variables
+
+Logical variables are:
+
+--
+
+- Either `TRUE` or `FALSE`
+
+--
+
+- Often used to store the result of comparisons that could be answered by yes/no.
+  - We call these comparisons _logical operations_.
+
+--
+
+- `TRUE` is stored as 1, while `FALSE` is 0 by R
+
+--
+
+  - As a result, many functions like `sum()` or `mean()` works on logical vectors.
+  
+---
+
+# Getting answers in the form of logical variables
+
+
+```r
+# How many of these numbers are even numbers?
+numbers &lt;- c(15, 37, 24, 18, 16, 42, 33, 5, 1, 0)
+even &lt;- numbers %% 2 == 0
+print(even)
+```
+
+```
+##  [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+```
+
+--
+
+
+```r
+# Count the number of even numbers
+sum(even)
+```
+
+```
+## [1] 5
+```
+
+```r
+# Calculate the ratio of even numbers
+mean(even)
+```
+
+```
+## [1] 0.5
+```
+
+---
+
+# Computing with logical variables
+
+We can ask a more complicated question with multiple criterias with logical operators `AND (&amp;)`, `OR (|)` and `NOT (!)`.
+
+--
+
+- `AND`: Only return `TRUE` when both sides are `TRUE`. Otherwise, return `FALSE`.
+
+--
+
+- `OR`: Return `TRUE` when either or both sides are `TRUE`. When both sides are `FALSE`, return `FALSE`
+
+--
+
+- `NOT`: If given `TRUE`, return `FALSE`; if given `FALSE` return `TRUE`.
+
+---
+
+# A more complicated criterium
+
+
+```r
+# Which numbers are (1) even AND (2) not divisible by 3?
+even &lt;- numbers %% 2 == 0
+multiples_of_3 &lt;- numbers %%3 == 0
+
+combining_criteria &lt;- even &amp; !multiples_of_3
+print(combining_criteria)
+```
+
+```
+##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+```
+
+--
+
+
+```r
+# Print the even numbers
+numbers[which(even)]
+```
+
+```
+## [1] 24 18 16 42  0
+```
+
+```r
+# Print the even numbers that are not divisible by 3
+numbers[which(combining_criteria)]
+```
+
+```
+## [1] 16
+```
+
+
+---
+
+# Your turn: Leap years
+
+You can tell if a year is a leap year if:
+
+1. The year number is divisible by 4.
+
+2. The year number is not divisible by 100
+
+3. If a year is divisible by 400, it is still a leap year.
+
+## How many leap years are there between 1900 - 2020?
+
+--
+
+
+```r
+# Hint:
+# 1. Assign a vector that counts from 1900 - 2020
+# 2. Define the three rules as logical operations
+# 3. It might be easier if you first try to combine rule #2 &amp; #3, and then #1.
+```
+
+---
+
+# Finding leap years
+
+
+```r
+year_interval &lt;- 1900:2020
+
+# If a year is divisble by 4
+rule1 &lt;- year_interval %% 4 == 0
+
+# If a year is NOT divisible by 100
+rule2 &lt;- year_interval %% 100 != 0
+
+# If a year is divisible by 400
+rule3 &lt;- year_interval %% 400 == 0
+
+# rule2 | rule3: TRUE if one of them is TRUE
+leap_year &lt;- rule1 &amp; (rule2 | rule3)
+sum(leap_year)
+```
+
+```
+## [1] 30
+```
+
+---
+
+# Working with data frames
+
+Data frames are just multiple vectors of the same length put together as columns. You can subset part of the data frame by their index or by their names.
+
+--
+
+
+```r
+genes &lt;- data.frame(
+  row.names = c("P53", "MYC", "KCNQ1OT1", "AKT", "RB", "ERK", "MALAT1"),
+  gene_type = c("Coding", "Coding", "Non-coding", "Coding", "Coding", "Coding", "Non-coding"),
+  MW = c(44, 48, NA, 56, 107, 42, NA),
+  gene_function = c("transcription factor", "transcription factor", "lncRNA", "kinase",
+                    "transcription factor", "kinase", "lncRNA")
+)
+print(genes)
+```
+
+```
+##           gene_type  MW        gene_function
+## P53          Coding  44 transcription factor
+## MYC          Coding  48 transcription factor
+## KCNQ1OT1 Non-coding  NA               lncRNA
+## AKT          Coding  56               kinase
+## RB           Coding 107 transcription factor
+## ERK          Coding  42               kinase
+## MALAT1   Non-coding  NA               lncRNA
+```
+
+---
+  
+# Subset a data frame with its indices
+
+
+```r
+# Subsetting a data frame with indices
+## Getting the 3rd and 7th row
+print(genes[c(3, 7), ])
+```
+
+```
+##           gene_type MW gene_function
+## KCNQ1OT1 Non-coding NA        lncRNA
+## MALAT1   Non-coding NA        lncRNA
+```
+
+```r
+## You can also assign what you subset as a new variable
+lncrnas &lt;- genes[c(3, 7), ]
+print(lncrnas)
+```
+
+```
+##           gene_type MW gene_function
+## KCNQ1OT1 Non-coding NA        lncRNA
+## MALAT1   Non-coding NA        lncRNA
+```
+
+---
+
+# Subset a data frame with its colnames and rownames
+
+
+```r
+# Subset by column names
+print(genes$MW)
+```
+
+```
+## [1]  44  48  NA  56 107  42  NA
+```
+
+```r
+print(genes[ , "MW"])
+```
+
+```
+## [1]  44  48  NA  56 107  42  NA
+```
+
+```r
+# Subset by row names
+print(genes[c("P53", "KCNQ1OT1"), ])
+```
+
+```
+##           gene_type MW        gene_function
+## P53          Coding 44 transcription factor
+## KCNQ1OT1 Non-coding NA               lncRNA
+```
+
+---
+
+# Subset what you really want
+
+Subsetting a data frame by a criteria can usually be solved by the following three steps:
+
+--
+
+1. Defining your criteria as a logical operation
+
+--
+
+2. Apply that operation on a row/column
+
+--
+
+3. (Optional) Converting the result into row/column indices so you can put it into the square brackets.
+
+--
+
+
+```r
+# Let "high MW" defined as MW &gt; 50 kDa
+# Only keep the the genes that are of high MW and assign it as high_MW
+is_high &lt;- genes$MW &gt; 50
+is_high_index &lt;- which(is_high)
+high_MW &lt;- genes[is_high_index, ]
+print(high_MW)
+```
+
+```
+##     gene_type  MW        gene_function
+## AKT    Coding  56               kinase
+## RB     Coding 107 transcription factor
+```
+
+---
+
+# Your turn: Subset the transcription factors from the data frame
+
+
+```r
+# Subset the genes that are transcription factors
+# and assign the subset into a new variable tf
+```
+
+---
+
+## Your turn: Subset the transcription factors from the data frame
+
+
+```r
+# Subset the genes that are transcription factors
+# and assign the subset into a new variable tf
+is_tf &lt;- genes$gene_function == "transcription factor"
+tf_id &lt;- which(is_tf)
+tf &lt;- genes[tf_id, ]
+print(tf)
+```
+
+```
+##     gene_type  MW        gene_function
+## P53    Coding  44 transcription factor
+## MYC    Coding  48 transcription factor
+## RB     Coding 107 transcription factor
+```
+
+---
+
+class: inverse, right, middle
+
+# Load external data into R
+
+---
+
+# Load external data into R
+
+The main reason why people use R is to work with larger datasets, so most of the time, we are not typing the data in as we have been doing. Instead, we usually retrieve data from elsewhere and import it into R.
+
+Common format that you might load into R are `txt`, `csv`, and excel spreadsheets. To keep things simple, we will not be discussing importing xls/xlsx files, but the common package to use is `readxl` (you can install it by `install.packages("readxl"))`).
+
+---
+
+# Working with comma-separated value (CSV files)
+
+Comma-separated values (csv files) is a commonly used format to store tables. In this kind of files, each row is a line, while each column is separated by a comma.
+
+--
+
+If we were to save the `tf` variable into csv format, it will look like:
+
+```
+gene_type, MW, gene_function
+P53, Coding, 44, transcription factor
+MYC, Coding, 48, transcription factor
+RB, Coding, 107, transcription factor
+```
+
+---
+
+# Your turn: Load external data
+
+In this session, we will be using `penguins.csv` to practice, which you can download from [here](https://nyusurp.github.io/source/penguins.csv).
+
+
+```r
+# Replace this path with where you store your penguins
+path &lt;- "../source/penguins.csv"
+# file.choose()
+
+penguins &lt;- read.csv(
+  file = path,
+  header = TRUE,
+  row.names = 1
+)
+```
+
+---
+
+# `read.csv()`
+
+The most commonly used arguments for `read.csv()` includes:
+
+--
+
+- `file`: You need to provide the path (a character variable) so `read.csv()` knows where to find the file.
+
+--
+
+- `header`: Whether this file contains column names (If yes, then `header = TRUE`)
+
+--
+
+- `row.names`: Which column should be used as row names.
+
+---
+
+# Your turn: Pick one of the 4 exercises
+
+1. Which species of penguin has the largest average bill length? Which species has the smallest bill depth?
+
+2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
+
+3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
+
+4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
+
+---
+
+### 1. Which species of penguin has the largest average bill length? Which species has the smallest bill depth?
+
+
+```r
+adelie_BL &lt;- which(penguins$species == "Adelie")
+chinstrap_BL &lt;- which(penguins$species == "Chinstrap")
+gentoo_BL &lt;- which(penguins$species == "Gentoo")
+
+mean(penguins[adelie_BL, 4], na.rm = TRUE)
+```
+
+```
+## [1] 18.34636
+```
+
+```r
+mean(penguins[chinstrap_BL, 4], na.rm = TRUE)
+```
+
+```
+## [1] 18.42059
+```
+
+```r
+mean(penguins[gentoo_BL, 4], na.rm = TRUE)
+```
+
+```
+## [1] 14.98211
+```
+
+---
+
+### 2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
+
+
+```r
+ten_percent_cutoff &lt;- quantile(penguins$flipper_length_mm, 0.1, na.rm = TRUE)
+ten_percent_of_penguins &lt;- penguins[penguins$flipper_length_mm &lt;= ten_percent_cutoff,]
+
+sum(ten_percent_of_penguins$species == "Adelie", na.rm = TRUE)
+```
+
+```
+## [1] 37
+```
+
+```r
+sum(ten_percent_of_penguins$species == "Chinstrap", na.rm = TRUE)
+```
+
+```
+## [1] 4
+```
+
+```r
+sum(ten_percent_of_penguins$species == "Gentoo", na.rm = TRUE)
+```
+
+```
+## [1] 0
+```
+
+---
+
+### 2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
+
+
+```r
+#alternatively:
+table(ten_percent_of_penguins$species)
+```
+
+```
+## 
+##    Adelie Chinstrap 
+##        37         4
+```
+
+---
+
+### 3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
+
+
+```r
+table(penguins$species[penguins$island == "Biscoe"])
+```
+
+```
+## 
+## Adelie Gentoo 
+##     44    124
+```
+
+```r
+table(penguins$species[penguins$island == "Dream"])
+```
+
+```
+## 
+##    Adelie Chinstrap 
+##        56        68
+```
+
+```r
+table(penguins$species[penguins$island == "Torgersen"])
+```
+
+```
+## 
+## Adelie 
+##     52
+```
+
+---
+
+### 3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
+
+
+```r
+# Alternatively
+table(penguins[ , c("island", "species")])
+```
+
+```
+##            species
+## island      Adelie Chinstrap Gentoo
+##   Biscoe        44         0    124
+##   Dream         56        68      0
+##   Torgersen     52         0      0
+```
+
+---
+
+### 4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
+
+
+```r
+penguins07 &lt;- penguins[penguins$year == 2007,]
+length(penguins07$year[penguins07$sex == "female"])/length(penguins07$year)
+```
+
+```
+## [1] 0.5272727
+```
+
+
+```r
+numbers08 &lt;- which(penguins$year == 2008)
+penguins08 &lt;- penguins[numbers08,]
+
+table(penguins08$sex)
+```
+
+```
+## 
+## female   male 
+##     56     57
+```
+
+---
+
+### 4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
+
+
+```r
+penguins09 &lt;- penguins[penguins$year == 2009,]
+sum(penguins09$sex == "female", na.rm = TRUE)/sum(penguins09$sex == "male", na.rm = TRUE)
+```
+
+```
+## [1] 0.9830508
+```
+
+
+```r
+table(penguins[ , c("year", "sex")])
+```
+
+```
+##       sex
+## year   female male
+##   2007     51   52
+##   2008     56   57
+##   2009     58   59
+```
+
+---
+
+# Saving tables for later use
+
+Oftentimes, our analyses result in other tables, and we might want to save it outside of R. CSV file is also a good format for this purpose, and you can do it with `write.csv()`.
+
+--
+
+
+```r
+# Saving only the 2008 part of the data
+is_2008 &lt;- penguins$year == 2008
+penguins_2008 &lt;- penguins[which(is_2008), ]
+
+write.csv(x = penguins_2008,
+          file = "penguins_2008.csv")
+```
+
+---
+
+class: inverse, right, middle
+
+# Functions:
+## A shortcut for repeated things
+
+---
+
+# The basic parts of a function
+
+One of the most powerful features of programming languages is that whatever complicated things you do, one you've writen it, you can reused it with no sweat over and over again.
+
+--
+
+To make a function, you need to know clearly:
+
+--
+
+1. The _input_: What you are providing to a function. In R, they are also called `arguments`.
+
+--
+
+2. The _action_: What you want to do with the input
+
+--
+
+3. The _output_: What you want the function to give you
+
+---
+
+# A minimal function
+
+Let's build a very simple function that _adds 2 to its input_ and gives the result as its output,
+
+--
+
+```
+# Syntax of a function
+name_of_the_function &lt;- function(arg1, arg2, arg3, ...) {
+  # Actions per se
+  return(output)
+}
+
+```
+
+--
+
+
+```r
+plus_two &lt;- function(input) {
+  output &lt;- input + 2
+  return(output)
+}
+```
+
+---
+
+# A minimal function in action
+
+
+```r
+plus_two(input = 5)
+```
+
+```
+## [1] 7
+```
+
+```r
+plus_two(input = 3)
+```
+
+```
+## [1] 5
+```
+
+```r
+plus_two("two")
+```
+
+```
+## Error in input + 2: non-numeric argument to binary operator
+```
+
+---
+
+# A function that finds leap years
+
+Of course, usually the _action_ part is much more complicated. Usually, once we've done with something complicated, we can review the code and see if we can make it a function. Let's use the leap year rules as another example.
+
+--
+
+Previously, we've tried to count the leap years between 1900 - 2020. The code should look like this:
+
+--
+
+```
+year_interval &lt;- 1900:2020
+
+# Whether the year can be divided by 4
+rule1 &lt;- year_interval %% 4 == 0
+
+# Whether the year can be divided by 100
+rule2 &lt;- year_interval %% 100 != 0
+
+# Whether the year can be divided by 400
+rule3 &lt;- year_interval %% 400 == 0
+
+# Combining the rules
+leap_year &lt;- rule1 &amp; (rule2 | rule3)
+```
+
+---
+
+# Finding the parts
+
+To make it a function, we need to find the input, the actions, and the output.
+
+```
+##### The input ######
+year_interval &lt;- 1900:2020
+
+##### The action ########
+# Whether the year can be divided by 4
+rule1 &lt;- year_interval %% 4 == 0
+
+# Whether the year can be divided by 100
+rule2 &lt;- year_interval %% 100 != 0
+
+# Whether the year can be divided by 400
+rule3 &lt;- year_interval %% 400 == 0
+
+##### The output #########
+# Combining the rules
+leap_year &lt;- rule1 &amp; (rule2 | rule3)
+```
+
+---
+
+# Write a function
+
+And then put it in the function syntax:
+
+
+```r
+is_leap &lt;- function(year){
+  ##### The action ########
+  # Whether the year can be divided by 4
+  rule1 &lt;- year %% 4 == 0
+  
+  # Whether the year can be divided by 100
+  rule2 &lt;- year %% 100 != 0
+  
+  # Whether the year can be divided by 400
+  rule3 &lt;- year %% 400 == 0
+  
+  ##### The output #########
+  # Combining the rules
+  leap_year &lt;- rule1 &amp; (rule2 | rule3)
+  return(leap_year)
+}
+```
+
+---
+
+# `is_leap()`
+
+
+```r
+is_leap(2025)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is_leap(2000)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is_leap(1900)
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+# Your turn: Make a BMI calculating function
+
+Body mass index is defined as:
+
+`$$BMI=\frac{Weight (kg)}{Height^{2} (m)}$$`
+
+
+```r
+# Define a calculate_bmi function that takes two arguments: weight and height
+```
+
+---
+
+# Your turn: Make a BMI calculating function
+
+Body mass index is defined as:
+
+`$$BMI=\frac{Weight (kg)}{Height^{2} (m)}$$`
+
+
+```r
+# Define a calculate_bmi function that takes two arguments: weight and height
+calculate_bmi &lt;- function(weight, height) {
+  bmi &lt;- weight/height^2
+  return(bmi)
+}
+calculate_bmi(90, 1.85)
+```
+
+```
+## [1] 26.29657
+```
+
+---
+
+---
+
+class: inverse, right, middle
+
+# Control sturctures:
+## `if()`, doing things conditionally
+
+---
+
+# Conditions
+
+`TRUE` and `FALSE` are not very intuitive (at least for me), so it will be nice if our function could explicitly say "No, 2025 is not a leap year".
+
+We already know how to make R _say_ things.
+
+--
+
+
+```r
+useless_saying &lt;- function(year) {
+  print("No, 2025 is not a leap year.")
+}
+```
+
+--
+
+This is not super-useful. It doesn't even care for the `year` argument.
+
+
+```r
+useless_saying(1989)
+```
+
+```
+## [1] "No, 2025 is not a leap year."
+```
+
+---
+
+# Make the function aware of its input
+
+If we can `paste` the `year` argument with the rest with the sentence, it will be better.
+
+--
+
+
+```r
+useless_saying &lt;- function(year) {
+  to_say &lt;- paste(
+    "No,",
+    year,
+    "is not a leap year."
+  )
+  print(to_say)
+}
+
+useless_saying(2004)
+```
+
+```
+## [1] "No, 2004 is not a leap year."
+```
+
+--
+
+This seems better except that the information is terribly wrong.
+
+---
+
+# Using `if()`
+
+The thing we want is that: Only when `is_leap()` returns `TRUE`, say the year is a leap year.
+
+--
+
+We can tell R to understand this condition with a `if()` syntax.
+
+```
+# Condition being a logical variable
+if (condition) {
+    # Actions that is only done if condition is TRUE
+}
+```
+
+---
+
+# A minimal usage of `if()`
+
+
+```r
+author &lt;- "JRR Tolkien"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+}
+```
+
+```
+## [1] "This guy wrote the Lord of Rings"
+```
+
+--
+
+
+```r
+author &lt;- "JK Rowling"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+}
+```
+
+---
+
+# Using `else` with `if()`
+
+We can define if what to excute if the condition is not met with `else`.
+
+
+```r
+author &lt;- "JK Rowling"
+if (author == "JRR Tolkien") {
+  print("This guy wrote the Lord of Rings")
+} else {
+  print("This author did not write the LotR series.")
+}
+```
+
+```
+## [1] "This author did not write the LotR series."
+```
+
+---
+
+# Back to the leap year function
+
+
+```r
+announce_leap &lt;- function(year, condition) {
+  if (condition) {
+    to_say &lt;- paste(
+      "Yes,",
+      year,
+      "is a leap year."
+    )
+  } else {
+    to_say &lt;- paste(
+      "No,",
+      year,
+      "is not a leap year"
+    )
+  }
+  print(to_say)
+}
+```
+
+--
+
+
+```r
+announce_leap(1995, FALSE)
+```
+
+```
+## [1] "No, 1995 is not a leap year"
+```
+
+---
+
+# Putting pieces together
+
+Functions can be used as part of other functions, so we are pretty close:
+
+
+```r
+is_leap_verbose &lt;- function(year) {
+  condition &lt;- is_leap(year)
+  announce_leap(year, condition)
+}
+
+is_leap_verbose(2055)
+```
+
+```
+## [1] "No, 2055 is not a leap year"
+```
+
+---
+
+# Your turn: Create a function to evaluate BMI
+
+The normal range for adult BMI is 18.5 - 24.9. Let's make a function that:
+
+1. Tell you your current BMI if you give it the weight and height
+
+2. If the calculated BMI is within normal range, print "Your BMI is [BMI] and within normal range for adults."; otherwise, print "Your BMI is [BMI] and might need your attention."
+
+---
+
+# Define a function that prints messages for different evaluation (normal or not)
+
+
+```r
+announce_bmi &lt;- function(normal, bmi) {
+  if (normal) {
+    to_say &lt;- paste(
+      "Your BMI is",
+      bmi,
+      "and within normal range for adults."
+    )
+  } else {
+    to_say &lt;- paste(
+      "Your BMI is",
+      bmi,
+      "and might need your attention."
+    )
+  }
+  print(to_say)
+}
+```
+
+---
+
+# Usage of `announce_bmi()`
+
+
+```r
+announce_bmi(FALSE, 100)
+```
+
+```
+## [1] "Your BMI is 100 and might need your attention."
+```
+
+---
+
+# Define a master function that calculate, evaluate, and then annouce the BMI.
+
+
+```r
+evaluate_bmi &lt;- function(weight, height) {
+  # Calculate BMI with our previous function
+  bmi &lt;- calculate_bmi(weight, height)
+  
+  # Evaluate if BMI is within normal range
+  normal &lt;- bmi &gt; 18.5 &amp; bmi &lt; 24.9
+  
+  # Announce BMI based on the evaluation
+  announce_bmi(normal = normal, bmi = bmi)
+}
+```
+
+---
+
+# Final product: `evaluate_bmi()`
+
+
+```r
+evaluate_bmi(89, 1.85)
+```
+
+```
+## [1] "Your BMI is 26.0043827611395 and might need your attention."
+```
+
+---
+
+# Take-home messages
+
+1. Most file formats have a corresponding import function in `R`, and googling "import [file type] in R" usually serve us well.
+
+--
+
+2. It's a good practice to think about what a line of code is dealing with, and what it is doing to the input.
+
+--
+
+3. Most of the time, you can make what you have done a function for re-use if you can tell what is the input and output and what you have done to the data.
+
+--
+
+4. It's advisable to keep functions as small and simple as possible, and build up complexity hierarchically.
+
+--
+
+5. `if()` statements, which allows you do only do certain action if some criteria are met.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

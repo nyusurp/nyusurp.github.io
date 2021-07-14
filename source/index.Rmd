@@ -1,7 +1,7 @@
 ---
-title: "SURP R Workshop"
+title: "SURP R Workshop "
 author: "Cassandra Buzby & Yen-Chung Chen"
-date: "6/15/2021"
+date: "Last updated: `r Sys.Date()`"
 output:
   html_document:
       toc: true
@@ -10,21 +10,23 @@ output:
       code_folding: show
 ---
 
+<img src="../img/gsas_long_color.png" alt="NYU GSAS logo" width="240" align="right"/>
+
 ## Handouts
 
-### [Session 1: Prepare your computer for R](session_1_environment.html)
+### [Session 1: Prepare your computer for R](source/worksheet/session_1_environment.html)
 
 - Installation of R and RStudio
 - Tour of RStudio
 - Arithmetic in R
 
-### [Session 2: Storing things, types of things, and do stuff](Workshop_2.html)
+### [Session 2: Storing things, types of things, and do stuff](source/Workshop_2.html)
 
 - Variables
 - Types
 - Basic functions
   
-### [Session 3: Vectors are just a list of things](session_3_vectors.html)
+### [Session 3: Vectors are just a list of things](source/worksheet/session_3_vectors.html)
 
 - Vectors contain items of the same _type_.
 - We can convert types but there are some things to keep in mind
@@ -34,26 +36,30 @@ output:
 
 ### [Session 4: Indexing, Missing values, Data Frames, and Logicals](source/Workshop_4.html)
 
-> [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
-
+- [Slides for this session](source/Workshop4_Presentation.Rpres): Download & play in RStudio
 - Working with numeric vectors
   - How do I retrieve an element from a vector?
 - Working with missing values
 - Stacking vectors to make a table: Introduction to data frames
   
-### [Session 5: Logical operation and data frames, continued](session_5_df_logical_ws.html)
+### [Session 5: Logical operation and data frames, continued](source/worksheet/session_5_df_logical_ws.html)
 
 - Making comparisons and asking yes/no questions with logical operations
 - Making data frames with vectors
 - Working with data frames
 
-### [Session 6: Working (more) with Data Frames]()
+### [Session 6: Working (more) with Data Frames](https://nyusurp.github.io/source/Workshop6_2021.html)
 
-> [Slides for this session](source/Workshop5_Presentation.Rpres): Download & play in RStudio
+- [Slides for this session](source/Workshop6_Presentation.Rpres): Download & play in RStudio
+- [Worksheet for this session](source/Workshop6_2021.Rmd): Right-click -> Download linked file
+- [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
 
-> [The penguin example dataset](source/penguins.csv): Right-click -> Download linked file
+### [Session 7: Exploring data & make your own functions](source/worksheet/session7_data_exploration.html)
 
-### Session 7: Plotting with `ggplot2`
+- Importing and exporting CSV format tables
+- Exploring data with the manipulations that you've learned
+- Making your own functions
+- Control structure: `if()` statement allows you to execute some lines of code only under certain conditions but not others.
 
 ### Session 8: Summarizing things with `dplyr`
 
@@ -61,5 +67,5 @@ output:
 
 ### Session 1 - 3
 
-- [Worksheet](Week1to3_Practice.html)
+- [Worksheet](source/Week1to3_Practice.html)
 - [Solutions](source/Week1to3_Practice_Solutions.html)

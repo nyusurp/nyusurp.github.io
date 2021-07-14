@@ -19,7 +19,7 @@ output:
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
 - **Solutions to this workshop can be found [here](Solutions_Workshop_2.nb.html)**
-- **The source can be downloaded [here from Github](https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/Workshop_2.Rmd). You can either save it as Rmd or copy and paste the whole file to an empty Rmarkdown file in RStudio.**
+- **The source can be downloaded [here from Github](Workshop_2.Rmd). You can either save it as Rmd or copy and paste the whole file to an empty Rmarkdown file in RStudio.**
 
 # Review from last time
 Add a code chunk below this text, and in that chunk use R to add your age to the age of your review partner.

@@ -14,10 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > Adpated from material curated by Eugene Plavskin and Grace Avecilla
 
-- [Go back to syllabus](index.html)
-- [The slide deck for the session](slide/session_1_environment.ppt)
-- [Link to this worksheet](https://raw.githubusercontent.com/nyusurp/nyusurp.github.io/master/source/worksheet/session_1_environment.Rmd)
-- [Solution to this worksheet](source/solution/session_1_environment.html)
+- [Go back to syllabus](https://nyusurp.github.io/)
+- [The slide deck for the session](https://nyusurp.github.io/slide/session_1_environment.ppt)
+- [Link to this worksheet](session_1_environment.Rmd) (Right-click -> download linked file)
+- [Solution to this worksheet](../solution/session_1_environment.html)
 
 ## What do you want to do with R?
 
