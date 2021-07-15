@@ -116,7 +116,6 @@ ggplot(data = penguins, aes(x = bill_length_mm,
 Ggplot can also take in themes, many of which are built in. The sizes, shapes, colors, fonts, and many other things can be indicated as well:
 
 ```{r}
-
 ggplot(penguins, aes(body_mass_g, 
                      y=..count.., 
                      fill = species, 
@@ -124,7 +123,8 @@ ggplot(penguins, aes(body_mass_g,
   geom_density() + 
   ggtitle("Distribution of Body Mass by Species") + 
   xlab("Body Mass (g)") + ylab("Density") +
-  theme_classic()
+  theme_classic(base_size = 22)
+
 ```
 
 ### Boxplots 
@@ -156,6 +156,29 @@ ggplot(data=subset(penguins, !is.na(sex)),
   theme_classic()
 
 ```
+
+### Types of geoms
+
+We've so far covered scatter plots, density plots, and boxplots. But there are other geoms that we can use depending on what type of data we have:
+
+* scatter plots: geom_point()
+* density plots: geom_density()
+* histograms: geom_histogram()
+* boxplots: geom_boxplot()
+* barplots: geom_bar()
+* lineplots: geom_line()
+
+
+### Modifying **geom** properties
+
+We can also pass additional arguments to the geom: useful ones to know are:
+
+* __color__: line color; for the default shape used in geom_point, this actually colors the inside of the shape as well
+* __fill__: the fill color inside a shape
+* __size__: point size or line thickness
+* __shape__: for points, this is the shape; for lines, this is the line pattern or dashyness
+* __alpha__: transparency level, with 0 being totally transparent and 1 being a solid, opaque color
+
 
 ## Practice Plotting
 
