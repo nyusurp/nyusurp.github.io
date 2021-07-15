@@ -1,11 +1,21 @@
----
-title: 'Workshop 8: Introduction to GGPLOT'
-author: "Cassandra Buzby & Yen-Chung Chen"
-date: "7/15/2021"
-output: html_document
----
+Workshop 8: Introduction to GGPLOT
+========================================================
+author: Cassandra Buzby & Yen-Chung Chen
+date: 7/15/21
+autosize: true
 
-# Review
+Partners Today:
+========================================================
+incremental: true
+
+### Yarek/Melchi
+### Temima/Esther
+### Kaitriana/Alejandra
+### Filip/Natalya
+
+Review
+=================
+incremental: true
 ## Loading In Data
 
 Your own data is not already in R! This is where working directories come back into play. To load in a file, you can use read.csv() or read.table(), which each take in your file name and arguments that tell R how to format your data into a data frame.
@@ -13,12 +23,15 @@ Your own data is not already in R! This is where working directories come back i
 Load in penguins.csv from the website (it will probably be in your downloads folder) and **save it as a variable**. Without saving to a variable, read.csv() will print the entire dataset into your workspace without saving.
 ```{r}
 penguins <- read.csv("penguins.csv", row.names = 1)
+```
 
+```{r}
 head(penguins)
 ```
 
-## Your Own Data!
-
+Your Own Data!
+========================================================
+incremental: true
 Choose your own data to load into your workspace, and save it as a variable. Next, we will be exploring this data as a data frame. This should be saved as a .csv (or .tsv) on your computer. We will then be answering questions about this dataset
 
 ```{r}
@@ -34,8 +47,9 @@ Choose your own data to load into your workspace, and save it as a variable. Nex
 
 ```
 
-## A Few New Functions
-
+A Few New Functions
+========================================================
+incremental: true
 For the next exercises, it might be helpful to look into the following functions:
 ```{r}
 unique(penguins$species)
@@ -44,50 +58,68 @@ table(penguins$island)
 #when using sum() or mean(), set na.rm = TRUE
 ```
 
+Exercise
+=============
+incremental: true
+## With your partner, pick one of the following tasks to complete:
 
-## Review Exercise 
 
-With your partner, pick two of the following tasks that you have not already solved to complete:
+2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
+3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
+4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
 
+Exercise
+=============
+incremental: true
+2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
 ```{r}
-# 1. Which species of penguin has the largest average bill length? Which species has the smallest bill depth?
-  
+ten_percent_cutoff <- quantile(penguins$flipper_length_mm, 0.1, na.rm = TRUE)
+ten_percent_of_penguins <- penguins[penguins$flipper_length_mm <= ten_percent_cutoff,]
 
+sum(ten_percent_of_penguins$species == "Adelie", na.rm = TRUE)
+sum(ten_percent_of_penguins$species == "Chinstrap", na.rm = TRUE)
+sum(ten_percent_of_penguins$species == "Gentoo", na.rm = TRUE)
 
+#alternatively:
+table(ten_percent_of_penguins)
 
 ```
 
+
+Exercise
+=============
+incremental: true
+3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
 ```{r}
-# 2. Make a new data frame including the smallest 10% of flipper lengths and count how many penguins of each species are represented.
-
-
-
+table(penguins$species[penguins$island == "Biscoe"])
+table(penguins$species[penguins$island == "Dream"])
+table(penguins$species[penguins$island == "Torgersen"])
 
 ```
 
+Exercise
+=============
+incremental: true
+4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
 ```{r}
-# 3. Is the sampling between islands consistent? How many penguins of each species were sampled from each island?
-
-
-
-
+penguins07 <- penguins[penguins$year == 2007,]
+length(penguins07$year[penguins07$sex == "female"])/length(penguins07$year)
 ```
 
 ```{r}
-# 4. Was the sampling by sex equal each year? How many of the penguins were female each year compared to males?
+numbers08 <- which(penguins$year == 2008)
+penguins08 <- penguins[numbers08,]
 
-
-
-
+table(penguins08$sex)
 ```
 
-***
+```{r}
+penguins09 <- penguins[penguins$year == 2009,]
+sum(penguins09$sex == "female", na.rm = TRUE)/sum(penguins09$sex == "male", na.rm = TRUE)
+```
 
-
-
-***
-
-# Plotting data with ggplot!
+================
+Plotting data with ggplot!
 
 One of the best ways to visualize data is ggplot! Ggplot is a package which takes long data and makes beautiful plots. This package needs to be installed, which can be done using install.package. Don't forget that **after you install, you must load the package into your workspace** for it to be active.
 
@@ -97,12 +129,15 @@ library(ggplot2)
 
 ```
 
+Plotting data with ggplot
+=====================
+incremental: true
 The function of ggplot is generally as shown below, with ggplot() indicating the data and geom_point() indicating a scatter plot. Then, each of the arguments to be plotted are defined within data or aes, which are either arguments or functions themselves. 
 
 The **plus sign (+)** connects ggplot() to geom_point(), which indicates that R should run both together.
 
-### Scatter Plot
-
+Scatter Plot
+================
 ```{r}
 ggplot(data = penguins, aes(x = bill_length_mm, 
                             y = bill_depth_mm, 
@@ -111,8 +146,8 @@ ggplot(data = penguins, aes(x = bill_length_mm,
 
 ```
 
-### Density Plots and Themes
-
+Density Plots and Themes
+=====================
 Ggplot can also take in themes, many of which are built in. The sizes, shapes, colors, fonts, and many other things can be indicated as well:
 
 ```{r}
@@ -127,8 +162,8 @@ ggplot(penguins, aes(body_mass_g,
   theme_classic()
 ```
 
-### Boxplots 
-
+Boxplots 
+===================
 Another type of plot is a box plot, which can show the distributions of each category. Since each plot takes in different arguments, it's important to understand what your data looks like as well as what geom you're using.
 
 ```{r}
@@ -140,8 +175,8 @@ ggplot(penguins,
   theme_classic()
 ```
 
-### Removing NAs
-
+Removing NAs
+======================
 Notice that we have NAs in this dataset! How do we want to remove them?
 
 You can use a function called 'subset()' to remove NAs from a specific column, in this case the sex.
@@ -157,8 +192,8 @@ ggplot(data=subset(penguins, !is.na(sex)),
 
 ```
 
-## Practice Plotting
-
+Practice Plotting
+==========================
 ```{r}
 # Try making a scatter plot of two numeric variables from penguins and coloring by a categorical variable.
 
@@ -166,8 +201,8 @@ ggplot(data=subset(penguins, !is.na(sex)),
 
 ```
 
-## Plotting your own data
-
+Plotting your own data
+===================
 In pairs, discuss what might be a useful comparison in your data, and how ggplot() might help to display this.
 
 ```{r}
@@ -180,8 +215,12 @@ In pairs, discuss what might be a useful comparison in your data, and how ggplot
 
 ```
 
+====================
 # Functions
 
+Functions
+======================
+incremental: true
 The three main parts of a function are (1) the **input**, (2) the action itself, and (3) the **output**. To better understand these elements, we are going to build our own function.
 
 ```{r}
@@ -193,25 +232,34 @@ We can use this function by running:
 myfunction(12)
 ```
 
-## Build Your Own Function!
-
+Build Your Own Function!
+========================
+incremental: true
 Let's build a function that returns an encouraging statement. We can use the function sample() to randomly choose a compliment from a vector of strings. Let's first make the vector of strings:
 
 ```{r}
 a <- "You're doing great!"
 b <- "Research is hard, but perserverence is the key to success"
 c <- "I'm glad to see you here today"
+```
 
+```{r}
 compliments <- c(a,b,c)
 
 ```
 
+Build Your Own Function!
+========================
+incremental: true
 Next, we want to sample from these compliments
 
 ```{r}
 sample(compliments, 1)
 ```
 
+Build Your Own Function!
+========================
+incremental: true
 Finally, we'll want a function to give a random compliment every time the function is used. Let's name this function "complimentme" and have it not require any input:
 
 ```{r}
@@ -229,6 +277,9 @@ complimentme <- function(){
 complimentme()
 ```
 
+Build Your Own Function!
+========================
+incremental: true
 How would you add an input of telling R how many compliments to give you?
 ```{r}
 # Change the complimentme() function to return a user-defined number of compliments

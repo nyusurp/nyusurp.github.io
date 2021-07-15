@@ -22,6 +22,7 @@ output:
 Your own data is not already in R! This is where working directories come back into play. To load in a file, you can use read.csv() or read.table(), which each take in your file name and arguments that tell R how to format your data into a data frame.
 
 Load in penguins.csv from the website (it will probably be in your downloads folder) and **save it as a variable**. Without saving to a variable, read.csv() will print the entire dataset into your workspace without saving.
+
 ```{r}
 penguins <- read.csv("penguins.csv", row.names = 1)
 
@@ -99,14 +100,8 @@ This class will show you a *tiny* bit of plotting using the built-in R functions
 
 ## The basic structure of a plot
 
-Let's load in and consider the *penguins* dataset that we played with when learning about dataframes. We had loaded this in from a *.csv* file.
 
-```{r}
-# read in the penguin data and save it to a variable called penguins
-penguins <- read.csv('penguins.csv')
-```
-
-Let's use base R to plot the bill length vs bill depth for all the data
+Let's use base R to plot the bill length vs bill depth for all the penguins data
 ```{r}
 plot(penguins$bill_length_mm, penguins$bill_depth_mm)
 ```
