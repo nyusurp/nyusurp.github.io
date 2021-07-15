@@ -1,15 +1,17 @@
 ---
-title: "Workshop 8: Plotting (with ggplot2)"
+title: 'Workshop 8: Plotting (with ggplot2)'
+author: "Eugene Plavskin"
 subtitle: |
-    |   - plotting with base R
-    |   - introduction to ggplot
-    |   - combining multiple data representations in ggplot
-    |   - changing the appearance of plots
-    |   - organizing data according to "tidy" principles
-    |   - easy, reproducible paper figures with ggplot
-author:
-  - Eugene Plavskin
+  |   - plotting with base R
+  |   - introduction to ggplot
+  |   - combining multiple data representations in ggplot
+  |   - changing the appearance of plots
+  |   - organizing data according to "tidy" principles
+  |   - easy, reproducible paper figures with ggplot
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     code_folding: show
     depth: 3
@@ -27,7 +29,15 @@ This class will show you a *tiny* bit of plotting using the built-in R functions
 Let's load in and consider the *penguins* dataset that we played with when learning about dataframes. We had loaded this in from a *.csv* file.
 
 ```{r}
+# Load necessary packages
+library(dplyr)
+library(ggplot2)
+library(tidyr) # A package that convert table formats
+
 # read in the penguin data and save it to a variable called penguins
+penguins <- read.csv(file = "penguins.csv",
+                     header = TRUE,
+                     row.names = 1)
 ```
 
 Let's use base R to plot the bill length vs bill depth for all the data
@@ -339,12 +349,12 @@ Because ggplot is so popular, there's been a ton of additional packages written 
 
 Add animations to plots
 ```{r warning=FALSE, message=FALSE, results = FALSE}
-install.packages('gifski')
-install.packages('gganimate')
+#install.packages('gifski')
+#install.packages('gganimate')
 library(gganimate)
-animated_pegnuin_plot <-
-  basic_penguin_plot + transition_states(species)
+# animated_pegnuin_plot <-
+#   basic_penguin_plot + transition_states(species)
 # save plot with 3 frames, play at 1 frame per second
-anim_save("animated_penguin_plot.gif", animated_penguin_plot, nframes = 4, fps = 1)
+# anim_save("animated_penguin_plot.gif", animated_penguin_plot, nframes = 4, fps = 1)
 # render plot using ![](plot_path) outside of code chunk
 ```

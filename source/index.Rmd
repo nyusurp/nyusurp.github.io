@@ -61,7 +61,11 @@ output:
 - Making your own functions
 - Control structure: `if()` statement allows you to execute some lines of code only under certain conditions but not others.
 
-### Session 8: Summarizing things with `dplyr`
+### Session 8: Visualizing data with `ggplot2`
+
+- [Presentation for this session](source/Workshop8_Faster_Presentation.Rpres)
+- [Source code for the session](source/Workshop8_2021.Rmd)
+- [Optional handout](source/Workshop_8.html) / [Source code](source/Workshop_8.Rmd)
 
 ## Optional practice worksheets
 
