@@ -16,7 +16,6 @@ output:
     tidy: yes
     toc: yes
 ---
-**Solutions to this workshop can be found [here](Solutions_Workshop_8.nb.html)**
 
 # Intro to plotting
 
