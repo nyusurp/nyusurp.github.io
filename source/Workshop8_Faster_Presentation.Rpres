@@ -24,7 +24,7 @@ Your own data is not already in R! This is where working directories come back i
 Load in penguins.csv from the website (it will probably be in your downloads folder) and **save it as a variable**. Without saving to a variable, read.csv() will print the entire dataset into your workspace without saving.
 
 ```{r}
-penguins <- read.csv("penguins.csv", row.names = 1)
+penguins <- read.csv("penguins.csv", row.names = 1, header = TRUE)
 ```
 
 ```{r}
@@ -127,7 +127,7 @@ incremental: true
 One of the best ways to visualize data is ggplot! Ggplot is a package which takes long data and makes beautiful plots. This package needs to be installed, which can be done using install.package. Don't forget that **after you install, you must load the package into your workspace** for it to be active.
 
 ```{r}
-#install.packages(ggplot2)
+#install.packages("ggplot2")
 library(ggplot2)
 
 ```
@@ -155,9 +155,8 @@ Ggplot can also take in themes, many of which are built in. The sizes, shapes, c
 
 ggplot(penguins, aes(body_mass_g, 
                      y=..count.., 
-                     fill = species, 
-                     alpha = 0.2)) + 
-  geom_density() + 
+                     fill = species)) + 
+  geom_density(alpha = 0.5) + 
   ggtitle("Distribution of Body Mass by Species") + 
   xlab("Body Mass (g)") + ylab("Density") +
   theme_classic(base_size = 22)

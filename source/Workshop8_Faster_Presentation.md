@@ -25,7 +25,7 @@ Load in penguins.csv from the website (it will probably be in your downloads fol
 
 
 ```r
-penguins <- read.csv("penguins.csv", row.names = 1)
+penguins <- read.csv("penguins.csv", row.names = 1, header = TRUE)
 ```
 
 
@@ -230,7 +230,7 @@ One of the best ways to visualize data is ggplot! Ggplot is a package which take
 
 
 ```r
-#install.packages(ggplot2)
+#install.packages("ggplot2")
 library(ggplot2)
 ```
 
@@ -259,9 +259,8 @@ Ggplot can also take in themes, many of which are built in. The sizes, shapes, c
 ```r
 ggplot(penguins, aes(body_mass_g, 
                      y=..count.., 
-                     fill = species, 
-                     alpha = 0.2)) + 
-  geom_density() + 
+                     fill = species)) + 
+  geom_density(alpha = 0.5) + 
   ggtitle("Distribution of Body Mass by Species") + 
   xlab("Body Mass (g)") + ylab("Density") +
   theme_classic(base_size = 22)
@@ -397,7 +396,7 @@ sample(compliments, 1)
 ```
 
 ```
-[1] "Research is hard, but perserverence is the key to success"
+[1] "You're doing great!"
 ```
 
 Build Your Own Function!
@@ -423,7 +422,7 @@ complimentme()
 ```
 
 ```
-[1] "I'm glad to see you here today"
+[1] "You are doing awesome science"
 ```
 
 Build Your Own Function!

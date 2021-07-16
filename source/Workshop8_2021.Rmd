@@ -12,7 +12,7 @@ Your own data is not already in R! This is where working directories come back i
 
 Load in penguins.csv from the website (it will probably be in your downloads folder) and **save it as a variable**. Without saving to a variable, read.csv() will print the entire dataset into your workspace without saving.
 ```{r}
-penguins <- read.csv("penguins.csv", row.names = 1)
+penguins <- read.csv("penguins.csv", row.names = 1, header = TRUE)
 
 head(penguins)
 ```
