@@ -14,10 +14,10 @@
     
     <item>
       <title>Working directories</title>
-      <link>https://nyusurp.github.io/extra/working-directories/</link>
+      <link>https://nyusurp.github.io/2022/06/14/working-directories/</link>
       <pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate>
-      <guid>https://nyusurp.github.io/extra/working-directories/</guid>
-      <description>&lt;p&gt;There are two different ways to represent where a file is: Absolute or relative.&lt;/p&gt;
+      <guid>https://nyusurp.github.io/2022/06/14/working-directories/</guid>
+      <description>&lt;p&gt;There are two different ways to represent where a file is: Absolute and relative.&lt;/p&gt;
 &lt;p&gt;Absolute path for a file is using the root as the starting point (&lt;code&gt;/&lt;/code&gt; for Linux
 and Mac and &lt;code&gt;C:\&lt;/code&gt; for Windows). This is usually clear to the computer, but it
 can be really long and not comprehensible to human and thus impossible to wrap
