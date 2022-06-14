@@ -5,43 +5,12 @@
     <link>https://nyusurp.github.io/handout/</link>
       <atom:link href="https://nyusurp.github.io/handout/index.xml" rel="self" type="application/rss+xml" />
     <description>Handouts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 14 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Mon, 13 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Handouts</title>
       <link>https://nyusurp.github.io/handout/</link>
     </image>
-    
-    <item>
-      <title>Working directories</title>
-      <link>https://nyusurp.github.io/2022/06/14/working-directories/</link>
-      <pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate>
-      <guid>https://nyusurp.github.io/2022/06/14/working-directories/</guid>
-      <description>&lt;p&gt;There are two different ways to represent where a file is: Absolute or relative.&lt;/p&gt;
-&lt;p&gt;Absolute path for a file is using the root as the starting point (&lt;code&gt;/&lt;/code&gt; for Linux
-and Mac and &lt;code&gt;C:\&lt;/code&gt; for Windows). This is usually clear to the computer, but it
-can be really long and not comprehensible to human and thus impossible to wrap
-our heads around it and write.&lt;/p&gt;
-&lt;p&gt;For example, I had a note stored in &lt;code&gt;/Users/ycc/Library/Mobile Documents/iCloud~md~obsidian/Documents/YCC/Reading note/@gold.brand_2014.md&lt;/code&gt;. There is no way I can remember this and type it when
-writing a script.&lt;/p&gt;
-&lt;p&gt;Relative path is much shorter, but it could be tricky because sometimes where
-the path is defined &lt;em&gt;relative&lt;/em&gt; to is unclear.&lt;/p&gt;
-&lt;p&gt;In R, you can find the working directory with &lt;code&gt;getwd()&lt;/code&gt;, which gives you the
-absolute path of the reference.&lt;/p&gt;
-&lt;p&gt;Say your working directory is &lt;code&gt;/Users/me/my_cool_project&lt;/code&gt;, and you have a csv
-file (named &lt;code&gt;myawesome.csv&lt;/code&gt;) stored in a subdirectory called &amp;ldquo;data&amp;rdquo;, you can
-write &lt;code&gt;data/myawesome.csv&lt;/code&gt; in R, and R will append &lt;code&gt;/Users/me/my_cool_project&lt;/code&gt;
-before your relative path for you.&lt;/p&gt;
-&lt;p&gt;If you need to ask R to find &lt;code&gt;/Users/me/a_file_outside_wd.txt&lt;/code&gt; for you,
-relative path still has you covered outside your working directory: &lt;code&gt;..&lt;/code&gt; means
-go up to the parent folder in relative paths, so
-&lt;code&gt;/Users/me/a_file_outside_wd.txt&lt;/code&gt; is &lt;code&gt;../a_file_outside_wd.txt&lt;/code&gt; if your working
-directory is &lt;code&gt;/Users/me/my_cool_project&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;For tips to set working directories in RStudio, you might also want to check
-
-&lt;a href=&#34;https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces-in-the-RStudio-IDE&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the official documentation&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>Prepare your computer for R</title>

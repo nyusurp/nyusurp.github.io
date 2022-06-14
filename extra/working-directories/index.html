@@ -27,10 +27,11 @@
   
     
   
-  <meta name="description" content="PhD Candidate">
+  <meta name="description" content="There are two different ways to represent where a file is: Absolute or relative.
+Absolute path for a file is using the root as the starting point (/ for Linux and Mac and C:\ for Windows).">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/category/handout/">
+  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/extra/working-directories/">
 
   
 
@@ -208,14 +209,12 @@
   
 
   
-  <link rel="alternate" href="/category/handout/index.xml" type="application/rss+xml" title="R Workshop - NYU SURP">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://nyusurp.github.io/category/handout/">
+  <link rel="canonical" href="https://nyusurp.github.io/extra/working-directories/">
 
   
   
@@ -231,29 +230,35 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="R Workshop - NYU SURP">
-  <meta property="og:url" content="https://nyusurp.github.io/category/handout/">
-  <meta property="og:title" content="Handout | R Workshop - NYU SURP">
-  <meta property="og:description" content="PhD Candidate"><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="https://nyusurp.github.io/extra/working-directories/">
+  <meta property="og:title" content="Working directories | R Workshop - NYU SURP">
+  <meta property="og:description" content="There are two different ways to represent where a file is: Absolute or relative.
+Absolute path for a file is using the root as the starting point (/ for Linux and Mac and C:\ for Windows)."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2022-06-13T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2022-06-14T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2022-06-14T00:56:49-04:00">
   
 
   
 
 
 
-
   
 
 
   
 
 
+  
 
 
 
-  <title>Handout | R Workshop - NYU SURP</title>
+
+
+  <title>Working directories | R Workshop - NYU SURP</title>
 
 </head>
 
@@ -382,58 +387,361 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   
   
+  
+<div class="article-container pt-3">
+  <h1>Working directories</h1>
+
+  
+
   
     
-  
-<div class="universal-wrapper pt-3">
-  <h1>Handout</h1>
+
+
+<div class="article-metadata">
 
   
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/author/yen-chung-chen/">Yen-Chung Chen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2022-06-14
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/jargon/">Jargon</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>There are two different ways to represent where a file is: Absolute or relative.</p>
+<p>Absolute path for a file is using the root as the starting point (<code>/</code> for Linux
+and Mac and <code>C:\</code> for Windows). This is usually clear to the computer, but it
+can be really long and not comprehensible to human and thus impossible to wrap
+our heads around it and write.</p>
+<p>For example, I had a note stored in <code>/Users/ycc/Library/Mobile Documents/iCloud~md~obsidian/Documents/YCC/Reading note/@gold.brand_2014.md</code>. There is no way I can remember this and type it when
+writing a script.</p>
+<p>Relative path is much shorter, but it could be tricky because sometimes where
+the path is defined <em>relative</em> to is unclear.</p>
+<p>In R, you can find the working directory with <code>getwd()</code>, which gives you the
+absolute path of the reference.</p>
+<p>Say your working directory is <code>/Users/me/my_cool_project</code>, and you have a csv
+file (named <code>myawesome.csv</code>) stored in a subdirectory called &ldquo;data&rdquo;, you can
+write <code>data/myawesome.csv</code> in R, and R will append <code>/Users/me/my_cool_project</code>
+before your relative path for you.</p>
+<p>If you need to ask R to find <code>/Users/me/a_file_outside_wd.txt</code> for you,
+relative path still has you covered outside your working directory: <code>..</code> means
+go up to the parent folder in relative paths, so
+<code>/Users/me/a_file_outside_wd.txt</code> is <code>../a_file_outside_wd.txt</code> if your working
+directory is <code>/Users/me/my_cool_project</code>.</p>
+<p>For tips to set working directories in RStudio, you might also want to check
+
+<a href="https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces-in-the-RStudio-IDE" target="_blank" rel="noopener">the official documentation</a>.</p>
+
+    </div>
+    
+    
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/extra/working-directories/&amp;text=Working%20directories" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/extra/working-directories/&amp;t=Working%20directories" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Working%20directories&amp;body=https://nyusurp.github.io/extra/working-directories/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/extra/working-directories/&amp;title=Working%20directories" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Working%20directories%20https://nyusurp.github.io/extra/working-directories/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/extra/working-directories/&amp;title=Working%20directories" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
   
+    
+    
+
+
+
+
+
   
     
     
     
-    <div>
-      <h2><a href="/2022/06/13/prepare-your-computer-for-r/" >Prepare your computer for R</a></h2>
-      <div class="article-style">
+    
+    
+    <div class="media author-card content-widget-hr">
+      
         
-          AGENDA Introductions Installing R This Worksheet :)   Adpated from material curated by Eugene Plavskin and Grace Avecilla
-  Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you.
-        
+        <img class="avatar mr-3 avatar-square" src="/author/yen-chung-chen/avatar_huda0ce57f65f04f993150b3aa43fca8b8_48438_270x270_fill_q90_lanczos_center.jpg" alt="Yen-Chung Chen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/author/yen-chung-chen/">Yen-Chung Chen</a></h5>
+        <h6 class="card-subtitle">PhD Candidate</h6>
+        <p class="card-text">A graduate student interested in developmental biology, neurobiology and bioinformatics.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:ycc520@nyu.edu" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/ycchen_tw" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=JtsGxWEAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/chenyenchung" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-8529-1251" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+</ul>
+
       </div>
     </div>
   
 
+
   
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </div>
+</article>
 
       
 
