@@ -1,0 +1,18 @@
+{
+  "name": "R Workshop - NYU SURP",
+  "short_name": "R Workshop - NYU SURP",
+  "lang": "en-us",
+  "theme_color": "#57068c",
+  "background_color": "#57068c",
+  "icons": [{
+    "src": "/images/icon_hu437f07d278844891d2e703134e956aad_197157_192x192_fill_lanczos_center_2.png",
+    "sizes": "192x192",
+    "type": "image/png"
+    }, {
+    "src": "/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png",
+    "sizes": "512x512",
+    "type": "image/png"
+     }],
+  "display": "standalone",
+  "start_url": "/?utm_source=web_app_manifest"
+}
