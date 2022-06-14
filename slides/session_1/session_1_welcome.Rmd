@@ -40,8 +40,7 @@ knitr::include_graphics("img/L3_optic_lobe.png")
 .pull-left[
 ## Cassandra Buzby
 - 5th-year PhD student in the Siegal lab
-- Study yeast and R
-  - How much do gene interactions contribute to phenotypic variation?
+- Studies gene interactions using budding yeast and analyzes the data in R (which you'll see later!)
 ]
 
 .pull-right[
