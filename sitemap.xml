@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://nyusurp.github.io/authors/</loc>
+    <lastmod>2022-06-14T00:56:49-04:00</lastmod>
+  </url><url>
     <loc>https://nyusurp.github.io/categories/</loc>
     <lastmod>2022-06-14T00:56:49-04:00</lastmod>
   </url><url>
@@ -17,6 +20,12 @@
     <loc>https://nyusurp.github.io/2022/06/14/working-directories/</loc>
     <lastmod>2022-06-14T00:56:49-04:00</lastmod>
   </url><url>
+    <loc>https://nyusurp.github.io/author/yen-chung-chen/</loc>
+    <lastmod>2022-06-14T00:56:49-04:00</lastmod>
+  </url><url>
+    <loc>https://nyusurp.github.io/author/cassandra-buzby/</loc>
+    <lastmod>2022-06-13T20:38:45-04:00</lastmod>
+  </url><url>
     <loc>https://nyusurp.github.io/category/handout/</loc>
     <lastmod>2022-06-13T20:38:45-04:00</lastmod>
   </url><url>
@@ -29,16 +38,10 @@
     <loc>https://nyusurp.github.io/privacy/</loc>
     <lastmod>2020-01-01T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>https://nyusurp.github.io/authors/</loc>
-  </url><url>
-    <loc>https://nyusurp.github.io/author/cassandra-buzby/</loc>
-  </url><url>
     <loc>https://nyusurp.github.io/publication_types/</loc>
   </url><url>
     <loc>https://nyusurp.github.io/author/site-admin/</loc>
   </url><url>
     <loc>https://nyusurp.github.io/tags/</loc>
-  </url><url>
-    <loc>https://nyusurp.github.io/author/yen-chung-chen/</loc>
   </url>
 </urlset>

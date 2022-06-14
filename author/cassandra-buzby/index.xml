@@ -5,12 +5,214 @@
     <link>https://nyusurp.github.io/author/cassandra-buzby/</link>
       <atom:link href="https://nyusurp.github.io/author/cassandra-buzby/index.xml" rel="self" type="application/rss+xml" />
     <description>Cassandra Buzby</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Mon, 13 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Cassandra Buzby</title>
       <link>https://nyusurp.github.io/author/cassandra-buzby/</link>
     </image>
+    
+    <item>
+      <title>Prepare your computer for R</title>
+      <link>https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/</link>
+      <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/</guid>
+      <description>
+
+
+&lt;div id=&#34;agenda&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;AGENDA&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Introductions&lt;/li&gt;
+&lt;li&gt;Installing R&lt;/li&gt;
+&lt;li&gt;This Worksheet :)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Adpated from material curated by Eugene Plavskin and Grace Avecilla&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exploring-rstudio&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Exploring &lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/&#34;&gt;RStudio&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The console: Where you run commands one by one (bottom)&lt;/li&gt;
+&lt;li&gt;The environment: Where you can see what is loaded in R (upper right)&lt;/li&gt;
+&lt;li&gt;The file explorer: An easier way for you to find files (otherwise you’ll need to know the &lt;em&gt;path&lt;/em&gt; of a file to use it in R; lower right)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;installing-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Installing &lt;em&gt;packages&lt;/em&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Packages are like kits in experiments: They &lt;em&gt;package&lt;/em&gt; the reagents and instructions for otherwise complicated processes for you.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We’ll be installing 3 packages today&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com&#34;&gt;rmarkdown&lt;/a&gt;: A tool that allows you to write your code along with your notes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ggplot2.tidyverse.org&#34;&gt;ggplot2&lt;/a&gt;: A handy and powerful visualization tool&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt;: A tool that handles and summarizes tables&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is how we ask R to install packages
+# R will try to ask several central repositories if they have this package
+install.packages(&amp;quot;rmarkdown&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-rmarkdown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Using Rmarkdown&lt;/h2&gt;
+&lt;p&gt;Rmarkdown file allow you to record your thinking process (as text) along with
+your analyses (as &lt;em&gt;code chunks&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;Having why you are doing the analysis and the specific code for it will help
+you catch up faster if you ever need to go back to the same analysis again.&lt;/p&gt;
+&lt;div id=&#34;text-and-code&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Text and code&lt;/h3&gt;
+&lt;p&gt;This is a line of text:&lt;/p&gt;
+&lt;p&gt;“I know how to use R!”&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is a chunk of code. Do you notice that the background looks different?
+# Also there is three buttons at the upper right corner
+
+# Press the _play_ button, and the output will be shown below the chunk
+print(&amp;quot;I know how to use R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;I know how to use R&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;2+2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 4&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Running code:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Click on the run button on the upper-right corner of a chunk&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ctrl + Enter (Windows) / Cmd + Return (Mac)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Generating output&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Click the &lt;em&gt;knit&lt;/em&gt; button on the upper rim of the editor&lt;/li&gt;
+&lt;li&gt;Knitting will &lt;em&gt;re-run all your code in the file from scratch&lt;/em&gt;, which is a
+good thing because it makes sure:
+&lt;ul&gt;
+&lt;li&gt;The code works on its own&lt;/li&gt;
+&lt;li&gt;We haven’t accidentally deleted or added some lines of code that will
+break the code.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;working-directory-and-rstudio-projects&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Working directory and Rstudio projects&lt;/h2&gt;
+&lt;div id=&#34;what-is-a-working-directory&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a working directory?&lt;/h3&gt;
+&lt;p&gt;A working directory is where R will try to find things if you ask it to&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;checking-and-setting-your-working-directory&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Checking and setting your working directory&lt;/h3&gt;
+&lt;p&gt;You can check the path of your working directory with &lt;code&gt;getwd()&lt;/code&gt;
+(short for &lt;em&gt;get working directory&lt;/em&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Expect to see a path printed below
+# This is where R find things for you
+getwd()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP_2021/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;loading-files-from-your-working-directory&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Loading files from your working directory&lt;/h3&gt;
+&lt;p&gt;Now that you have a directory, files inside that directory can be loaded using
+functions like &lt;code&gt;read.csv()&lt;/code&gt;. This function will take a comma-separated file
+(which you can make in Excel) and allow you to save it as a variable that R can
+work with.&lt;/p&gt;
+&lt;p&gt;For the example below, &lt;code&gt;mytestdata.csv&lt;/code&gt; can be found in the &lt;a href=&#34;assets/session1.zip&#34;&gt;example data&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Open the csv file with Excel or Google Sheet to take a look
+# mytestdata
+
+# And then we load it to see how it looks like in R
+read.csv(&amp;quot;mytestdata.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Day Count Group
+## 1   1    12     1
+## 2   1    15     2
+## 3   2     8     1
+## 4   2     3     2
+## 5   3    10     1
+## 6   3    24     2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You need to ask R to keep the csv files
+# *Check the environment tab on the upper right corner of your window
+mytestdata &amp;lt;- read.csv(&amp;quot;mytestdata.csv&amp;quot;)
+
+# You can ask R to retrieve what it keeps later by the name you gave to the data
+mytestdata&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Day Count Group
+## 1   1    12     1
+## 2   1    15     2
+## 3   2     8     1
+## 4   2     3     2
+## 5   3    10     1
+## 6   3    24     2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;basic-usage-of-r-using-it-as-a-calculator&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Basic usage of R: Using it as a calculator&lt;/h2&gt;
+&lt;p&gt;Enter the following line of command in the console&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;17 + 2.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 19.3&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In programming, division is often written as slashes (&lt;code&gt;/&lt;/code&gt;), while
+multiplication is written as asterisks (&lt;code&gt;*&lt;/code&gt;). Now, let’s try doing these in the
+console as well:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Try multiplying 8 by 7
+
+8*7&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 56&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Try dividing 48 by 12
+
+48/12&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 4&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;an-example-of-our-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;An example of our data&lt;/h2&gt;
+&lt;p&gt;Cassandra’s data is allele frequencies as read counts from sequencing. To
+analyze it, she first:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;loads in the data,&lt;/li&gt;
+&lt;li&gt;runs an R function to analyze it,&lt;/li&gt;
+&lt;li&gt;plots using &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here is a quick version of this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyr)
+
+#Read in the data
+WeightedMeanZStats.100 &amp;lt;- read.csv(&amp;quot;CBData.csv&amp;quot;)
+
+#Look at the data (this only prints the first 6 rows)
+head(WeightedMeanZStats.100)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##          X CHROM    POS       Bulk     Parent         Int Stat
+## 1 result.1    II 100153 -2.3893709 -1.0534663  1.64175559    Z
+## 2 result.2    II 100367 -0.9361101 -0.2837268  0.55031705    Z
+## 3 result.3    II 100413 -1.1028976 -0.6802854  0.95854049    Z
+## 4 result.4    II 100878  0.7191787  0.9999416 -1.25245792    Z
+## 5 result.5    II 101289 -1.2163032  1.4995884  0.07063202    Z
+## 6 result.6    II 101340 -1.4019217  1.1382948 -0.29809070    Z&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Find the dimensions of the datast
+dim(WeightedMeanZStats.100)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 95106     7&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(WeightedMeanZStats.100$Stat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Z&amp;quot;      &amp;quot;ZPrime&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Plot the data using ggplot (which we&amp;#39;ll go into more later!)
+WeightedMeanZStats.100 %&amp;gt;% filter(Stat == &amp;quot;ZPrime&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Int&amp;quot;)) %&amp;gt;% 
+  ggplot(., aes(x = POS, y = value, color = name)) + geom_line(size = 1) + #geom_point(alpha = 0.1) + #+ 
+  geom_hline(yintercept = 0, color = &amp;quot;gray&amp;quot;) +
+  geom_hline(yintercept = c(1.96, -1.96), color = &amp;quot;black&amp;quot;, linetype = &amp;quot;dashed&amp;quot;) +
+  theme(axis.text.x = element_blank()) +  ylab(&amp;quot;Oak &amp;lt;- Effect -&amp;gt; Wine&amp;quot;) +
+  scale_color_manual(values = c(&amp;quot;violet&amp;quot;, &amp;quot;lightblue&amp;quot;, &amp;quot;darkorange&amp;quot;)) +
+  facet_grid(~CHROM, scales = &amp;quot;free&amp;quot;) + ggtitle(&amp;quot;Comparison of Zprime per Factor | Weighted Means W = 100&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnotes footnotes-end-of-document&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;See &lt;a href=&#34;https://nyusurp.github.io/2022/06/14/working-directories&#34;&gt;working directory&lt;/a&gt; if you are interested.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
