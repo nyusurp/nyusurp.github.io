@@ -6,8 +6,8 @@ date: "2022-06-14"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ['libs/custom.css', 'libs/custom-fonts.css']
-    chakra: ['libs/remark-latest.min.js']
+    css: ['https://nyusurp.github.io/libs/custom.css', 'https://nyusurp.github.io/libs/custom-fonts.css']
+    chakra: ['https://nyusurp.github.io/libs/remark-latest.min.js']
     nature:
       highlightStyle: github
       highlightLines: true
