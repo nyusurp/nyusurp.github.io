@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Extra information | R Workshop - NYU SURP</title>
+    <title>Extra information | R Workshop</title>
     <link>https://nyusurp.github.io/extra/</link>
       <atom:link href="https://nyusurp.github.io/extra/index.xml" rel="self" type="application/rss+xml" />
     <description>Extra information</description>
