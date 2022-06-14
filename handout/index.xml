@@ -14,9 +14,9 @@
     
     <item>
       <title>Working directories</title>
-      <link>https://nyusurp.github.io/handout/working-directories/</link>
+      <link>https://nyusurp.github.io/2022/06/14/working-directories/</link>
       <pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate>
-      <guid>https://nyusurp.github.io/handout/working-directories/</guid>
+      <guid>https://nyusurp.github.io/2022/06/14/working-directories/</guid>
       <description>&lt;p&gt;There are two different ways to represent where a file is: Absolute or relative.&lt;/p&gt;
 &lt;p&gt;Absolute path for a file is using the root as the starting point (&lt;code&gt;/&lt;/code&gt; for Linux
 and Mac and &lt;code&gt;C:\&lt;/code&gt; for Windows). This is usually clear to the computer, but it
@@ -45,9 +45,9 @@ directory is &lt;code&gt;/Users/me/my_cool_project&lt;/code&gt;.&lt;/p&gt;
     
     <item>
       <title>Prepare your computer for R</title>
-      <link>https://nyusurp.github.io/handout/prepare-your-computer-for-r/</link>
+      <link>https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/</link>
       <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
-      <guid>https://nyusurp.github.io/handout/prepare-your-computer-for-r/</guid>
+      <guid>https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/</guid>
       <description>
 
 
@@ -234,7 +234,7 @@ WeightedMeanZStats.100 %&amp;gt;% filter(Stat == &amp;quot;ZPrime&amp;quot;) %&a
   theme(axis.text.x = element_blank()) +  ylab(&amp;quot;Oak &amp;lt;- Effect -&amp;gt; Wine&amp;quot;) +
   scale_color_manual(values = c(&amp;quot;violet&amp;quot;, &amp;quot;lightblue&amp;quot;, &amp;quot;darkorange&amp;quot;)) +
   facet_grid(~CHROM, scales = &amp;quot;free&amp;quot;) + ggtitle(&amp;quot;Comparison of Zprime per Factor | Weighted Means W = 100&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/handout/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;footnotes footnotes-end-of-document&#34;&gt;
 &lt;hr /&gt;

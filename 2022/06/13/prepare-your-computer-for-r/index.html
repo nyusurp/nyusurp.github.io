@@ -27,11 +27,11 @@
   
     
   
-  <meta name="description" content="There are two different ways to represent where a file is: Absolute or relative.
-Absolute path for a file is using the root as the starting point (/ for Linux and Mac and C:\ for Windows).">
+  <meta name="description" content="AGENDA Introductions Installing R This Worksheet :)   Adpated from material curated by Eugene Plavskin and Grace Avecilla
+  Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/handout/working-directories/">
+  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/">
 
   
 
@@ -214,7 +214,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
   <link rel="icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://nyusurp.github.io/handout/working-directories/">
+  <link rel="canonical" href="https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/">
 
   
   
@@ -230,16 +230,16 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="R Workshop - NYU SURP">
-  <meta property="og:url" content="https://nyusurp.github.io/handout/working-directories/">
-  <meta property="og:title" content="Working directories | R Workshop - NYU SURP">
-  <meta property="og:description" content="There are two different ways to represent where a file is: Absolute or relative.
-Absolute path for a file is using the root as the starting point (/ for Linux and Mac and C:\ for Windows)."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/">
+  <meta property="og:title" content="Prepare your computer for R | R Workshop - NYU SURP">
+  <meta property="og:description" content="AGENDA Introductions Installing R This Worksheet :)   Adpated from material curated by Eugene Plavskin and Grace Avecilla
+  Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2022-06-14T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2022-06-13T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2022-06-14T00:56:49-04:00">
+    <meta property="article:modified_time" content="2022-06-13T20:38:45-04:00">
   
 
   
@@ -258,7 +258,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
 
 
 
-  <title>Working directories | R Workshop - NYU SURP</title>
+  <title>Prepare your computer for R | R Workshop - NYU SURP</title>
 
 </head>
 
@@ -350,7 +350,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
         
 
         <li class="nav-item">
-          <a class="nav-link  active" href="/handout/"><span>Handout</span></a>
+          <a class="nav-link " href="/handout/"><span>Handout</span></a>
         </li>
 
         
@@ -414,7 +414,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
   
   
 <div class="article-container pt-3">
-  <h1>Working directories</h1>
+  <h1>Prepare your computer for R</h1>
 
   
 
@@ -435,7 +435,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
           Last updated on
       
     
-    2022-06-14
+    2022-06-13
   </span>
   
 
@@ -451,7 +451,7 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/jargon/">Jargon</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/handout/">Handout</a></span>
   
 
 </div>
@@ -479,29 +479,200 @@ Absolute path for a file is using the root as the starting point (/ for Linux an
   <div class="article-container">
 
     <div class="article-style">
-      <p>There are two different ways to represent where a file is: Absolute or relative.</p>
-<p>Absolute path for a file is using the root as the starting point (<code>/</code> for Linux
-and Mac and <code>C:\</code> for Windows). This is usually clear to the computer, but it
-can be really long and not comprehensible to human and thus impossible to wrap
-our heads around it and write.</p>
-<p>For example, I had a note stored in <code>/Users/ycc/Library/Mobile Documents/iCloud~md~obsidian/Documents/YCC/Reading note/@gold.brand_2014.md</code>. There is no way I can remember this and type it when
-writing a script.</p>
-<p>Relative path is much shorter, but it could be tricky because sometimes where
-the path is defined <em>relative</em> to is unclear.</p>
-<p>In R, you can find the working directory with <code>getwd()</code>, which gives you the
-absolute path of the reference.</p>
-<p>Say your working directory is <code>/Users/me/my_cool_project</code>, and you have a csv
-file (named <code>myawesome.csv</code>) stored in a subdirectory called &ldquo;data&rdquo;, you can
-write <code>data/myawesome.csv</code> in R, and R will append <code>/Users/me/my_cool_project</code>
-before your relative path for you.</p>
-<p>If you need to ask R to find <code>/Users/me/a_file_outside_wd.txt</code> for you,
-relative path still has you covered outside your working directory: <code>..</code> means
-go up to the parent folder in relative paths, so
-<code>/Users/me/a_file_outside_wd.txt</code> is <code>../a_file_outside_wd.txt</code> if your working
-directory is <code>/Users/me/my_cool_project</code>.</p>
-<p>For tips to set working directories in RStudio, you might also want to check
+      
 
-<a href="https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces-in-the-RStudio-IDE" target="_blank" rel="noopener">the official documentation</a>.</p>
+
+<div id="agenda" class="section level2">
+<h2>AGENDA</h2>
+<ol style="list-style-type: decimal">
+<li>Introductions</li>
+<li>Installing R</li>
+<li>This Worksheet :)</li>
+</ol>
+<blockquote>
+<p>Adpated from material curated by Eugene Plavskin and Grace Avecilla</p>
+</blockquote>
+</div>
+<div id="exploring-rstudio" class="section level2">
+<h2>Exploring <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a></h2>
+<ul>
+<li>The console: Where you run commands one by one (bottom)</li>
+<li>The environment: Where you can see what is loaded in R (upper right)</li>
+<li>The file explorer: An easier way for you to find files (otherwise you’ll need to know the <em>path</em> of a file to use it in R; lower right)</li>
+</ul>
+</div>
+<div id="installing-packages" class="section level2">
+<h2>Installing <em>packages</em></h2>
+<ul>
+<li><p>Packages are like kits in experiments: They <em>package</em> the reagents and instructions for otherwise complicated processes for you.</p></li>
+<li><p>We’ll be installing 3 packages today</p>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com">rmarkdown</a>: A tool that allows you to write your code along with your notes</li>
+<li><a href="https://ggplot2.tidyverse.org">ggplot2</a>: A handy and powerful visualization tool</li>
+<li><a href="https://dplyr.tidyverse.org">dplyr</a>: A tool that handles and summarizes tables</li>
+</ul></li>
+</ul>
+<pre class="r"><code># This is how we ask R to install packages
+# R will try to ask several central repositories if they have this package
+install.packages(&quot;rmarkdown&quot;)</code></pre>
+</div>
+<div id="using-rmarkdown" class="section level2">
+<h2>Using Rmarkdown</h2>
+<p>Rmarkdown file allow you to record your thinking process (as text) along with
+your analyses (as <em>code chunks</em>).</p>
+<p>Having why you are doing the analysis and the specific code for it will help
+you catch up faster if you ever need to go back to the same analysis again.</p>
+<div id="text-and-code" class="section level3">
+<h3>Text and code</h3>
+<p>This is a line of text:</p>
+<p>“I know how to use R!”</p>
+<pre class="r"><code># This is a chunk of code. Do you notice that the background looks different?
+# Also there is three buttons at the upper right corner
+
+# Press the _play_ button, and the output will be shown below the chunk
+print(&quot;I know how to use R&quot;)</code></pre>
+<pre><code>## [1] &quot;I know how to use R&quot;</code></pre>
+<pre class="r"><code>2+2</code></pre>
+<pre><code>## [1] 4</code></pre>
+<ul>
+<li><p>Running code:</p></li>
+<li><p>Click on the run button on the upper-right corner of a chunk</p></li>
+<li><p>Ctrl + Enter (Windows) / Cmd + Return (Mac)</p></li>
+<li><p>Generating output</p>
+<ul>
+<li>Click the <em>knit</em> button on the upper rim of the editor</li>
+<li>Knitting will <em>re-run all your code in the file from scratch</em>, which is a
+good thing because it makes sure:
+<ul>
+<li>The code works on its own</li>
+<li>We haven’t accidentally deleted or added some lines of code that will
+break the code.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="working-directory-and-rstudio-projects" class="section level2">
+<h2>Working directory and Rstudio projects</h2>
+<div id="what-is-a-working-directory" class="section level3">
+<h3>What is a working directory?</h3>
+<p>A working directory is where R will try to find things if you ask it to<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+</div>
+<div id="checking-and-setting-your-working-directory" class="section level3">
+<h3>Checking and setting your working directory</h3>
+<p>You can check the path of your working directory with <code>getwd()</code>
+(short for <em>get working directory</em>).</p>
+<pre class="r"><code># Expect to see a path printed below
+# This is where R find things for you
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP_2021/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&quot;</code></pre>
+</div>
+<div id="loading-files-from-your-working-directory" class="section level3">
+<h3>Loading files from your working directory</h3>
+<p>Now that you have a directory, files inside that directory can be loaded using
+functions like <code>read.csv()</code>. This function will take a comma-separated file
+(which you can make in Excel) and allow you to save it as a variable that R can
+work with.</p>
+<p>For the example below, <code>mytestdata.csv</code> can be found in the <a href="assets/session1.zip">example data</a>.</p>
+<pre class="r"><code># Open the csv file with Excel or Google Sheet to take a look
+# mytestdata
+
+# And then we load it to see how it looks like in R
+read.csv(&quot;mytestdata.csv&quot;)</code></pre>
+<pre><code>##   Day Count Group
+## 1   1    12     1
+## 2   1    15     2
+## 3   2     8     1
+## 4   2     3     2
+## 5   3    10     1
+## 6   3    24     2</code></pre>
+<pre class="r"><code># You need to ask R to keep the csv files
+# *Check the environment tab on the upper right corner of your window
+mytestdata &lt;- read.csv(&quot;mytestdata.csv&quot;)
+
+# You can ask R to retrieve what it keeps later by the name you gave to the data
+mytestdata</code></pre>
+<pre><code>##   Day Count Group
+## 1   1    12     1
+## 2   1    15     2
+## 3   2     8     1
+## 4   2     3     2
+## 5   3    10     1
+## 6   3    24     2</code></pre>
+</div>
+</div>
+<div id="basic-usage-of-r-using-it-as-a-calculator" class="section level2">
+<h2>Basic usage of R: Using it as a calculator</h2>
+<p>Enter the following line of command in the console</p>
+<pre class="r"><code>17 + 2.3</code></pre>
+<pre><code>## [1] 19.3</code></pre>
+<p>In programming, division is often written as slashes (<code>/</code>), while
+multiplication is written as asterisks (<code>*</code>). Now, let’s try doing these in the
+console as well:</p>
+<pre class="r"><code># Try multiplying 8 by 7
+
+8*7</code></pre>
+<pre><code>## [1] 56</code></pre>
+<pre class="r"><code># Try dividing 48 by 12
+
+48/12</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="an-example-of-our-data" class="section level2">
+<h2>An example of our data</h2>
+<p>Cassandra’s data is allele frequencies as read counts from sequencing. To
+analyze it, she first:</p>
+<ol style="list-style-type: decimal">
+<li>loads in the data,</li>
+<li>runs an R function to analyze it,</li>
+<li>plots using <code>ggplot2</code>.</li>
+</ol>
+<p>Here is a quick version of this:</p>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(tidyr)
+
+#Read in the data
+WeightedMeanZStats.100 &lt;- read.csv(&quot;CBData.csv&quot;)
+
+#Look at the data (this only prints the first 6 rows)
+head(WeightedMeanZStats.100)</code></pre>
+<pre><code>##          X CHROM    POS       Bulk     Parent         Int Stat
+## 1 result.1    II 100153 -2.3893709 -1.0534663  1.64175559    Z
+## 2 result.2    II 100367 -0.9361101 -0.2837268  0.55031705    Z
+## 3 result.3    II 100413 -1.1028976 -0.6802854  0.95854049    Z
+## 4 result.4    II 100878  0.7191787  0.9999416 -1.25245792    Z
+## 5 result.5    II 101289 -1.2163032  1.4995884  0.07063202    Z
+## 6 result.6    II 101340 -1.4019217  1.1382948 -0.29809070    Z</code></pre>
+<pre class="r"><code>#Find the dimensions of the datast
+dim(WeightedMeanZStats.100)</code></pre>
+<pre><code>## [1] 95106     7</code></pre>
+<pre class="r"><code>unique(WeightedMeanZStats.100$Stat)</code></pre>
+<pre><code>## [1] &quot;Z&quot;      &quot;ZPrime&quot;</code></pre>
+<pre class="r"><code>#Plot the data using ggplot (which we&#39;ll go into more later!)
+WeightedMeanZStats.100 %&gt;% filter(Stat == &quot;ZPrime&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Int&quot;)) %&gt;% 
+  ggplot(., aes(x = POS, y = value, color = name)) + geom_line(size = 1) + #geom_point(alpha = 0.1) + #+ 
+  geom_hline(yintercept = 0, color = &quot;gray&quot;) +
+  geom_hline(yintercept = c(1.96, -1.96), color = &quot;black&quot;, linetype = &quot;dashed&quot;) +
+  theme(axis.text.x = element_blank()) +  ylab(&quot;Oak &lt;- Effect -&gt; Wine&quot;) +
+  scale_color_manual(values = c(&quot;violet&quot;, &quot;lightblue&quot;, &quot;darkorange&quot;)) +
+  facet_grid(~CHROM, scales = &quot;free&quot;) + ggtitle(&quot;Comparison of Zprime per Factor | Weighted Means W = 100&quot;)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>See <a href="/2022/06/14/working-directories">working directory</a> if you are interested.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
 
     </div>
     
@@ -523,7 +694,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/handout/working-directories/&amp;text=Working%20directories" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/&amp;text=Prepare%20your%20computer%20for%20R" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -536,7 +707,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/handout/working-directories/&amp;t=Working%20directories" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/&amp;t=Prepare%20your%20computer%20for%20R" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -549,7 +720,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="mailto:?subject=Working%20directories&amp;body=https://nyusurp.github.io/handout/working-directories/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Prepare%20your%20computer%20for%20R&amp;body=https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -562,7 +733,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/handout/working-directories/&amp;title=Working%20directories" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/&amp;title=Prepare%20your%20computer%20for%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -575,7 +746,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="whatsapp://send?text=Working%20directories%20https://nyusurp.github.io/handout/working-directories/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Prepare%20your%20computer%20for%20R%20https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -588,7 +759,7 @@ directory is <code>/Users/me/my_cool_project</code>.</p>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/handout/working-directories/&amp;title=Working%20directories" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/&amp;title=Prepare%20your%20computer%20for%20R" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
