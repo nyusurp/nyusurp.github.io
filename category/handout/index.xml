@@ -30,15 +30,9 @@
 &lt;blockquote&gt;
 &lt;p&gt;Adpated from material curated by Eugene Plavskin and Grace Avecilla&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://nyusurp.github.io/&#34;&gt;Go back to syllabus&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://nyusurp.github.io/slide/session_1_environment.ppt&#34;&gt;The slide deck for the session&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;session_1_environment.Rmd&#34;&gt;Link to this worksheet&lt;/a&gt; (Right-click -&amp;gt; download linked file)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;../solution/session_1_environment.html&#34;&gt;Solution to this worksheet&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;/div&gt;
 &lt;div id=&#34;exploring-rstudio&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Exploring RStudio&lt;/h2&gt;
+&lt;h2&gt;Exploring &lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/&#34;&gt;RStudio&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;The console: Where you run commands one by one (bottom)&lt;/li&gt;
 &lt;li&gt;The environment: Where you can see what is loaded in R (upper right)&lt;/li&gt;
@@ -56,16 +50,24 @@
 &lt;li&gt;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt;: A tool that handles and summarizes tables&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;rmarkdown&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is how we ask R to install packages
+# R will try to ask several central repositories if they have this package
+install.packages(&amp;quot;rmarkdown&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;using-rmarkdown&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Using Rmarkdown&lt;/h2&gt;
+&lt;p&gt;Rmarkdown file allow you to record your thinking process (as text) along with
+your analyses (as &lt;em&gt;code chunks&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;Having why you are doing the analysis and the specific code for it will help
+you catch up faster if you ever need to go back to the same analysis again.&lt;/p&gt;
 &lt;div id=&#34;text-and-code&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Text and code&lt;/h3&gt;
 &lt;p&gt;This is a line of text:&lt;/p&gt;
 &lt;p&gt;“I know how to use R!”&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is a chunk of code
-# And the output will be shown below
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is a chunk of code. Do you notice that the background looks different?
+# Also there is three buttons at the upper right corner
+
+# Press the _play_ button, and the output will be shown below the chunk
 print(&amp;quot;I know how to use R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;I know how to use R&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;2+2&lt;/code&gt;&lt;/pre&gt;
@@ -77,10 +79,12 @@ print(&amp;quot;I know how to use R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;p&gt;Generating output&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Click the &lt;em&gt;knit&lt;/em&gt; button on the upper rim of the editor&lt;/li&gt;
-&lt;li&gt;Knitting will re-run your whole file, which is a good thing because it makes sure:
+&lt;li&gt;Knitting will &lt;em&gt;re-run all your code in the file from scratch&lt;/em&gt;, which is a
+good thing because it makes sure:
 &lt;ul&gt;
 &lt;li&gt;The code works on its own&lt;/li&gt;
-&lt;li&gt;We haven’t accidentally deleted or added some lines of code that will break the code.&lt;/li&gt;
+&lt;li&gt;We haven’t accidentally deleted or added some lines of code that will
+break the code.&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -90,21 +94,28 @@ print(&amp;quot;I know how to use R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Working directory and Rstudio projects&lt;/h2&gt;
 &lt;div id=&#34;what-is-a-working-directory&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What is a working directory?&lt;/h3&gt;
-&lt;p&gt;While we usually explore the file system with a point-and-click file manager, how files are organized under the table is somewhat complicated, and when you need access a file, you will need a precise address of it, or in programming terms &lt;em&gt;file path&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;A path could be either absolute (consider a full address) or relative (e.g., if you know which &lt;em&gt;building&lt;/em&gt; (= reference point) we are talking about, 10th floor is not ambiguous). The &lt;em&gt;working directory&lt;/em&gt; is the &lt;em&gt;default reference point&lt;/em&gt; where R (or other computational tools) will use for its relative paths.&lt;/p&gt;
-&lt;p&gt;In other words, if you want to load a file, say it’s called &lt;code&gt;data.txt&lt;/code&gt;. If you don’t specify the full path, R will go to your working directory to see if it can find &lt;code&gt;data.txt&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A working directory is where R will try to find things if you ask it to&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;checking-and-setting-your-working-directory&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Checking and setting your working directory&lt;/h3&gt;
-&lt;p&gt;You can check the path of your working directory with &lt;code&gt;getwd()&lt;/code&gt; (short for &lt;em&gt;get working directory&lt;/em&gt;)&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getwd()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can check the path of your working directory with &lt;code&gt;getwd()&lt;/code&gt;
+(short for &lt;em&gt;get working directory&lt;/em&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Expect to see a path printed below
+# This is where R find things for you
+getwd()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP_2021/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;loading-in-files-from-your-working-directory&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Loading in files from your working directory&lt;/h3&gt;
-&lt;p&gt;Now that you have a directory, files inside that directory can be loaded in using functions like read.csv(). This function will take a comma-separated variable file (which you can make in Excel) and allow you to save it as a variable that R can work with.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#mytestdata
+&lt;div id=&#34;loading-files-from-your-working-directory&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Loading files from your working directory&lt;/h3&gt;
+&lt;p&gt;Now that you have a directory, files inside that directory can be loaded using
+functions like &lt;code&gt;read.csv()&lt;/code&gt;. This function will take a comma-separated file
+(which you can make in Excel) and allow you to save it as a variable that R can
+work with.&lt;/p&gt;
+&lt;p&gt;For the example below, &lt;code&gt;mytestdata.csv&lt;/code&gt; can be found in the &lt;a href=&#34;assets/session1.zip&#34;&gt;example data&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Open the csv file with Excel or Google Sheet to take a look
+# mytestdata
 
+# And then we load it to see how it looks like in R
 read.csv(&amp;quot;mytestdata.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   Day Count Group
 ## 1   1    12     1
@@ -113,8 +124,11 @@ read.csv(&amp;quot;mytestdata.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 ## 4   2     3     2
 ## 5   3    10     1
 ## 6   3    24     2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mytestdata &amp;lt;- read.csv(&amp;quot;mytestdata.csv&amp;quot;)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You need to ask R to keep the csv files
+# *Check the environment tab on the upper right corner of your window
+mytestdata &amp;lt;- read.csv(&amp;quot;mytestdata.csv&amp;quot;)
 
+# You can ask R to retrieve what it keeps later by the name you gave to the data
 mytestdata&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   Day Count Group
 ## 1   1    12     1
@@ -130,7 +144,9 @@ mytestdata&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Enter the following line of command in the console&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;17 + 2.3&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 19.3&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In programming, division is often written as slashes (&lt;code&gt;/&lt;/code&gt;), while multiplication is written as asterisks (&lt;code&gt;*&lt;/code&gt;). Now, let’s try doing these in the console as well:&lt;/p&gt;
+&lt;p&gt;In programming, division is often written as slashes (&lt;code&gt;/&lt;/code&gt;), while
+multiplication is written as asterisks (&lt;code&gt;*&lt;/code&gt;). Now, let’s try doing these in the
+console as well:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Try multiplying 8 by 7
 
 8*7&lt;/code&gt;&lt;/pre&gt;
@@ -142,7 +158,14 @@ mytestdata&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;an-example-of-our-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;An example of our data&lt;/h2&gt;
-&lt;p&gt;Cassandra’s data is allele frequencies as read counts from sequencing. To analyze it, she first (1) loads in the data, (2) runs an R function to analyze it, and (3) plots using ggplot2. Here is a quick version of this:&lt;/p&gt;
+&lt;p&gt;Cassandra’s data is allele frequencies as read counts from sequencing. To
+analyze it, she first:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;loads in the data,&lt;/li&gt;
+&lt;li&gt;runs an R function to analyze it,&lt;/li&gt;
+&lt;li&gt;plots using &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here is a quick version of this:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
 library(dplyr)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
@@ -178,9 +201,15 @@ WeightedMeanZStats.100 %&amp;gt;% filter(Stat == &amp;quot;ZPrime&amp;quot;) %&a
   geom_hline(yintercept = 0, color = &amp;quot;gray&amp;quot;) +
   geom_hline(yintercept = c(1.96, -1.96), color = &amp;quot;black&amp;quot;, linetype = &amp;quot;dashed&amp;quot;) +
   theme(axis.text.x = element_blank()) +  ylab(&amp;quot;Oak &amp;lt;- Effect -&amp;gt; Wine&amp;quot;) +
-  scale_color_manual(values = c(&amp;quot;violet&amp;quot;, &amp;quot;lightblue&amp;quot;, &amp;quot;darkorange&amp;quot;))+
+  scale_color_manual(values = c(&amp;quot;violet&amp;quot;, &amp;quot;lightblue&amp;quot;, &amp;quot;darkorange&amp;quot;)) +
   facet_grid(~CHROM, scales = &amp;quot;free&amp;quot;) + ggtitle(&amp;quot;Comparison of Zprime per Factor | Weighted Means W = 100&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/handout/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnotes footnotes-end-of-document&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;See &lt;a href=&#34;https://nyusurp.github.io/2022/06/14/working-directories&#34;&gt;working directory&lt;/a&gt; if you are interested.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;/div&gt;
 </description>
     </item>

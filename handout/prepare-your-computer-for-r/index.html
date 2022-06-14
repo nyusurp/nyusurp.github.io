@@ -28,7 +28,7 @@
     
   
   <meta name="description" content="AGENDA Introductions Installing R This Worksheet :)   Adpated from material curated by Eugene Plavskin and Grace Avecilla
-  Go back to syllabus The slide deck for the session Link to this worksheet (Right-click -&gt; download linked file) Solution to this worksheet   Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you.">
+  Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/handout/prepare-your-computer-for-r/">
@@ -233,7 +233,7 @@
   <meta property="og:url" content="https://nyusurp.github.io/handout/prepare-your-computer-for-r/">
   <meta property="og:title" content="Prepare your computer for R | R Workshop - NYU SURP">
   <meta property="og:description" content="AGENDA Introductions Installing R This Worksheet :)   Adpated from material curated by Eugene Plavskin and Grace Avecilla
-  Go back to syllabus The slide deck for the session Link to this worksheet (Right-click -&gt; download linked file) Solution to this worksheet   Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
+  Exploring RStudio  The console: Where you run commands one by one (bottom) The environment: Where you can see what is loaded in R (upper right) The file explorer: An easier way for you to find files (otherwise you’ll need to know the path of a file to use it in R; lower right)   Installing packages  Packages are like kits in experiments: They package the reagents and instructions for otherwise complicated processes for you."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -350,7 +350,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/post/"><span>Handout</span></a>
+          <a class="nav-link  active" href="/handout/"><span>Handout</span></a>
         </li>
 
         
@@ -492,15 +492,9 @@
 <blockquote>
 <p>Adpated from material curated by Eugene Plavskin and Grace Avecilla</p>
 </blockquote>
-<ul>
-<li><a href="https://nyusurp.github.io/">Go back to syllabus</a></li>
-<li><a href="https://nyusurp.github.io/slide/session_1_environment.ppt">The slide deck for the session</a></li>
-<li><a href="session_1_environment.Rmd">Link to this worksheet</a> (Right-click -&gt; download linked file)</li>
-<li><a href="../solution/session_1_environment.html">Solution to this worksheet</a></li>
-</ul>
 </div>
 <div id="exploring-rstudio" class="section level2">
-<h2>Exploring RStudio</h2>
+<h2>Exploring <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a></h2>
 <ul>
 <li>The console: Where you run commands one by one (bottom)</li>
 <li>The environment: Where you can see what is loaded in R (upper right)</li>
@@ -518,16 +512,24 @@
 <li><a href="https://dplyr.tidyverse.org">dplyr</a>: A tool that handles and summarizes tables</li>
 </ul></li>
 </ul>
-<pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
+<pre class="r"><code># This is how we ask R to install packages
+# R will try to ask several central repositories if they have this package
+install.packages(&quot;rmarkdown&quot;)</code></pre>
 </div>
 <div id="using-rmarkdown" class="section level2">
 <h2>Using Rmarkdown</h2>
+<p>Rmarkdown file allow you to record your thinking process (as text) along with
+your analyses (as <em>code chunks</em>).</p>
+<p>Having why you are doing the analysis and the specific code for it will help
+you catch up faster if you ever need to go back to the same analysis again.</p>
 <div id="text-and-code" class="section level3">
 <h3>Text and code</h3>
 <p>This is a line of text:</p>
 <p>“I know how to use R!”</p>
-<pre class="r"><code># This is a chunk of code
-# And the output will be shown below
+<pre class="r"><code># This is a chunk of code. Do you notice that the background looks different?
+# Also there is three buttons at the upper right corner
+
+# Press the _play_ button, and the output will be shown below the chunk
 print(&quot;I know how to use R&quot;)</code></pre>
 <pre><code>## [1] &quot;I know how to use R&quot;</code></pre>
 <pre class="r"><code>2+2</code></pre>
@@ -539,10 +541,12 @@ print(&quot;I know how to use R&quot;)</code></pre>
 <li><p>Generating output</p>
 <ul>
 <li>Click the <em>knit</em> button on the upper rim of the editor</li>
-<li>Knitting will re-run your whole file, which is a good thing because it makes sure:
+<li>Knitting will <em>re-run all your code in the file from scratch</em>, which is a
+good thing because it makes sure:
 <ul>
 <li>The code works on its own</li>
-<li>We haven’t accidentally deleted or added some lines of code that will break the code.</li>
+<li>We haven’t accidentally deleted or added some lines of code that will
+break the code.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -552,21 +556,28 @@ print(&quot;I know how to use R&quot;)</code></pre>
 <h2>Working directory and Rstudio projects</h2>
 <div id="what-is-a-working-directory" class="section level3">
 <h3>What is a working directory?</h3>
-<p>While we usually explore the file system with a point-and-click file manager, how files are organized under the table is somewhat complicated, and when you need access a file, you will need a precise address of it, or in programming terms <em>file path</em>.</p>
-<p>A path could be either absolute (consider a full address) or relative (e.g., if you know which <em>building</em> (= reference point) we are talking about, 10th floor is not ambiguous). The <em>working directory</em> is the <em>default reference point</em> where R (or other computational tools) will use for its relative paths.</p>
-<p>In other words, if you want to load a file, say it’s called <code>data.txt</code>. If you don’t specify the full path, R will go to your working directory to see if it can find <code>data.txt</code>.</p>
+<p>A working directory is where R will try to find things if you ask it to<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 </div>
 <div id="checking-and-setting-your-working-directory" class="section level3">
 <h3>Checking and setting your working directory</h3>
-<p>You can check the path of your working directory with <code>getwd()</code> (short for <em>get working directory</em>)</p>
-<pre class="r"><code>getwd()</code></pre>
+<p>You can check the path of your working directory with <code>getwd()</code>
+(short for <em>get working directory</em>).</p>
+<pre class="r"><code># Expect to see a path printed below
+# This is where R find things for you
+getwd()</code></pre>
 <pre><code>## [1] &quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP_2021/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&quot;</code></pre>
 </div>
-<div id="loading-in-files-from-your-working-directory" class="section level3">
-<h3>Loading in files from your working directory</h3>
-<p>Now that you have a directory, files inside that directory can be loaded in using functions like read.csv(). This function will take a comma-separated variable file (which you can make in Excel) and allow you to save it as a variable that R can work with.</p>
-<pre class="r"><code>#mytestdata
+<div id="loading-files-from-your-working-directory" class="section level3">
+<h3>Loading files from your working directory</h3>
+<p>Now that you have a directory, files inside that directory can be loaded using
+functions like <code>read.csv()</code>. This function will take a comma-separated file
+(which you can make in Excel) and allow you to save it as a variable that R can
+work with.</p>
+<p>For the example below, <code>mytestdata.csv</code> can be found in the <a href="assets/session1.zip">example data</a>.</p>
+<pre class="r"><code># Open the csv file with Excel or Google Sheet to take a look
+# mytestdata
 
+# And then we load it to see how it looks like in R
 read.csv(&quot;mytestdata.csv&quot;)</code></pre>
 <pre><code>##   Day Count Group
 ## 1   1    12     1
@@ -575,8 +586,11 @@ read.csv(&quot;mytestdata.csv&quot;)</code></pre>
 ## 4   2     3     2
 ## 5   3    10     1
 ## 6   3    24     2</code></pre>
-<pre class="r"><code>mytestdata &lt;- read.csv(&quot;mytestdata.csv&quot;)
+<pre class="r"><code># You need to ask R to keep the csv files
+# *Check the environment tab on the upper right corner of your window
+mytestdata &lt;- read.csv(&quot;mytestdata.csv&quot;)
 
+# You can ask R to retrieve what it keeps later by the name you gave to the data
 mytestdata</code></pre>
 <pre><code>##   Day Count Group
 ## 1   1    12     1
@@ -592,7 +606,9 @@ mytestdata</code></pre>
 <p>Enter the following line of command in the console</p>
 <pre class="r"><code>17 + 2.3</code></pre>
 <pre><code>## [1] 19.3</code></pre>
-<p>In programming, division is often written as slashes (<code>/</code>), while multiplication is written as asterisks (<code>*</code>). Now, let’s try doing these in the console as well:</p>
+<p>In programming, division is often written as slashes (<code>/</code>), while
+multiplication is written as asterisks (<code>*</code>). Now, let’s try doing these in the
+console as well:</p>
 <pre class="r"><code># Try multiplying 8 by 7
 
 8*7</code></pre>
@@ -604,7 +620,14 @@ mytestdata</code></pre>
 </div>
 <div id="an-example-of-our-data" class="section level2">
 <h2>An example of our data</h2>
-<p>Cassandra’s data is allele frequencies as read counts from sequencing. To analyze it, she first (1) loads in the data, (2) runs an R function to analyze it, and (3) plots using ggplot2. Here is a quick version of this:</p>
+<p>Cassandra’s data is allele frequencies as read counts from sequencing. To
+analyze it, she first:</p>
+<ol style="list-style-type: decimal">
+<li>loads in the data,</li>
+<li>runs an R function to analyze it,</li>
+<li>plots using <code>ggplot2</code>.</li>
+</ol>
+<p>Here is a quick version of this:</p>
 <pre class="r"><code>library(ggplot2)
 library(dplyr)</code></pre>
 <pre><code>## 
@@ -640,9 +663,15 @@ WeightedMeanZStats.100 %&gt;% filter(Stat == &quot;ZPrime&quot;) %&gt;% pivot_lo
   geom_hline(yintercept = 0, color = &quot;gray&quot;) +
   geom_hline(yintercept = c(1.96, -1.96), color = &quot;black&quot;, linetype = &quot;dashed&quot;) +
   theme(axis.text.x = element_blank()) +  ylab(&quot;Oak &lt;- Effect -&gt; Wine&quot;) +
-  scale_color_manual(values = c(&quot;violet&quot;, &quot;lightblue&quot;, &quot;darkorange&quot;))+
+  scale_color_manual(values = c(&quot;violet&quot;, &quot;lightblue&quot;, &quot;darkorange&quot;)) +
   facet_grid(~CHROM, scales = &quot;free&quot;) + ggtitle(&quot;Comparison of Zprime per Factor | Weighted Means W = 100&quot;)</code></pre>
 <p><img src="https://nyusurp.github.io/handout/prepare-your-computer-for-r/index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>See <a href="/2022/06/14/working-directories">working directory</a> if you are interested.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
     </div>
