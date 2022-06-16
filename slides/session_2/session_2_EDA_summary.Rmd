@@ -1,0 +1,412 @@
+---
+title: "Exploratory Data Analysis with R"
+subtitle: "Getting the large picture so you can zoom in"
+author: Yen-Chung Chen & Cassandra Buzby
+date: "2022-06-16"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ['https://nyusurp.github.io/libs/custom.css', 'https://nyusurp.github.io/libs/custom-fonts.css']
+    chakra: ['https://nyusurp.github.io/libs/remark-latest.min.js']
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+# Data analysis
+
+```{r echo = FALSE}
+options(width = 100)
+```
+
+
+--
+## Ideally
+
+[![](https://mermaid.ink/img/pako:eNo1j0ELwjAMhf9KyXn-gR0E3XYQdtJj6yGs0RZsN9IUHMP_bqUzp7z3PsLLBtNsCVp4Mi5OjVcTVZmT7jL7OXlZ7-pwOKqzHt4LsQ8U5b4zJShJp0cvxCiZSSVCntwOnCvQ6x4Fd6_bvar6qgZ9ick_3f8yNBCIA3pbim0_z4A4CmSgLaulB-aXGDDxU9C8WBQarJeZoRXO1ABmmW9rnP66Mr3H8maA9oGvRJ8vr8ZO2g)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNo1j0ELwjAMhf9KyXn-gR0E3XYQdtJj6yGs0RZsN9IUHMP_bqUzp7z3PsLLBtNsCVp4Mi5OjVcTVZmT7jL7OXlZ7-pwOKqzHt4LsQ8U5b4zJShJp0cvxCiZSSVCntwOnCvQ6x4Fd6_bvar6qgZ9ick_3f8yNBCIA3pbim0_z4A4CmSgLaulB-aXGDDxU9C8WBQarJeZoRXO1ABmmW9rnP66Mr3H8maA9oGvRJ8vr8ZO2g)
+
+--
+
+## Oftentimes
+
+[![](https://mermaid.ink/img/pako:eNpl0LFqw0AMANBfEbdkiaEdOtRDDYkNMaRL7c3uoPoU34HvztzJtG6cf--lToZSDUJIDwl0Fp2TJFLRexwVHN9aCzF2TfE1kteGLL-vrX1z1EweefIEgdB36jbZQZIkL0vt4GMKM7ADtDjM37RA3uTIeN-wusoZcpZAagmaQVt4fH562ISoV5ev7kAoIXTxYqe07f-N3efvihKMDgFY6ZBl2bL_g8rNMIB01zte94qhPpQV1OVrsexWuGaxFYa8QS3jK87XXitYkaFWpLGUdMJp4Fa09hLpNEpkKqRm50V6wiHQVuDErpptJ1L2E91RrjF-1tzU5QcdiHPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNpl0LFqw0AMANBfEbdkiaEdOtRDDYkNMaRL7c3uoPoU34HvztzJtG6cf--lToZSDUJIDwl0Fp2TJFLRexwVHN9aCzF2TfE1kteGLL-vrX1z1EweefIEgdB36jbZQZIkL0vt4GMKM7ADtDjM37RA3uTIeN-wusoZcpZAagmaQVt4fH562ISoV5ev7kAoIXTxYqe07f-N3efvihKMDgFY6ZBl2bL_g8rNMIB01zte94qhPpQV1OVrsexWuGaxFYa8QS3jK87XXitYkaFWpLGUdMJp4Fa09hLpNEpkKqRm50V6wiHQVuDErpptJ1L2E91RrjF-1tzU5QcdiHPQ)
+
+---
+# Elements of data analysis
+
+1. Summary: Get a rough sense of what it is about and if it makes sense.
+
+--
+
+2. Manipulation: Prepare your data so it addresses your question well.
+
+--
+
+3. Analysis: Build models, test hypotheses, and present your insights.
+
+---
+layout: true
+# Glimpsing your data
+
+.pull-left[
+
+- Make sure the data makes sense to you and your computer.
+  
+]
+
+---
+--
+.pull-right[
+
+- Whether the file is loaded properly?
+{{content}}
+
+]
+
+--
+
+- Is it considered as the right _type_?
+{{content}}
+
+--
+
+  - Consider 917-275-6975
+  {{content}}
+  
+
+--
+
+    - Will R see it as `r 917-275-6975`?
+    {{content}}
+
+--
+
+    - Or call the New York Public Library?
+    {{content}}
+
+---
+layout: false
+# Let's load some data!
+
+- Does `read.csv()` rings a bell?
+
+--
+
+- Let's load the minimal example from last time.
+
+```{r}
+minimal <- read.csv("mytestdata.csv")
+```
+
+--
+
+.center[_Do you see `minimal` appearing in the environment tab?_]
+
+---
+# Recap: You can access objects you assigned
+
+What is in `minimal`?
+
+--
+
+```{r}
+# print() displays the content of an object
+print(minimal)
+```
+
+---
+# Checking the first few rows with `head()`
+
+```{r}
+head(minimal)
+```
+
+---
+# What if I loaded it wrong?
+
+- Trick R into thinking that we are loading an underscore-separated file 
+instead of a comma-separated one
+
+--
+
+```{r}
+bad_data <- read.table("mytestdata.csv", sep = "_", fill = TRUE)
+```
+
+--
+
+```{r}
+head(bad_data)
+```
+
+---
+# Types: Does R see the data like you do?
+
+```{r}
+head(minimal)
+```
+
+---
+
+# `str()` checks the structure of your data
+
+```{r}
+str(minimal)
+```
+
+--
+
+.center[_Do you feel quantitative today?_]
+
+---
+# Get your statistical `summary()`
+
+```{r}
+summary(minimal)
+```
+
+---
+# Complementing `summary()` for text
+
+- For text (`character`), `summary()` only gives:
+
+  - The number of items (`length`)
+  - The data type (`class`)
+  - The mode
+  
+--
+
+```{r}
+head(minimal)
+```
+
+---
+# `dplyr` gives you a frequency table
+
+- `dplyr` can `count()` how many times each item appears in a column
+
+--
+
+```{r}
+# Load the library -- you only need to do this once per R session
+library(dplyr)
+
+# The basic syntax is [data] %>% count([column])
+minimal %>% count(exp_group)
+```
+
+---
+# `count()` more than one columns
+
+- Just add another column after the first separated by a comma if you want to 
+count multiple columns at the same time.
+
+--
+
+```{r}
+minimal %>% count(exp_group, comment)
+```
+
+---
+# Formatting the data (demo only)
+
+- If you find the table a bit hard to read -- we feel the same.
+
+```{r}
+# Reshaping the data will be covered next week
+library(tidyr)
+minimal %>%
+count(exp_group, comment) %>% 
+  pivot_wider(names_from = exp_group, values_from = n)
+```
+---
+# Zooming in with `filter()`
+
+- Let's say we only care about mutants (no, we shouldn't in practice).
+
+--
+
+- So I only want to study them but not other groups in the dataset.
+
+--
+
+- `filter()` allows us to only keep some data by criteria we give.
+
+---
+# Criteria that `filter()` recognizes
+
+- Exact match with `==`
+
+```{r}
+# The basic syntax is [data] %>% filter([column][criteria])
+# Only keeping rows that has "Adelie" in the species column
+minimal %>% filter(exp_group == "mutant")
+```
+
+---
+# Comparison with `<` and `>`
+
+```{r}
+minimal %>% filter(count > 15)
+```
+
+--
+
+```{r}
+minimal %>% filter(count <= 10)
+```
+
+--
+
+- `>=` and `<` also work.
+
+---
+# `filter()` also allows multiple criteria
+
+```{r}
+minimal %>%
+  filter(exp_group == "het", count > 5)
+```
+
+---
+# Per-group analysis defined by a column
+
+```{r}
+head(minimal)
+```
+
+--
+
+.center[_What is the average count of each group?_]
+
+---
+# Setting groups with `group_by()`
+
+```{r}
+# The basic syntax is data %>% group_by([column])
+minimal_grouped <- minimal %>% group_by(exp_group)
+print(minimal_grouped)
+```
+
+---
+# `summarize()` per group
+
+- Calculate summary statistics with `mean()`, `median()`, `sd()` and etc...
+
+--
+
+```{r eval = FALSE}
+# The basic syntax is [data] %>% summarize([stats]([column]))
+minimal %>%
+  group_by(exp_group) %>%
+  summarize(
+  # Calculate mean
+  mean = mean(count),
+  # Calculate standard deviation
+  sd = sd(count)
+)
+```
+
+--
+
+```{r echo = FALSE}
+# The basic syntax is summarize([data], [stats]([column]))
+minimal %>%
+  group_by(exp_group) %>%
+  summarize(
+  # Calculate mean
+  mean = mean(count),
+  # Calculate standard deviation
+  sd = sd(count)
+)
+```
+
+---
+# Playing with columns
+
+- Sometimes you might want to present fewer columns for simplicity.
+
+--
+
+```{r}
+minimal %>%
+  filter(comment == "good")
+```
+
+--
+
+.center[_Does the `comment` column looks a bit redundant?_]
+
+---
+# Select columns with `select()`
+
+```{r}
+# The basic syntax for select is [data] %>% select([column])
+minimal %>%
+  select(obs_day, exp_group, count)
+```
+
+---
+# Remove columns with `select()`
+
+```{r}
+minimal %>%
+  select(-comment)
+```
+
+
+
+---
+# Brief recap: Glimpsing data
+
+- To see if your data is properly loaded:
+
+--
+
+  - `head()` to check the first few rows.
+  
+--
+
+  - `str()` to show data types.
+
+--
+
+- `summary()` gives some statistics to help you understanding the nature of 
+your data (e.g., distribution and missing data).
+
+  - `count()` provided by `dplyr` helps you to check the frequency of character
+   data.
+
+--
+
+- At this point, you can consider how your analysis will be about.
+
+---
+# Brief recap: Closer look with `dplyr`
+
+- `filter()` only keeps the rows that fits your criteria.
+
+--
+  - Basic criteria include exact match (`==`) and numerical comparison (`<` 
+  or `>`).
+
+--
+
+- `group_by()` prepares the data for `summarize()` so it can calculate summary 
+statistics based on a column containing grouping info.
+  - Common summary statistics includes `mean()`, `sd()`, `median()`, and etc.
+
+--
+
+- `select()` keeps or removes columns by their names.
+
+---
+# Playing with 🐧🐧🐧🐧🐧🐧🐧🐧🐧
+
+```{r}
+penguins <- read.csv("penguins.csv")
+head(penguins)
+```
+
+

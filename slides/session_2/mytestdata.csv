@@ -1,0 +1,10 @@
+﻿obs_day,count,exp_group,comment
+1,12,wt,good
+1,15,mutant,good
+2,8,wt,good
+2,3,mutant,contaminated
+3,10,wt,good
+3,24,mutant,good
+1,39,het,good
+2,2,het,contaminated
+3,20,het,good

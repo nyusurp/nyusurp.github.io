@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Exploratory Data Analysis with R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Yen-Chung Chen &amp; Cassandra Buzby" />
+    <meta name="date" content="2022-06-16" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link rel="stylesheet" href="https://nyusurp.github.io/libs/custom.css" type="text/css" />
+    <link rel="stylesheet" href="https://nyusurp.github.io/libs/custom-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Exploratory Data Analysis with R
+]
+.subtitle[
+## Getting the large picture so you can zoom in
+]
+.author[
+### Yen-Chung Chen &amp; Cassandra Buzby
+]
+.date[
+### 2022-06-16
+]
+
+---
+
+# Data analysis
+
+
+
+
+--
+## Ideally
+
+[![](https://mermaid.ink/img/pako:eNo1j0ELwjAMhf9KyXn-gR0E3XYQdtJj6yGs0RZsN9IUHMP_bqUzp7z3PsLLBtNsCVp4Mi5OjVcTVZmT7jL7OXlZ7-pwOKqzHt4LsQ8U5b4zJShJp0cvxCiZSSVCntwOnCvQ6x4Fd6_bvar6qgZ9ick_3f8yNBCIA3pbim0_z4A4CmSgLaulB-aXGDDxU9C8WBQarJeZoRXO1ABmmW9rnP66Mr3H8maA9oGvRJ8vr8ZO2g)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNo1j0ELwjAMhf9KyXn-gR0E3XYQdtJj6yGs0RZsN9IUHMP_bqUzp7z3PsLLBtNsCVp4Mi5OjVcTVZmT7jL7OXlZ7-pwOKqzHt4LsQ8U5b4zJShJp0cvxCiZSSVCntwOnCvQ6x4Fd6_bvar6qgZ9ick_3f8yNBCIA3pbim0_z4A4CmSgLaulB-aXGDDxU9C8WBQarJeZoRXO1ABmmW9rnP66Mr3H8maA9oGvRJ8vr8ZO2g)
+
+--
+
+## Oftentimes
+
+[![](https://mermaid.ink/img/pako:eNpl0LFqw0AMANBfEbdkiaEdOtRDDYkNMaRL7c3uoPoU34HvztzJtG6cf--lToZSDUJIDwl0Fp2TJFLRexwVHN9aCzF2TfE1kteGLL-vrX1z1EweefIEgdB36jbZQZIkL0vt4GMKM7ADtDjM37RA3uTIeN-wusoZcpZAagmaQVt4fH562ISoV5ev7kAoIXTxYqe07f-N3efvihKMDgFY6ZBl2bL_g8rNMIB01zte94qhPpQV1OVrsexWuGaxFYa8QS3jK87XXitYkaFWpLGUdMJp4Fa09hLpNEpkKqRm50V6wiHQVuDErpptJ1L2E91RrjF-1tzU5QcdiHPQ)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNpl0LFqw0AMANBfEbdkiaEdOtRDDYkNMaRL7c3uoPoU34HvztzJtG6cf--lToZSDUJIDwl0Fp2TJFLRexwVHN9aCzF2TfE1kteGLL-vrX1z1EweefIEgdB36jbZQZIkL0vt4GMKM7ADtDjM37RA3uTIeN-wusoZcpZAagmaQVt4fH562ISoV5ev7kAoIXTxYqe07f-N3efvihKMDgFY6ZBl2bL_g8rNMIB01zte94qhPpQV1OVrsexWuGaxFYa8QS3jK87XXitYkaFWpLGUdMJp4Fa09hLpNEpkKqRm50V6wiHQVuDErpptJ1L2E91RrjF-1tzU5QcdiHPQ)
+
+---
+# Elements of data analysis
+
+1. Summary: Get a rough sense of what it is about and if it makes sense.
+
+--
+
+2. Manipulation: Prepare your data so it addresses your question well.
+
+--
+
+3. Analysis: Build models, test hypotheses, and present your insights.
+
+---
+layout: true
+# Glimpsing your data
+
+.pull-left[
+
+- Make sure the data makes sense to you and your computer.
+  
+]
+
+---
+--
+.pull-right[
+
+- Whether the file is loaded properly?
+{{content}}
+
+]
+
+--
+
+- Is it considered as the right _type_?
+{{content}}
+
+--
+
+  - Consider 917-275-6975
+  {{content}}
+  
+
+--
+
+    - Will R see it as -6333?
+    {{content}}
+
+--
+
+    - Or call the New York Public Library?
+    {{content}}
+
+---
+layout: false
+# Let's load some data!
+
+- Does `read.csv()` rings a bell?
+
+--
+
+- Let's load the minimal example from last time.
+
+
+```r
+minimal &lt;- read.csv("mytestdata.csv")
+```
+
+--
+
+.center[_Do you see `minimal` appearing in the environment tab?_]
+
+---
+# Recap: You can access objects you assigned
+
+What is in `minimal`?
+
+--
+
+
+```r
+# print() displays the content of an object
+print(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+## 7       1    39       het         good
+## 8       2     2       het contaminated
+## 9       3    20       het         good
+```
+
+---
+# Checking the first few rows with `head()`
+
+
+```r
+head(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+```
+
+---
+# What if I loaded it wrong?
+
+- Trick R into thinking that we are loading an underscore-separated file 
+instead of a comma-separated one
+
+--
+
+
+```r
+bad_data &lt;- read.table("mytestdata.csv", sep = "_", fill = TRUE)
+```
+
+--
+
+
+```r
+head(bad_data)
+```
+
+```
+##                        V1            V2            V3
+## 1                     obs day,count,exp group,comment
+## 2            1,12,wt,good                            
+## 3        1,15,mutant,good                            
+## 4             2,8,wt,good                            
+## 5 2,3,mutant,contaminated                            
+## 6            3,10,wt,good
+```
+
+---
+# Types: Does R see the data like you do?
+
+
+```r
+head(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+```
+
+---
+
+# `str()` checks the structure of your data
+
+
+```r
+str(minimal)
+```
+
+```
+## 'data.frame':	9 obs. of  4 variables:
+##  $ obs_day  : int  1 1 2 2 3 3 1 2 3
+##  $ count    : int  12 15 8 3 10 24 39 2 20
+##  $ exp_group: chr  "wt" "mutant" "wt" "mutant" ...
+##  $ comment  : chr  "good" "good" "good" "contaminated" ...
+```
+
+--
+
+.center[_Do you feel quantitative today?_]
+
+---
+# Get your statistical `summary()`
+
+
+```r
+summary(minimal)
+```
+
+```
+##     obs_day      count        exp_group           comment         
+##  Min.   :1   Min.   : 2.00   Length:9           Length:9          
+##  1st Qu.:1   1st Qu.: 8.00   Class :character   Class :character  
+##  Median :2   Median :12.00   Mode  :character   Mode  :character  
+##  Mean   :2   Mean   :14.78                                        
+##  3rd Qu.:3   3rd Qu.:20.00                                        
+##  Max.   :3   Max.   :39.00
+```
+
+---
+# Complementing `summary()` for text
+
+- For text (`character`), `summary()` only gives:
+
+  - The number of items (`length`)
+  - The data type (`class`)
+  - The mode
+  
+--
+
+
+```r
+head(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+```
+
+---
+# `dplyr` gives you a frequency table
+
+- `dplyr` can `count()` how many times each item appears in a column
+
+--
+
+
+```r
+# Load the library -- you only need to do this once per R session
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+# The basic syntax is [data] %&gt;% count([column])
+minimal %&gt;% count(exp_group)
+```
+
+```
+##   exp_group n
+## 1       het 3
+## 2    mutant 3
+## 3        wt 3
+```
+
+---
+# `count()` more than one columns
+
+- Just add another column after the first separated by a comma if you want to 
+count multiple columns at the same time.
+
+--
+
+
+```r
+minimal %&gt;% count(exp_group, comment)
+```
+
+```
+##   exp_group      comment n
+## 1       het contaminated 1
+## 2       het         good 2
+## 3    mutant contaminated 1
+## 4    mutant         good 2
+## 5        wt         good 3
+```
+
+---
+# Formatting the data (demo only)
+
+- If you find the table a bit hard to read -- we feel the same.
+
+
+```r
+# Reshaping the data will be covered next week
+library(tidyr)
+minimal %&gt;%
+count(exp_group, comment) %&gt;% 
+  pivot_wider(names_from = exp_group, values_from = n)
+```
+
+```
+## # A tibble: 2 × 4
+##   comment        het mutant    wt
+##   &lt;chr&gt;        &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+## 1 contaminated     1      1    NA
+## 2 good             2      2     3
+```
+---
+# Zooming in with `filter()`
+
+- Let's say we only care about mutants (no, we shouldn't in practice).
+
+--
+
+- So I only want to study them but not other groups in the dataset.
+
+--
+
+- `filter()` allows us to only keep some data by criteria we give.
+
+---
+# Criteria that `filter()` recognizes
+
+- Exact match with `==`
+
+
+```r
+# The basic syntax is [data] %&gt;% filter([column][criteria])
+# Only keeping rows that has "Adelie" in the species column
+minimal %&gt;% filter(exp_group == "mutant")
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    15    mutant         good
+## 2       2     3    mutant contaminated
+## 3       3    24    mutant         good
+```
+
+---
+# Comparison with `&lt;` and `&gt;`
+
+
+```r
+minimal %&gt;% filter(count &gt; 15)
+```
+
+```
+##   obs_day count exp_group comment
+## 1       3    24    mutant    good
+## 2       1    39       het    good
+## 3       3    20       het    good
+```
+
+--
+
+
+```r
+minimal %&gt;% filter(count &lt;= 10)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       2     8        wt         good
+## 2       2     3    mutant contaminated
+## 3       3    10        wt         good
+## 4       2     2       het contaminated
+```
+
+--
+
+- `&gt;=` and `&lt;` also work.
+
+---
+# `filter()` also allows multiple criteria
+
+
+```r
+minimal %&gt;%
+  filter(exp_group == "het", count &gt; 5)
+```
+
+```
+##   obs_day count exp_group comment
+## 1       1    39       het    good
+## 2       3    20       het    good
+```
+
+---
+# Per-group analysis defined by a column
+
+
+```r
+head(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+```
+
+--
+
+.center[_What is the average count of each group?_]
+
+---
+# Setting groups with `group_by()`
+
+
+```r
+# The basic syntax is data %&gt;% group_by([column])
+minimal_grouped &lt;- minimal %&gt;% group_by(exp_group)
+print(minimal_grouped)
+```
+
+```
+## # A tibble: 9 × 4
+## # Groups:   exp_group [3]
+##   obs_day count exp_group comment     
+##     &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;       
+## 1       1    12 wt        good        
+## 2       1    15 mutant    good        
+## 3       2     8 wt        good        
+## 4       2     3 mutant    contaminated
+## 5       3    10 wt        good        
+## 6       3    24 mutant    good        
+## 7       1    39 het       good        
+## 8       2     2 het       contaminated
+## 9       3    20 het       good
+```
+
+---
+# `summarize()` per group
+
+- Calculate summary statistics with `mean()`, `median()`, `sd()` and etc...
+
+--
+
+
+```r
+# The basic syntax is [data] %&gt;% summarize([stats]([column]))
+minimal %&gt;%
+  group_by(exp_group) %&gt;%
+  summarize(
+  # Calculate mean
+  mean = mean(count),
+  # Calculate standard deviation
+  sd = sd(count)
+)
+```
+
+--
+
+
+```
+## # A tibble: 3 × 3
+##   exp_group  mean    sd
+##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 het        20.3  18.5
+## 2 mutant     14    10.5
+## 3 wt         10     2
+```
+
+---
+# Playing with columns
+
+- Sometimes you might want to present fewer columns for simplicity.
+
+--
+
+
+```r
+minimal %&gt;%
+  filter(comment == "good")
+```
+
+```
+##   obs_day count exp_group comment
+## 1       1    12        wt    good
+## 2       1    15    mutant    good
+## 3       2     8        wt    good
+## 4       3    10        wt    good
+## 5       3    24    mutant    good
+## 6       1    39       het    good
+## 7       3    20       het    good
+```
+
+--
+
+.center[_Does the `comment` column looks a bit redundant?_]
+
+---
+# Select columns with `select()`
+
+
+```r
+# The basic syntax for select is [data] %&gt;% select([column])
+minimal %&gt;%
+  select(obs_day, exp_group, count)
+```
+
+```
+##   obs_day exp_group count
+## 1       1        wt    12
+## 2       1    mutant    15
+## 3       2        wt     8
+## 4       2    mutant     3
+## 5       3        wt    10
+## 6       3    mutant    24
+## 7       1       het    39
+## 8       2       het     2
+## 9       3       het    20
+```
+
+---
+# Remove columns with `select()`
+
+
+```r
+minimal %&gt;%
+  select(-comment)
+```
+
+```
+##   obs_day count exp_group
+## 1       1    12        wt
+## 2       1    15    mutant
+## 3       2     8        wt
+## 4       2     3    mutant
+## 5       3    10        wt
+## 6       3    24    mutant
+## 7       1    39       het
+## 8       2     2       het
+## 9       3    20       het
+```
+
+
+
+---
+# Brief recap: Glimpsing data
+
+- To see if your data is properly loaded:
+
+--
+
+  - `head()` to check the first few rows.
+  
+--
+
+  - `str()` to show data types.
+
+--
+
+- `summary()` gives some statistics to help you understanding the nature of 
+your data (e.g., distribution and missing data).
+
+  - `count()` provided by `dplyr` helps you to check the frequency of character
+   data.
+
+--
+
+- At this point, you can consider how your analysis will be about.
+
+---
+# Brief recap: Closer look with `dplyr`
+
+- `filter()` only keeps the rows that fits your criteria.
+
+--
+  - Basic criteria include exact match (`==`) and numerical comparison (`&lt;` 
+  or `&gt;`).
+
+--
+
+- `group_by()` prepares the data for `summarize()` so it can calculate summary 
+statistics based on a column containing grouping info.
+  - Common summary statistics includes `mean()`, `sd()`, `median()`, and etc.
+
+--
+
+- `select()` keeps or removes columns by their names.
+
+---
+# Playing with 🐧🐧🐧🐧🐧🐧🐧🐧🐧
+
+
+```r
+penguins &lt;- read.csv("penguins.csv")
+head(penguins)
+```
+
+```
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g    sex year
+## 1  Adelie Torgersen           39.1          18.7               181        3750   male 2007
+## 2  Adelie Torgersen           39.5          17.4               186        3800 female 2007
+## 3  Adelie Torgersen           40.3          18.0               195        3250 female 2007
+## 4  Adelie Torgersen             NA            NA                NA          NA   &lt;NA&gt; 2007
+## 5  Adelie Torgersen           36.7          19.3               193        3450 female 2007
+## 6  Adelie Torgersen           39.3          20.6               190        3650   male 2007
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://nyusurp.github.io/libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
