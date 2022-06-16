@@ -167,6 +167,7 @@ summary(minimal)
 ```
 
 ---
+#
 # Complementing `summary()` for text
 
 - For text (`character`), `summary()` only gives:
@@ -197,6 +198,29 @@ minimal %>% count(exp_group)
 ```
 
 ---
+
+---
+# Load your practice dataset too
+
+--
+
+```{r}
+penguins <- read.csv("penguins.csv")
+```
+
+--
+
+```{r}
+# How many different species of penguins are in this dataset?
+# take a look at the dataset
+head(penguins)
+
+# Consider to count() the species
+
+```
+
+---
+
 # `count()` more than one columns
 
 - Just add another column after the first separated by a comma if you want to 
@@ -220,55 +244,6 @@ minimal %>%
 count(exp_group, comment) %>% 
   pivot_wider(names_from = exp_group, values_from = n)
 ```
----
-# Zooming in with `filter()`
-
-- Let's say we only care about mutants (no, we shouldn't in practice).
-
---
-
-- So I only want to study them but not other groups in the dataset.
-
---
-
-- `filter()` allows us to only keep some data by criteria we give.
-
----
-# Criteria that `filter()` recognizes
-
-- Exact match with `==`
-
-```{r}
-# The basic syntax is [data] %>% filter([column][criteria])
-# Only keeping rows that has "Adelie" in the species column
-minimal %>% filter(exp_group == "mutant")
-```
-
----
-# Comparison with `<` and `>`
-
-```{r}
-minimal %>% filter(count > 15)
-```
-
---
-
-```{r}
-minimal %>% filter(count <= 10)
-```
-
---
-
-- `>=` and `<` also work.
-
----
-# `filter()` also allows multiple criteria
-
-```{r}
-minimal %>%
-  filter(exp_group == "het", count > 5)
-```
-
 ---
 # Per-group analysis defined by a column
 
@@ -321,7 +296,69 @@ minimal %>%
   sd = sd(count)
 )
 ```
+---
+## What is the mean bill length for each species?
 
+```{r}
+# Consider group_by() species and then summarize() with mean()
+
+```
+---
+# Zooming in with `filter()`
+
+- Let's say we only care about mutants (no, we shouldn't in practice).
+
+--
+
+- So I only want to study them but not other groups in the dataset.
+
+--
+
+- `filter()` allows us to only keep some data by criteria we give.
+
+---
+# Criteria that `filter()` recognizes
+
+- Exact match with `==`
+
+```{r}
+# The basic syntax is [data] %>% filter([column][criteria])
+# Only keeping rows that has "Adelie" in the species column
+minimal %>% filter(exp_group == "mutant")
+```
+
+---
+# Comparison with `<` and `>`
+
+```{r}
+minimal %>% filter(count > 15)
+```
+
+--
+
+```{r}
+minimal %>% filter(count <= 10)
+```
+
+--
+
+- `>=` and `<` also work.
+
+---
+# `filter()` also allows multiple criteria
+
+```{r}
+minimal %>%
+  filter(exp_group == "het", count > 5)
+```
+
+---
+# How many penguins are lighter than 3500 grams?
+
+```{r}
+# Consider filter() the body_mass_g column
+
+```
 ---
 # Playing with columns
 
@@ -354,8 +391,6 @@ minimal %>%
 minimal %>%
   select(-comment)
 ```
-
-
 
 ---
 # Brief recap: Glimpsing data
@@ -400,13 +435,3 @@ statistics based on a column containing grouping info.
 --
 
 - `select()` keeps or removes columns by their names.
-
----
-# Playing with 🐧🐧🐧🐧🐧🐧🐧🐧🐧
-
-```{r}
-penguins <- read.csv("penguins.csv")
-head(penguins)
-```
-
-

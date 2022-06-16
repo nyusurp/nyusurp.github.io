@@ -248,6 +248,7 @@ summary(minimal)
 ```
 
 ---
+#
 # Complementing `summary()` for text
 
 - For text (`character`), `summary()` only gives:
@@ -316,6 +317,42 @@ minimal %&gt;% count(exp_group)
 ```
 
 ---
+
+---
+# Load your practice dataset too
+
+--
+
+
+```r
+penguins &lt;- read.csv("penguins.csv")
+```
+
+--
+
+
+```r
+# How many different species of penguins are in this dataset?
+# take a look at the dataset
+head(penguins)
+```
+
+```
+##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g    sex year
+## 1  Adelie Torgersen           39.1          18.7               181        3750   male 2007
+## 2  Adelie Torgersen           39.5          17.4               186        3800 female 2007
+## 3  Adelie Torgersen           40.3          18.0               195        3250 female 2007
+## 4  Adelie Torgersen             NA            NA                NA          NA   &lt;NA&gt; 2007
+## 5  Adelie Torgersen           36.7          19.3               193        3450 female 2007
+## 6  Adelie Torgersen           39.3          20.6               190        3650   male 2007
+```
+
+```r
+# Consider to count() the species
+```
+
+---
+
 # `count()` more than one columns
 
 - Just add another column after the first separated by a comma if you want to 
@@ -357,6 +394,92 @@ count(exp_group, comment) %&gt;%
 ##   &lt;chr&gt;        &lt;int&gt;  &lt;int&gt; &lt;int&gt;
 ## 1 contaminated     1      1    NA
 ## 2 good             2      2     3
+```
+---
+# Per-group analysis defined by a column
+
+
+```r
+head(minimal)
+```
+
+```
+##   obs_day count exp_group      comment
+## 1       1    12        wt         good
+## 2       1    15    mutant         good
+## 3       2     8        wt         good
+## 4       2     3    mutant contaminated
+## 5       3    10        wt         good
+## 6       3    24    mutant         good
+```
+
+--
+
+.center[_What is the average count of each group?_]
+
+---
+# Setting groups with `group_by()`
+
+
+```r
+# The basic syntax is data %&gt;% group_by([column])
+minimal_grouped &lt;- minimal %&gt;% group_by(exp_group)
+print(minimal_grouped)
+```
+
+```
+## # A tibble: 9 × 4
+## # Groups:   exp_group [3]
+##   obs_day count exp_group comment     
+##     &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;       
+## 1       1    12 wt        good        
+## 2       1    15 mutant    good        
+## 3       2     8 wt        good        
+## 4       2     3 mutant    contaminated
+## 5       3    10 wt        good        
+## 6       3    24 mutant    good        
+## 7       1    39 het       good        
+## 8       2     2 het       contaminated
+## 9       3    20 het       good
+```
+
+---
+# `summarize()` per group
+
+- Calculate summary statistics with `mean()`, `median()`, `sd()` and etc...
+
+--
+
+
+```r
+# The basic syntax is [data] %&gt;% summarize([stats]([column]))
+minimal %&gt;%
+  group_by(exp_group) %&gt;%
+  summarize(
+  # Calculate mean
+  mean = mean(count),
+  # Calculate standard deviation
+  sd = sd(count)
+)
+```
+
+--
+
+
+```
+## # A tibble: 3 × 3
+##   exp_group  mean    sd
+##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 het        20.3  18.5
+## 2 mutant     14    10.5
+## 3 wt         10     2
+```
+---
+## What is the mean bill length for each species?
+
+
+```r
+# Consider group_by() species and then summarize() with mean()
 ```
 ---
 # Zooming in with `filter()`
@@ -440,85 +563,12 @@ minimal %&gt;%
 ```
 
 ---
-# Per-group analysis defined by a column
+# How many penguins are lighter than 3500 grams?
 
 
 ```r
-head(minimal)
+# Consider filter() the body_mass_g column
 ```
-
-```
-##   obs_day count exp_group      comment
-## 1       1    12        wt         good
-## 2       1    15    mutant         good
-## 3       2     8        wt         good
-## 4       2     3    mutant contaminated
-## 5       3    10        wt         good
-## 6       3    24    mutant         good
-```
-
---
-
-.center[_What is the average count of each group?_]
-
----
-# Setting groups with `group_by()`
-
-
-```r
-# The basic syntax is data %&gt;% group_by([column])
-minimal_grouped &lt;- minimal %&gt;% group_by(exp_group)
-print(minimal_grouped)
-```
-
-```
-## # A tibble: 9 × 4
-## # Groups:   exp_group [3]
-##   obs_day count exp_group comment     
-##     &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;       
-## 1       1    12 wt        good        
-## 2       1    15 mutant    good        
-## 3       2     8 wt        good        
-## 4       2     3 mutant    contaminated
-## 5       3    10 wt        good        
-## 6       3    24 mutant    good        
-## 7       1    39 het       good        
-## 8       2     2 het       contaminated
-## 9       3    20 het       good
-```
-
----
-# `summarize()` per group
-
-- Calculate summary statistics with `mean()`, `median()`, `sd()` and etc...
-
---
-
-
-```r
-# The basic syntax is [data] %&gt;% summarize([stats]([column]))
-minimal %&gt;%
-  group_by(exp_group) %&gt;%
-  summarize(
-  # Calculate mean
-  mean = mean(count),
-  # Calculate standard deviation
-  sd = sd(count)
-)
-```
-
---
-
-
-```
-## # A tibble: 3 × 3
-##   exp_group  mean    sd
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 het        20.3  18.5
-## 2 mutant     14    10.5
-## 3 wt         10     2
-```
-
 ---
 # Playing with columns
 
@@ -592,8 +642,6 @@ minimal %&gt;%
 ## 9       3    20       het
 ```
 
-
-
 ---
 # Brief recap: Glimpsing data
 
@@ -637,27 +685,6 @@ statistics based on a column containing grouping info.
 --
 
 - `select()` keeps or removes columns by their names.
-
----
-# Playing with 🐧🐧🐧🐧🐧🐧🐧🐧🐧
-
-
-```r
-penguins &lt;- read.csv("penguins.csv")
-head(penguins)
-```
-
-```
-##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g    sex year
-## 1  Adelie Torgersen           39.1          18.7               181        3750   male 2007
-## 2  Adelie Torgersen           39.5          17.4               186        3800 female 2007
-## 3  Adelie Torgersen           40.3          18.0               195        3250 female 2007
-## 4  Adelie Torgersen             NA            NA                NA          NA   &lt;NA&gt; 2007
-## 5  Adelie Torgersen           36.7          19.3               193        3450 female 2007
-## 6  Adelie Torgersen           39.3          20.6               190        3650   male 2007
-```
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://nyusurp.github.io/libs/remark-latest.min.js"></script>
