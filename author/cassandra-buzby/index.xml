@@ -103,7 +103,7 @@ break the code.&lt;/li&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Expect to see a path printed below
 # This is where R find things for you
 getwd()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP_2021/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;/Users/ycc/Dropbox/Docs/NYU/Teaching/SURP/NYU_SURP_blogdown/content/handout/2022-06-13-prepare-your-computer-for-r&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;loading-files-from-your-working-directory&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Loading files from your working directory&lt;/h3&gt;
