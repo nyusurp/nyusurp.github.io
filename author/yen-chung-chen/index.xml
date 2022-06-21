@@ -5,12 +5,464 @@
     <link>https://nyusurp.github.io/author/yen-chung-chen/</link>
       <atom:link href="https://nyusurp.github.io/author/yen-chung-chen/index.xml" rel="self" type="application/rss+xml" />
     <description>Yen-Chung Chen</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 14 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 21 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Yen-Chung Chen</title>
       <link>https://nyusurp.github.io/author/yen-chung-chen/</link>
     </image>
+    
+    <item>
+      <title>Session 3: Hands-On Data Wrangling</title>
+      <link>https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/</link>
+      <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/</guid>
+      <description>
+
+
+&lt;div id=&#34;loading-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Loading data&lt;/h2&gt;
+&lt;p&gt;Following what we did last week, we are going to keep working with the penguins
+today. You can find the dataset after you extracted &lt;code&gt;session3.zip&lt;/code&gt; which
+you can download from &lt;a href=&#34;https://nyusurp.github.io/assets/session3.zip&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;figure-things-out-on-the-internet&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Figure things out on the internet&lt;/h3&gt;
+&lt;p&gt;If you don’t remember how to do something with R and happen to be the most
+R-fluent people in the peer, don’t panic. Most of the time, searching for
+&lt;em&gt;[what you want to do] in R&lt;/em&gt; work out great.&lt;/p&gt;
+&lt;p&gt;Online forums like StackOverflow and Kaggle often give great answers with code
+examples that you could play with. If you are a genomic person, Biostar and
+SEQanswers would be your friend.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How do you load a csv file with R?
+penguins &amp;lt;- read.csv(&amp;quot;penguins.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figuring-things-out-within-r&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Figuring things out within R&lt;/h3&gt;
+&lt;p&gt;Oftentimes, an answer you found online provides a code that almost works, but
+you might not yet know enough to make it work. For times like this, R has
+documentation built in for each function describing the arguments that you can
+tweak and what it meant.&lt;/p&gt;
+&lt;p&gt;You can trigger the help page with &lt;code&gt;?[function]&lt;/code&gt; in the console. Let’s try it
+out: We used &lt;code&gt;head()&lt;/code&gt; last week to take a glimpse of the first few rows of a
+table, so how do we print the first &lt;em&gt;3&lt;/em&gt; instead of 6 rows?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(penguins, n = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;count-things&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;code&gt;count()&lt;/code&gt; things&lt;/h2&gt;
+&lt;p&gt;How many penguins of each &lt;code&gt;species&lt;/code&gt; were observed on each &lt;code&gt;island&lt;/code&gt;?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  count(island, species)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      island   species   n
+## 1    Biscoe    Adelie  44
+## 2    Biscoe    Gentoo 124
+## 3     Dream    Adelie  56
+## 4     Dream Chinstrap  68
+## 5 Torgersen    Adelie  52&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which species is found on all islands? I know it’s obvious, but let’s use a
+sledgehammer to crack a nut this time.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# The output in the previous chunk is also a table that could be count()ed.
+penguins %&amp;gt;%
+  count(island, species) %&amp;gt;%
+  count(species)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     species n
+## 1    Adelie 3
+## 2 Chinstrap 1
+## 3    Gentoo 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;filter-out-your-species&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;code&gt;filter()&lt;/code&gt; out your species&lt;/h2&gt;
+&lt;p&gt;Let’s say you are interested in comparing how the islands influences the growth
+of penguins. Either you’ll need to go to Antarctica to observe more Gentoo or
+Chinstrap penguins on other islands, or only Adelie penguins make sense for
+your purpose.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Since none of us is going to leave for Antarctica any time soon (right?)
+# Let&amp;#39;s keep only the Adelie penguins, and **assign it to a new object**.
+adelie &amp;lt;- penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;revisiting-the-criteria-for-filter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Revisiting the criteria for &lt;code&gt;filter()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;There are 6 basic types of comparison:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;==&lt;/code&gt;: Equal to&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!=&lt;/code&gt;: Not equal to&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;: Larger than&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt;: Larger or equal to&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;: Less than&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;=&lt;/code&gt;: Less than or equal to&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How many male Adelie penguins were observed?
+adelie %&amp;gt;%
+  filter(sex == &amp;quot;male&amp;quot;) %&amp;gt;%
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    n
+## 1 73&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How many Adelie penguins were found on islands that are not Dream island?
+adelie %&amp;gt;%
+  filter(island != &amp;quot;Dream&amp;quot;) %&amp;gt;%
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    n
+## 1 96&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How many Adelie penguins were observed during or before 2008?
+adelie %&amp;gt;%
+  filter(year &amp;lt;= 2008) %&amp;gt;%
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     n
+## 1 100&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;combining-criteria&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Combining criteria&lt;/h3&gt;
+&lt;p&gt;Sometimes, we’ll need more than one criteria to get the data we want.
+For example, if you are interested in the female Adelie penguins on the Biscoe
+island:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie %&amp;gt;%
+  filter(sex == &amp;quot;female&amp;quot;, island == &amp;quot;Biscoe&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1   Adelie Biscoe           37.8          18.3               174        3400
+## 2   Adelie Biscoe           35.9          19.2               189        3800
+## 3   Adelie Biscoe           35.3          18.9               187        3800
+## 4   Adelie Biscoe           40.5          17.9               187        3200
+## 5   Adelie Biscoe           37.9          18.6               172        3150
+## 6   Adelie Biscoe           39.6          17.7               186        3500
+## 7   Adelie Biscoe           35.0          17.9               190        3450
+## 8   Adelie Biscoe           34.5          18.1               187        2900
+## 9   Adelie Biscoe           39.0          17.5               186        3550
+## 10  Adelie Biscoe           36.5          16.6               181        2850
+## 11  Adelie Biscoe           35.7          16.9               185        3150
+## 12  Adelie Biscoe           37.6          17.0               185        3600
+## 13  Adelie Biscoe           36.4          17.1               184        2850
+## 14  Adelie Biscoe           35.5          16.2               195        3350
+## 15  Adelie Biscoe           35.0          17.9               192        3725
+## 16  Adelie Biscoe           37.7          16.0               183        3075
+## 17  Adelie Biscoe           37.9          18.6               193        2925
+## 18  Adelie Biscoe           38.6          17.2               199        3750
+## 19  Adelie Biscoe           38.1          17.0               181        3175
+## 20  Adelie Biscoe           38.1          16.5               198        3825
+## 21  Adelie Biscoe           39.7          17.7               193        3200
+## 22  Adelie Biscoe           39.6          20.7               191        3900
+##       sex year
+## 1  female 2007
+## 2  female 2007
+## 3  female 2007
+## 4  female 2007
+## 5  female 2007
+## 6  female 2008
+## 7  female 2008
+## 8  female 2008
+## 9  female 2008
+## 10 female 2008
+## 11 female 2008
+## 12 female 2008
+## 13 female 2008
+## 14 female 2008
+## 15 female 2009
+## 16 female 2009
+## 17 female 2009
+## 18 female 2009
+## 19 female 2009
+## 20 female 2009
+## 21 female 2009
+## 22 female 2009&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What if you need penguins with extreme body weight? Say either over 4700g or
+below 2900g.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie %&amp;gt;%
+  filter(body_mass_g &amp;gt; 4700 | body_mass_g &amp;lt; 2900)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Biscoe           36.5          16.6               181        2850
+## 2  Adelie Biscoe           36.4          17.1               184        2850
+## 3  Adelie Biscoe           41.0          20.0               203        4725
+## 4  Adelie Biscoe           43.2          19.0               197        4775
+##      sex year
+## 1 female 2008
+## 2 female 2008
+## 3   male 2009
+## 4   male 2009&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;logical-operations-whats-happening-under-the-dplyr-table&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Logical operations: What’s happening under the &lt;code&gt;dplyr&lt;/code&gt; table&lt;/h4&gt;
+&lt;p&gt;Essentially, what &lt;code&gt;filter()&lt;/code&gt; relies on is to ask a series of yes/no question
+to each row of a column, and the answers to these yes/no questions are called
+Boolean or logical values.&lt;/p&gt;
+&lt;p&gt;In R, &lt;code&gt;TRUE&lt;/code&gt; means yes, while &lt;code&gt;FALSE&lt;/code&gt; means no.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is 3 larger than 5?
+3 &amp;gt; 5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is 2022 equal to 2020?
+2022 == 2020&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is &amp;quot;apple&amp;quot; not equal to &amp;quot;orange&amp;quot;?
+&amp;quot;apple&amp;quot; != &amp;quot;orange&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These logical values can be further calculated with &lt;code&gt;&amp;amp;&lt;/code&gt; (AND), &lt;code&gt;|&lt;/code&gt; (OR), and
+&lt;code&gt;xor()&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;code&gt;&amp;amp;&lt;/code&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;code&gt;|&lt;/code&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;code&gt;xor()&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;TRUE/TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;TRUE/FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;FALSE/TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;TRUE&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;FALSE/FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;FALSE&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;So, how many Adelie penguins either have a bill length shorter than 35mm
+or a bill depth below 15mm?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie %&amp;gt;%
+  filter(bill_length_mm &amp;lt; 35 | bill_depth_mm &amp;lt; 15) %&amp;gt;%
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   n
+## 1 9&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we know &lt;code&gt;filter()&lt;/code&gt; is working with logical values, you won’t be
+surprised that it can also use other functions that gives a logical value
+as its output as a criterion.&lt;/p&gt;
+&lt;p&gt;For example, we mentioned that &lt;code&gt;NA&lt;/code&gt; is how R labels missing data. Since we are
+interested in body weight, we might want throw away rows with missing body
+weight…&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You might want to try filtering for body_mass_g== NA
+adelie %&amp;gt;%
+  filter(body_mass_g == NA)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] species           island            bill_length_mm    bill_depth_mm    
+## [5] flipper_length_mm body_mass_g       sex               year             
+## &amp;lt;0 rows&amp;gt; (or 0-length row.names)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What is happening? Remember that we said R treats NA very differently. As a
+matter of fact, almost every operation gives you &lt;code&gt;NA&lt;/code&gt; when &lt;code&gt;NA&lt;/code&gt; is involved.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Try these
+5 == NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;3 &amp;gt; NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;quot;North America&amp;quot; != NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;3.1415926 &amp;lt;= NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since &lt;code&gt;NA&lt;/code&gt; is missing data, this actually makes sense:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;5 == NA&lt;/code&gt; is like asking “is 5 equal to something I don’t know?”, and the
+answer has to be “I don’t know”.&lt;/p&gt;
+&lt;p&gt;So, how do we ask R if it doesn’t know something or has an &lt;code&gt;NA&lt;/code&gt; there? We use
+&lt;code&gt;is.na()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;is.na(NA)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;is.na(&amp;quot;National Academy&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can use &lt;code&gt;is.na()&lt;/code&gt; with &lt;code&gt;filter()&lt;/code&gt; to find the rows where body weight is
+&lt;code&gt;NA&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use is.na() to get rows with NA in body_mass_g
+adelie %&amp;gt;%
+  filter(is.na(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen             NA            NA                NA          NA
+##    sex year
+## 1 &amp;lt;NA&amp;gt; 2007&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How do we select all other rows then? In R, &lt;code&gt;!&lt;/code&gt; flips a logical value, and you
+can pronounce it as &lt;em&gt;not&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not TRUE
+!TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not FALSE
+!FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Flipping (3 &amp;gt; 5)
+!(3 &amp;gt; 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can use &lt;code&gt;!&lt;/code&gt; to find rows that are &lt;em&gt;not&lt;/em&gt; &lt;code&gt;NA&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How many Adelie penguins have their body mass recorded?
+adelie %&amp;gt;%
+  filter(!is.na(body_mass_g)) %&amp;gt;%
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     n
+## 1 151&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;extended-reading-dealing-with-missing-values&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Extended reading: Dealing with missing values&lt;/h3&gt;
+&lt;p&gt;Depends on what you work with, you might not always want to drop missing values.&lt;/p&gt;
+&lt;p&gt;If you are not going to throw those data away, you’ll need to ask yourself
+questions like “Does missing value appear randomly?”, and decide how to best
+deal with them.&lt;/p&gt;
+&lt;p&gt;If you are interested, Hadley Wickham has
+&lt;a href=&#34;https://r4ds.hadley.nz/missing-values.html&#34;&gt;a section in his book &lt;em&gt;R for Data Science&lt;/em&gt;&lt;/a&gt;
+discussing this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;group-your-data-for-further-analysis&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Group your data for further analysis&lt;/h2&gt;
+&lt;p&gt;Let’s say we are interested in how body weight differs between islands.
+To perform this analysis, we might want to calculate the median and standard
+deviation of body mass per island.&lt;/p&gt;
+&lt;p&gt;To indicate how &lt;code&gt;dplyr&lt;/code&gt; should group your data, we use &lt;code&gt;group_by()&lt;/code&gt; to tell
+it which column contains the group labels.&lt;/p&gt;
+&lt;p&gt;Let’s assign the grouped data to another object named &lt;code&gt;adelie_per_island&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie_per_island &amp;lt;- adelie %&amp;gt;%
+  filter(!is.na(body_mass_g)) %&amp;gt;%
+  group_by(island)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;get-summary-statistics-with-summarize&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Get summary statistics with &lt;code&gt;summarize()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Now that we grouped the data, we can calculate the summary statistics.&lt;/p&gt;
+&lt;p&gt;The syntax for &lt;code&gt;summarize()&lt;/code&gt; is as follows:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You tell summarize() which functions to use on which column
+adelie_per_island %&amp;gt;%
+  summarize(mean(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 × 2
+##   island    `mean(body_mass_g)`
+##   &amp;lt;chr&amp;gt;                   &amp;lt;dbl&amp;gt;
+## 1 Biscoe                  3710.
+## 2 Dream                   3688.
+## 3 Torgersen               3706.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By default, the column names of the summary table is the function call we gives
+to &lt;code&gt;summarize()&lt;/code&gt;, which could be a bit ugly. We can rename the columns by:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie_per_island %&amp;gt;%
+  summarize(mean_bw = mean(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 × 2
+##   island    mean_bw
+##   &amp;lt;chr&amp;gt;       &amp;lt;dbl&amp;gt;
+## 1 Biscoe      3710.
+## 2 Dream       3688.
+## 3 Torgersen   3706.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The summary statistics that we use the most often are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arithmetic mean (&lt;code&gt;mean()&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Median (&lt;code&gt;median()&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Standard deviation (&lt;code&gt;sd()&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s summarize the data with median and standard deviation per island.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Summarize the Adelie subset per island with the median and standard deviation 
+# of the body mass
+adelie_per_island %&amp;gt;%
+  summarize(bw_median = median(body_mass_g), bw_sd = sd(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 3 × 3
+##   island    bw_median bw_sd
+##   &amp;lt;chr&amp;gt;         &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+## 1 Biscoe         3750  488.
+## 2 Dream          3575  455.
+## 3 Torgersen      3700  445.&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;what-if-you-dont-group&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What if you don’t group?&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;adelie %&amp;gt;%
+  filter(!is.na(body_mass_g)) %&amp;gt;%
+  summarize(bw_median = median(body_mass_g), bw_sd = sd(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   bw_median    bw_sd
+## 1      3700 458.5661&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-if-you-want-to-group-with-another-grouping-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What if you want to group with another grouping variable?&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s group with sex
+adelie %&amp;gt;%
+  filter(!is.na(body_mass_g), !is.na(sex)) %&amp;gt;%
+  group_by(sex) %&amp;gt;%
+  summarize(bw_median = median(body_mass_g), bw_sd = sd(body_mass_g))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 × 3
+##   sex    bw_median bw_sd
+##   &amp;lt;chr&amp;gt;      &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;
+## 1 female      3400  269.
+## 2 male        4000  347.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-picture-is-worth-a-thousand-words&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A picture is worth a thousand words&lt;/h2&gt;
+&lt;p&gt;While it’s great to have summary statistics, oftentimes a quick visualization
+of our data will be very helpful.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;qplot()&lt;/code&gt; provided by &lt;code&gt;ggplot2&lt;/code&gt; is designed for this purpose and can be easily
+incorporated into your pipeline.&lt;/p&gt;
+&lt;div id=&#34;example-a-quick-scatterstrip-plot-per-island&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Example: a quick scatter/strip plot per island&lt;/h3&gt;
+&lt;p&gt;Let’s plot something with &lt;em&gt;points&lt;/em&gt; on a plane where the x-axis is the islands
+and the y-axis is the body weight.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load ggplot2
+library(ggplot2)
+
+adelie_per_island %&amp;gt;%
+  qplot(data = ., x = island, y = body_mass_g, geom = &amp;quot;point&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/index.en_files/figure-html/qplot-strip-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;There several required arguments for &lt;code&gt;qplot()&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;data: The data you want to plot.&lt;/li&gt;
+&lt;li&gt;x: The column name of the variable you want to use as the x-axis&lt;/li&gt;
+&lt;li&gt;y: The column name of the variable you want to use as the y-axis&lt;/li&gt;
+&lt;li&gt;color: The column name of the variable you want to color your plot by&lt;/li&gt;
+&lt;li&gt;geom: Short for “geometry”, the type of plots you want to do. Popular ones
+include:
+&lt;ul&gt;
+&lt;li&gt;point&lt;/li&gt;
+&lt;li&gt;bar&lt;/li&gt;
+&lt;li&gt;boxplot&lt;/li&gt;
+&lt;li&gt;violin&lt;/li&gt;
+&lt;li&gt;histogram&lt;/li&gt;
+&lt;li&gt;density&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s do a boxplot instead
+adelie_per_island %&amp;gt;%
+  qplot(data = ., x = island, y = body_mass_g, geom = &amp;quot;boxplot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/index.en_files/figure-html/qplot-box-1.png&#34; width=&#34;672&#34; /&gt;
+### What is the distribution of bill lengths of the whole dataset?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot a histogram with bill lengths on the x-axis
+penguins %&amp;gt;%
+  qplot(data = ., x = bill_length_mm, geom = &amp;quot;histogram&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_bin).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/index.en_files/figure-html/qplot-histogram-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;is-bill-length-and-depth-correlated-for-the-adelie-penguins&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Is bill length and depth correlated for the Adelie penguins?&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot a point plot with bill length on the x, bill depth on the y, and
+# color by sex
+adelie %&amp;gt;%
+  qplot(
+    data = .,
+    x = bill_length_mm,
+    y = bill_depth_mm,
+    color = sex,
+    geom = &amp;quot;point&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/21/session-3-hands-on-data-wrangling/index.en_files/figure-html/qplot-scatter-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Working directories</title>
