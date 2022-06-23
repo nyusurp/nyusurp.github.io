@@ -3,21 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nyusurp.github.io/authors/</loc>
-    <lastmod>2022-06-21T10:37:17-04:00</lastmod>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
+  </url><url>
+    <loc>https://nyusurp.github.io/author/cassandra-buzby/</loc>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/categories/</loc>
-    <lastmod>2022-06-21T10:37:17-04:00</lastmod>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/category/handout/</loc>
-    <lastmod>2022-06-21T10:37:17-04:00</lastmod>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/handout/</loc>
-    <lastmod>2022-06-21T10:37:17-04:00</lastmod>
-  </url><url>
-    <loc>https://nyusurp.github.io/2022/06/21/hands-on-data-wrangling/</loc>
-    <lastmod>2022-06-21T10:37:17-04:00</lastmod>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/</loc>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
+  </url><url>
+    <loc>https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/</loc>
+    <lastmod>2022-06-23T13:33:39-04:00</lastmod>
+  </url><url>
+    <loc>https://nyusurp.github.io/2022/06/21/hands-on-data-wrangling/</loc>
     <lastmod>2022-06-21T10:37:17-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/author/yen-chung-chen/</loc>
@@ -31,9 +37,6 @@
   </url><url>
     <loc>https://nyusurp.github.io/2022/06/14/working-directories/</loc>
     <lastmod>2022-06-14T08:56:49-04:00</lastmod>
-  </url><url>
-    <loc>https://nyusurp.github.io/author/cassandra-buzby/</loc>
-    <lastmod>2022-06-13T20:38:45-04:00</lastmod>
   </url><url>
     <loc>https://nyusurp.github.io/2022/06/13/prepare-your-computer-for-r/</loc>
     <lastmod>2022-06-13T20:38:45-04:00</lastmod>
