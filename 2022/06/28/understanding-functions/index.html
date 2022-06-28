@@ -27,10 +27,11 @@
   
     
   
-  <meta name="description" content="Indexing What do we mean by indexing? So far, we’ve worked with data frames in R. Each data frame is really a set of rows and columns with values populated, and these can be broken down into what are called vectors.">
+  <meta name="description" content="Review Let’s create our data frames again by running the following code:
+NewDataFrame &lt;- data.frame(Random = c(4, 20, 10, 21, 63, 3, 14, 60, 9, 6), Index = 1:10, Categories = c(&quot;Month&quot;, &quot;Day&quot;, &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, &quot;Month&quot;, &quot;Day&quot;)) Examples for plotting subsetted values If you wanted to plot only specific values, you could use these same booleans inside the functions to plot.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/">
+  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/2022/06/28/understanding-functions/">
 
   
 
@@ -213,7 +214,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/">
+  <link rel="canonical" href="https://nyusurp.github.io/2022/06/28/understanding-functions/">
 
   
   
@@ -229,15 +230,16 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="R Workshop">
-  <meta property="og:url" content="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/">
-  <meta property="og:title" content="Understanding Indexing and Subsetting | R Workshop">
-  <meta property="og:description" content="Indexing What do we mean by indexing? So far, we’ve worked with data frames in R. Each data frame is really a set of rows and columns with values populated, and these can be broken down into what are called vectors."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="https://nyusurp.github.io/2022/06/28/understanding-functions/">
+  <meta property="og:title" content="Understanding Functions | R Workshop">
+  <meta property="og:description" content="Review Let’s create our data frames again by running the following code:
+NewDataFrame &lt;- data.frame(Random = c(4, 20, 10, 21, 63, 3, 14, 60, 9, 6), Index = 1:10, Categories = c(&quot;Month&quot;, &quot;Day&quot;, &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, &quot;Month&quot;, &quot;Day&quot;)) Examples for plotting subsetted values If you wanted to plot only specific values, you could use these same booleans inside the functions to plot."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2022-06-23T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2022-06-28T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2022-06-23T13:33:39-04:00">
+    <meta property="article:modified_time" content="2022-06-28T13:42:09-04:00">
   
 
   
@@ -256,7 +258,7 @@
 
 
 
-  <title>Understanding Indexing and Subsetting | R Workshop</title>
+  <title>Understanding Functions | R Workshop</title>
 
 </head>
 
@@ -430,7 +432,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Understanding Indexing and Subsetting</h1>
+  <h1>Understanding Functions</h1>
 
   
 
@@ -461,7 +463,7 @@
           Last updated on
       
     
-    2022-06-23
+    2022-06-28
   </span>
   
 
@@ -508,130 +510,18 @@
       
 
 
-<div id="indexing" class="section level1">
-<h1>Indexing</h1>
-<div id="what-do-we-mean-by-indexing" class="section level3">
-<h3>What do we mean by indexing?</h3>
-<p>So far, we’ve worked with data frames in R. Each data frame is really a set of rows and columns with values populated, and these can be broken down into what are called vectors. A vector is simply a one-dimensional set of <em>something</em> that can have at minimum length 1.</p>
-<p>We can create vectors using the function c(), for concatenate.</p>
-<pre class="r"><code>FirstVector &lt;- c(4,20,10,21,60,3,14,63,9,6)
-
-FirstVector</code></pre>
-<pre><code>##  [1]  4 20 10 21 60  3 14 63  9  6</code></pre>
-<p>This vector has a length, and each number has an index within that vector. In the upper right, you can see that your FirstVector values are 1:10 and numeric. We can also use the length() function to find out how many elements we have in our vector.</p>
-<pre class="r"><code>length(FirstVector)</code></pre>
-<pre><code>## [1] 10</code></pre>
-<p>If we wanted to identify the first value, we could use square brackets, ‘[]’, to identify that value. R will print the value that corresponds with that number.</p>
-<pre class="r"><code>FirstVector[1]</code></pre>
-<pre><code>## [1] 4</code></pre>
-<p>If we wanted to find the fifth value, we would use the following:</p>
-<pre class="r"><code>FirstVector[5]</code></pre>
-<pre><code>## [1] 60</code></pre>
-<pre class="r"><code>#What is the 9th element in the vector? Write your code below:</code></pre>
-<p>To make a set of numbers that is in a sequence by one, we can just use a ‘:’ to tell R to print that sequence. We can make a new vector using this:</p>
-<pre class="r"><code>SecondVector &lt;- 1:10
-SecondVector</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<p>Similarly, we can subset using the ‘:’ to ask R to give us a set of numbers to index by, such as the first three elements in the FirstVector.</p>
-<pre class="r"><code>FirstVector[1:3]</code></pre>
-<pre><code>## [1]  4 20 10</code></pre>
-<pre class="r"><code>#Find the last 4 elements of SecondVector. Print your code below:</code></pre>
-</div>
-<div id="indexing-data-frames" class="section level3">
-<h3>Indexing Data Frames</h3>
-<p>If we wanted to make a data frame from vectors that we already have, we can use the data.frame() function to combine vectors <em>of the same size</em>. If the vectors are different sizes, R won’t know what to do with the extra slots and will give you an error.</p>
-<pre class="r"><code>#Making a data frame from vectors
-
-NewDataFrame &lt;- data.frame(Random = FirstVector, Index = SecondVector)
-
-NewDataFrame</code></pre>
-<pre><code>##    Random Index
-## 1       4     1
-## 2      20     2
-## 3      10     3
-## 4      21     4
-## 5      60     5
-## 6       3     6
-## 7      14     7
-## 8      63     8
-## 9       9     9
-## 10      6    10</code></pre>
-<p>Instead of using length() to find out the size of a data frame, we would need to find the <em>dimensions</em> of that data frame. We briefly covered this function in earlier sessions: you can use dim().</p>
-<pre class="r"><code>dim(NewDataFrame)</code></pre>
-<pre><code>## [1] 10  2</code></pre>
-<p>The output of dim() is a vector, which gives the number of rows (first number) and the number of columns (second number). An easy way to remember this is “railroad car”, which always has R before C, or rows before columns.</p>
-<p>What if we wanted to find the first row of our data frame? We could use square brackets again, but this time we would need to add a column in between our row argument and our column argument. To select <em>all</em> of the values of one row or column, leave the element (before or after the comma) blank.</p>
-<pre class="r"><code>#The following code will give the first row:
-NewDataFrame[1,]</code></pre>
-<pre><code>##   Random Index
-## 1      4     1</code></pre>
-<pre class="r"><code>#This next code will give the second column:
-NewDataFrame[,2]</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<p>What if we wanted to find the first column and fourth row element? We would indicate both of these numbers in square brackets:</p>
-<pre class="r"><code>NewDataFrame[4,1]</code></pre>
-<pre><code>## [1] 21</code></pre>
-<pre class="r"><code>#Find the third element of the second column below:
-
-#Find the last 3 elements of the first column below:</code></pre>
-</div>
-<div id="using-column-names-with" class="section level3">
-<h3>Using column names with $</h3>
-<p>If you wanted to refer to a column by name, you can do so with the $ operator. We can print the second column as such:</p>
-<pre class="r"><code>NewDataFrame$Index</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<p>If we wanted to select the second element of the Index column, we could do so using the square brackets as we did before; in this case, though, we now have a vector (the column) rather than a data frame, so we only need one dimension in our square brackets:</p>
-<pre class="r"><code>NewDataFrame$Index[2]</code></pre>
-<pre><code>## [1] 2</code></pre>
-<pre class="r"><code>#Find the fourth element of the Random column below:</code></pre>
-</div>
-</div>
-<div id="logicals" class="section level1">
-<h1>Logicals</h1>
-<div id="a-review-of-booleans" class="section level3">
-<h3>A review of Booleans</h3>
-<p>Booleans are true/false statements that are evaluated by R. TRUE is encoded by a 1, and FALSE is encoded by a 0. R recognizes the words “TRUE” and “FALSE” when they are capitalized.</p>
-<p>We can evaluate two numbers by using the ‘==’ sign between them:</p>
-<pre class="r"><code>2 == 2</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>2 == 3</code></pre>
-<pre><code>## [1] FALSE</code></pre>
-<p>We can also find the numbers in a vector that are equal to a certain number:</p>
-<pre class="r"><code>FirstVector == 4</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>Note that only the first element of FirstVector is 4; the rest are not, and so this evaluates to FALSE.</p>
-<p>We can also use the &lt; and &gt; to evaluate, and &lt;= and &gt;=:</p>
-<pre class="r"><code>FirstVector &lt; 10</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
-<pre class="r"><code># Find all of the values of SecondVector that are greater than or equal to 4
-
-# Find all of the values of FirstVector that are less than 5</code></pre>
-<p>We can also evaluate two vectors to see if they have the same values:</p>
-<pre class="r"><code>FirstVector == NewDataFrame[,1]</code></pre>
-<pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
-<pre class="r"><code>#Below, use &#39;!=&#39; to ask if FirstVector is NOT equal to the first column of NewDataFrame</code></pre>
-<p>Finally, we can compare if two columns are equal in our data frame:</p>
-<pre class="r"><code>NewDataFrame$Random == NewDataFrame$Index</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
-</div>
-</div>
-<div id="subsetting" class="section level1">
-<h1>Subsetting</h1>
-<div id="subsetting-by-values" class="section level3">
-<h3>Subsetting by values</h3>
-<p>We’ve done this using dplyr in the past; we can take a data frame and filter it by a certain value. Without using the dplyr package, we can also do this based on the rows and column indices. Keep in mind that if you’re using the full name of the column,</p>
-<pre class="r"><code>#First we can print the indices where the Random column equals 4
-NewDataFrame$Random == 4</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<pre class="r"><code>#By placing the true values in the square brackets, this code prints the rows where Rnadom is equal to 4
-NewDataFrame[NewDataFrame$Random == 4,]</code></pre>
-<pre><code>##   Random Index
-## 1      4     1</code></pre>
-<pre class="r"><code>#Below, find the rows where the Random column is greater than 50
-
-#Next, find the rows in which the Random column value is less than OR equal to the Index column value</code></pre>
-<p>Of course, this can also be done using dplyr, but with naming columns and not the data frame:</p>
-<pre class="r"><code>library(dplyr)</code></pre>
+<div id="review" class="section level2">
+<h2>Review</h2>
+<p>Let’s create our data frames again by running the following code:</p>
+<pre class="r"><code>NewDataFrame &lt;- data.frame(Random = c(4, 20, 10, 21, 63, 3, 14, 60, 9, 6),
+                           Index = 1:10,
+                           Categories = c(&quot;Month&quot;, &quot;Day&quot;, &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, 
+                                          &quot;Month&quot;, &quot;Day&quot;, &quot;Year&quot;, &quot;Month&quot;, &quot;Day&quot;))</code></pre>
+<div id="examples-for-plotting-subsetted-values" class="section level3">
+<h3>Examples for plotting subsetted values</h3>
+<p>If you wanted to plot only specific values, you could use these same booleans inside the functions to plot. This is going to be the basis of how we separate out values in our plots.</p>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -640,77 +530,45 @@ NewDataFrame[NewDataFrame$Random == 4,]</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>NewDataFrame %&gt;% filter(Random == 4)</code></pre>
-<pre><code>##   Random Index
-## 1      4     1</code></pre>
-</div>
-<div id="putting-it-together" class="section level3">
-<h3>Putting it together</h3>
-<p>Before we move on to visualizing, we can also create a new column in our data frame using $, and we can populate that by using booleans:</p>
-<pre class="r"><code>NewDataFrame$NewColumn &lt;- NewDataFrame$Random &gt;= NewDataFrame$Index
-
-NewDataFrame</code></pre>
-<pre><code>##    Random Index NewColumn
-## 1       4     1      TRUE
-## 2      20     2      TRUE
-## 3      10     3      TRUE
-## 4      21     4      TRUE
-## 5      60     5      TRUE
-## 6       3     6     FALSE
-## 7      14     7      TRUE
-## 8      63     8      TRUE
-## 9       9     9      TRUE
-## 10      6    10     FALSE</code></pre>
-</div>
-</div>
-<div id="visualizing-the-subset" class="section level1">
-<h1>Visualizing the subset</h1>
-<div id="plotting-subsetted-values" class="section level3">
-<h3>Plotting subsetted values</h3>
-<p>If you wanted to plot only specific values, you could use these same booleans inside the functions to plot. This is going to be the basis of how we separate out values in our plots.</p>
-<pre class="r"><code>library(ggplot2)
-
-# Plot our data frame here
+<pre class="r"><code># Plot our data frame here
 qplot(x = NewDataFrame$Random, y = NewDataFrame$Index)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>qplot(x = Random, y = Index, data = NewDataFrame)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 <pre class="r"><code># We can change the size of our points by adding in the &#39;size&#39; argument
 qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, size = 1)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-21-3.png" width="672" /></p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 <pre class="r"><code># Finally, we can add in coloring by a boolean logical
 qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, color = NewDataFrame$Index &gt; 5, size = 1)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-21-4.png" width="672" /></p>
-<pre class="r"><code>qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, color = NewDataFrame$NewColumn, size = 1)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-21-5.png" width="672" /></p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-4.png" width="672" /></p>
+<pre class="r"><code>qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, color = NewDataFrame$Categories, size = 1)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-5.png" width="672" /></p>
 </div>
-</div>
-<div id="exploring-r" class="section level1">
-<h1>Exploring R</h1>
-<p>One of the most important things to do in R is read the documentation for different packages and functions. If we look at the function for qplot, it will give us the options for our plots.</p>
-<p>We can do this by either running help(<function>) or ?<function>, as done below:</p>
+<div id="exploring-r" class="section level3">
+<h3>Exploring R</h3>
+<p>As a reminder, we can find out more about the functions we use with the help menu, found using help() or just simply a ‘?’ in front of the function (without spaces).</p>
 <pre class="r"><code>help(qplot)
 ?qplot</code></pre>
-<p>This has lots of options, but the examples show where they have options for size and color. We’ll get into how to use these (and more!) in ggplot later, but you can explore how to visualize your own data using qplot, as long as you remember to load ggplot2 into your workspace.</p>
-<p>You’ll notice that there’s an option for <em>geom</em>. This is the type of plot that will be made, and the default is a scatter plot (so geom = “point”). You can find this in the defaults for geom.</p>
+<p>As a reminder, there’s an option for <em>geom</em>. This is the type of plot that will be made, and the default is a scatter plot (so geom = “point”). You can find this in the defaults for geom.</p>
 <pre class="r"><code>#Make a scatter plot
 qplot(x = Index, y = Random, data = NewDataFrame,
       geom = &quot;point&quot;,
       xlim = c(0,25), ylim = c(0,100),
-      main = &quot;Title of Randomness&quot;,
-      xlab = &quot;Index Expanded&quot;,
-      ylab = &quot;Random Numbers&quot;,
+      main = &quot;Rainfall Distribution&quot;,
+      xlab = &quot;Month&quot;,
+      ylab = &quot;Rainfall (in)&quot;,
       color = Random &gt; 5, size = 1)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>#Make a box plot with scatter (called jitter)
-qplot(x = Random, y = NewColumn, data = NewDataFrame,
+qplot(x = Random, y = Categories, data = NewDataFrame,
       geom = c(&quot;boxplot&quot;, &quot;jitter&quot;),
       main = &quot;Boxplot of Random Numbers&quot;,
       color = Index)</code></pre>
-<p><img src="https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/index.en_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<div id="practice" class="section level3">
-<h3>Practice</h3>
-<p>Load in the dataset penguins.csv, and plot the bill length vs body mass of penguins, coloring by species and changing the shape by island.</p>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="practice-from-last-time" class="section level3">
+<h3>Practice from last time:</h3>
+<p>Load in the dataset penguins.csv, and plot the <em>bill length</em> vs <em>body mass</em> of penguins, coloring by <em>species</em> and changing the shape by <em>island</em>.</p>
 <pre class="r"><code>#Load in the csv using read.csv()
 
 #View the data by using head() and find the names of the columns using str()
@@ -721,6 +579,167 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
 <h3>Advanced Practice</h3>
 <p>Using either dplyr or subsetting, plot the Gentoo penguins bill length vs body mass, and color by if their body mass is above 5500.</p>
 <pre class="r"><code># Your code below</code></pre>
+</div>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<p>We’ve been using functions throughout this course; a function is anything that has an input and an output, often changing that input to create a different output. The functions that we’ve used so far have either been built into R such as mean(), dim(), sum(), and length(), or they have been loaded in as a package, such as dplyr::filter(), dplyr::summarize(), and ggplot::qplot().</p>
+<p>Let’s now look up the help menu for the function seq(). What does it do?</p>
+<pre class="r"><code>help(seq)</code></pre>
+<p>Let’s run this function with default values:</p>
+<pre class="r"><code>#Uncomment this line to see what happens if you don&#39;t include any values:
+#seq()
+
+#Let&#39;s run this line to see what happens when you include only a single value:
+seq(5)</code></pre>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<p>Let’s include three numbers without explicitly calling each argument:</p>
+<pre class="r"><code>seq(5,10,2)</code></pre>
+<pre><code>## [1] 5 7 9</code></pre>
+<pre class="r"><code>#This is the same as running:
+seq(from = 5, to = 10,  by = 2)</code></pre>
+<pre><code>## [1] 5 7 9</code></pre>
+<p>Let’s change up the order now:</p>
+<pre class="r"><code>#This will also produce values that are equivalent:
+seq(to = 10, by = 2, from = 5)</code></pre>
+<pre><code>## [1] 5 7 9</code></pre>
+<pre class="r"><code>#But this will not:
+#seq(10, 2, 5)</code></pre>
+<div id="practice" class="section level4">
+<h4>Practice</h4>
+<p>Save a vector of values from 12 to 200, increasing by 4. Then print the last 10 values of this vector.</p>
+<pre class="r"><code>#define your variable as the output of seq()
+
+#look at the documentation for tail()
+
+#print the last 10 values using tail()</code></pre>
+</div>
+<div id="writing-your-own-function" class="section level3">
+<h3>Writing your own function</h3>
+<p>We can write functions as well as using them. Today we’ll start off with a simple code to convert Celsius to Fahrenheit.</p>
+<pre class="r"><code>#define your variable
+celcius &lt;- 20
+
+#calculate your new value
+farenheit &lt;- 9/5 * celcius + 32
+
+#print the new value
+farenheit</code></pre>
+<pre><code>## [1] 68</code></pre>
+<p>Now let’s turn this into a function, using the function() function. Keep in mind that functions follow essentially the format of</p>
+<p><span class="math display">\[y=f(x)\]</span></p>
+<p>which can also be read as:</p>
+<p><span class="math display">\[output = myfunction(input)\]</span></p>
+<p>When we write this in code, we define the <em>name</em> of the function (below it’s c2f) as function(input){}, where inside the curly brackets {} there is the actual calculation. We then use the function return() to designate to the function what to output, which is our “y” in the above formula.</p>
+<pre class="r"><code>c2f &lt;- function(celcius) {
+  farenheit = 9/5 * celcius + 32
+  return(farenheit)
+}</code></pre>
+<p>What happens if we run this without an argument?</p>
+<pre class="r"><code>#Run the following code:
+c2f()</code></pre>
+<p>We need to include arguments for celcius:</p>
+<pre class="r"><code>#Try explicitly stating the value
+c2f(celcius = 10)</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code>#What happens if we don&#39;t define celcius?
+c2f(10)</code></pre>
+<pre><code>## [1] 50</code></pre>
+<p>Finally, we can actually include a default when we create this function. Let’s add in something to c2f().</p>
+<pre class="r"><code>c2f_adv &lt;- function(celcius = 0) {
+  farenheit &lt;- 9/5 * celcius + 32
+  return(farenheit)
+}
+
+#now run the code without an argument to see what happens
+c2f_adv()</code></pre>
+<pre><code>## [1] 32</code></pre>
+</div>
+<div id="functions-with-two-arguments" class="section level3">
+<h3>Functions with two arguments:</h3>
+<p>If we include x and y into the equation, we can set two variables values:</p>
+<pre class="r"><code>multiply &lt;- function(x, y){x*y}</code></pre>
+<p>Now we can run this, but it won’t work if we don’t give two arguments:</p>
+<pre class="r"><code>#This does not work without defaults
+#multiply()
+
+#This will multiply 2 and 3:
+multiply(2,3)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>If we rewrite this function, then it will work if defaults are set:</p>
+<pre class="r"><code>multiply2 &lt;- function(x = 2, y = 4){x*y}
+
+#This will multiply the default arguments
+multiply2()</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>#This will multiply the inputs
+multiply2(3,10)</code></pre>
+<pre><code>## [1] 30</code></pre>
+<pre class="r"><code>#What happens if you only include one number?
+multiply2(10)</code></pre>
+<pre><code>## [1] 40</code></pre>
+<pre class="r"><code>multiply2(y = 10)</code></pre>
+<pre><code>## [1] 20</code></pre>
+</div>
+</div>
+<div id="data-types" class="section level2">
+<h2>Data Types</h2>
+<p>So far we’ve been able to run calculations using variables, and used read.csv() to take in a character (the name of your file) that is converted into a data frame. We’ve also mentioned that data frame columns must be vectors of the same “type”. But what are the other data types that R can use?</p>
+<p><strong>Some basic data types:</strong></p>
+<ul>
+<li><p>Characters (char): “string” of text, which has the value of the text</p></li>
+<li><p>Numbers (num): overall class of numbers, which includes integers and doubles</p></li>
+<li><p>Integers (int): numbers without decimal points (takes less space)</p></li>
+<li><p>Doubles (dbl): floating point numbers, or those with precision (takes more space)</p></li>
+<li><p>Factors (fact): categorical elements which can be ordered (this sounds weird, but we’ll explain more later)</p></li>
+</ul>
+<pre class="r"><code>examplestring &lt;- &quot;This is a string of text&quot;
+exampledouble &lt;- 26.2
+exampleinteger &lt;- 5
+
+#We can find out the data types by running typeof()
+
+typeof(examplestring)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>#What data types are exampledouble and exampleinteger?
+
+typeof(exampledouble)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="r"><code>typeof(exampleinteger)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="r"><code>#Notice that exampleinteger is also listed as a double; this is because R will automatically store numbers as doubles, and converts between numeric classes automatically
+
+realinteger &lt;- as.integer(exampleinteger)
+typeof(realinteger)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>When plotting, data types will change how plots view your data. For example, characters will often be unique values without order, numbers will often be continuous rather than discrete, and ordered alphabetically, and factors will be discrete and maintain an order. We will learn more about this soon, but we can use an example with qplot (which we’ve reviewed).</p>
+<pre class="r"><code>penguins &lt;- read.csv(&quot;penguins.csv&quot;)
+# How many colors are there when we color by island?
+qplot(x = bill_length_mm, y = bill_depth_mm, data = penguins, color = island)</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre class="r"><code># How many colors are there when we color by bill depth?
+qplot(x = bill_length_mm, y = bill_depth_mm, data = penguins, color = bill_depth_mm)</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<hr />
+<div id="answers-to-practice-problems" class="section level3">
+<h3>Answers to practice problems</h3>
+<pre><code>## &#39;data.frame&#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &quot;Adelie&quot; &quot;Adelie&quot; &quot;Adelie&quot; &quot;Adelie&quot; ...
+##  $ island           : chr  &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; &quot;Torgersen&quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &quot;male&quot; &quot;female&quot; &quot;female&quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
 </div>
 </div>
 
@@ -744,7 +763,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/&amp;text=Understanding%20Indexing%20and%20Subsetting" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/2022/06/28/understanding-functions/&amp;text=Understanding%20Functions" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -757,7 +776,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/&amp;t=Understanding%20Indexing%20and%20Subsetting" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/2022/06/28/understanding-functions/&amp;t=Understanding%20Functions" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -770,7 +789,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="mailto:?subject=Understanding%20Indexing%20and%20Subsetting&amp;body=https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Understanding%20Functions&amp;body=https://nyusurp.github.io/2022/06/28/understanding-functions/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -783,7 +802,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/&amp;title=Understanding%20Indexing%20and%20Subsetting" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/2022/06/28/understanding-functions/&amp;title=Understanding%20Functions" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -796,7 +815,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="whatsapp://send?text=Understanding%20Indexing%20and%20Subsetting%20https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Understanding%20Functions%20https://nyusurp.github.io/2022/06/28/understanding-functions/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -809,7 +828,7 @@ qplot(x = Random, y = NewColumn, data = NewDataFrame,
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/2022/06/23/understanding-indexing-and-subsetting/&amp;title=Understanding%20Indexing%20and%20Subsetting" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/2022/06/28/understanding-functions/&amp;title=Understanding%20Functions" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

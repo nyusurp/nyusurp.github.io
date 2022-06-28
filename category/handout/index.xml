@@ -5,12 +5,255 @@
     <link>https://nyusurp.github.io/category/handout/</link>
       <atom:link href="https://nyusurp.github.io/category/handout/index.xml" rel="self" type="application/rss+xml" />
     <description>Handout</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Thu, 23 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Handout</title>
       <link>https://nyusurp.github.io/category/handout/</link>
     </image>
+    
+    <item>
+      <title>Understanding Functions</title>
+      <link>https://nyusurp.github.io/2022/06/28/understanding-functions/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/06/28/understanding-functions/</guid>
+      <description>
+
+
+&lt;div id=&#34;review&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Review&lt;/h2&gt;
+&lt;p&gt;Let’s create our data frames again by running the following code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;NewDataFrame &amp;lt;- data.frame(Random = c(4, 20, 10, 21, 63, 3, 14, 60, 9, 6),
+                           Index = 1:10,
+                           Categories = c(&amp;quot;Month&amp;quot;, &amp;quot;Day&amp;quot;, &amp;quot;Month&amp;quot;, &amp;quot;Day&amp;quot;, &amp;quot;Year&amp;quot;, 
+                                          &amp;quot;Month&amp;quot;, &amp;quot;Day&amp;quot;, &amp;quot;Year&amp;quot;, &amp;quot;Month&amp;quot;, &amp;quot;Day&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;examples-for-plotting-subsetted-values&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Examples for plotting subsetted values&lt;/h3&gt;
+&lt;p&gt;If you wanted to plot only specific values, you could use these same booleans inside the functions to plot. This is going to be the basis of how we separate out values in our plots.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot our data frame here
+qplot(x = NewDataFrame$Random, y = NewDataFrame$Index)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;qplot(x = Random, y = Index, data = NewDataFrame)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We can change the size of our points by adding in the &amp;#39;size&amp;#39; argument
+qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Finally, we can add in coloring by a boolean logical
+qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, color = NewDataFrame$Index &amp;gt; 5, size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-4.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;qplot(x = NewDataFrame$Random, y = NewDataFrame$Index, color = NewDataFrame$Categories, size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-2-5.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exploring-r&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Exploring R&lt;/h3&gt;
+&lt;p&gt;As a reminder, we can find out more about the functions we use with the help menu, found using help() or just simply a ‘?’ in front of the function (without spaces).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;help(qplot)
+?qplot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As a reminder, there’s an option for &lt;em&gt;geom&lt;/em&gt;. This is the type of plot that will be made, and the default is a scatter plot (so geom = “point”). You can find this in the defaults for geom.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a scatter plot
+qplot(x = Index, y = Random, data = NewDataFrame,
+      geom = &amp;quot;point&amp;quot;,
+      xlim = c(0,25), ylim = c(0,100),
+      main = &amp;quot;Rainfall Distribution&amp;quot;,
+      xlab = &amp;quot;Month&amp;quot;,
+      ylab = &amp;quot;Rainfall (in)&amp;quot;,
+      color = Random &amp;gt; 5, size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a box plot with scatter (called jitter)
+qplot(x = Random, y = Categories, data = NewDataFrame,
+      geom = c(&amp;quot;boxplot&amp;quot;, &amp;quot;jitter&amp;quot;),
+      main = &amp;quot;Boxplot of Random Numbers&amp;quot;,
+      color = Index)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice-from-last-time&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice from last time:&lt;/h3&gt;
+&lt;p&gt;Load in the dataset penguins.csv, and plot the &lt;em&gt;bill length&lt;/em&gt; vs &lt;em&gt;body mass&lt;/em&gt; of penguins, coloring by &lt;em&gt;species&lt;/em&gt; and changing the shape by &lt;em&gt;island&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Load in the csv using read.csv()
+
+#View the data by using head() and find the names of the columns using str()
+
+#Use qplot to plot the columns that you&amp;#39;re interested in&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;advanced-practice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Advanced Practice&lt;/h3&gt;
+&lt;p&gt;Using either dplyr or subsetting, plot the Gentoo penguins bill length vs body mass, and color by if their body mass is above 5500.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Your code below&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;functions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Functions&lt;/h2&gt;
+&lt;p&gt;We’ve been using functions throughout this course; a function is anything that has an input and an output, often changing that input to create a different output. The functions that we’ve used so far have either been built into R such as mean(), dim(), sum(), and length(), or they have been loaded in as a package, such as dplyr::filter(), dplyr::summarize(), and ggplot::qplot().&lt;/p&gt;
+&lt;p&gt;Let’s now look up the help menu for the function seq(). What does it do?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;help(seq)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s run this function with default values:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Uncomment this line to see what happens if you don&amp;#39;t include any values:
+#seq()
+
+#Let&amp;#39;s run this line to see what happens when you include only a single value:
+seq(5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1 2 3 4 5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s include three numbers without explicitly calling each argument:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;seq(5,10,2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 7 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#This is the same as running:
+seq(from = 5, to = 10,  by = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 7 9&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s change up the order now:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#This will also produce values that are equivalent:
+seq(to = 10, by = 2, from = 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 7 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#But this will not:
+#seq(10, 2, 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;practice&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Practice&lt;/h4&gt;
+&lt;p&gt;Save a vector of values from 12 to 200, increasing by 4. Then print the last 10 values of this vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#define your variable as the output of seq()
+
+#look at the documentation for tail()
+
+#print the last 10 values using tail()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;writing-your-own-function&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Writing your own function&lt;/h3&gt;
+&lt;p&gt;We can write functions as well as using them. Today we’ll start off with a simple code to convert Celsius to Fahrenheit.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#define your variable
+celcius &amp;lt;- 20
+
+#calculate your new value
+farenheit &amp;lt;- 9/5 * celcius + 32
+
+#print the new value
+farenheit&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 68&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let’s turn this into a function, using the function() function. Keep in mind that functions follow essentially the format of&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[y=f(x)\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;which can also be read as:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[output = myfunction(input)\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;When we write this in code, we define the &lt;em&gt;name&lt;/em&gt; of the function (below it’s c2f) as function(input){}, where inside the curly brackets {} there is the actual calculation. We then use the function return() to designate to the function what to output, which is our “y” in the above formula.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;c2f &amp;lt;- function(celcius) {
+  farenheit = 9/5 * celcius + 32
+  return(farenheit)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What happens if we run this without an argument?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Run the following code:
+c2f()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We need to include arguments for celcius:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Try explicitly stating the value
+c2f(celcius = 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What happens if we don&amp;#39;t define celcius?
+c2f(10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 50&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, we can actually include a default when we create this function. Let’s add in something to c2f().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;c2f_adv &amp;lt;- function(celcius = 0) {
+  farenheit &amp;lt;- 9/5 * celcius + 32
+  return(farenheit)
+}
+
+#now run the code without an argument to see what happens
+c2f_adv()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 32&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;functions-with-two-arguments&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Functions with two arguments:&lt;/h3&gt;
+&lt;p&gt;If we include x and y into the equation, we can set two variables values:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;multiply &amp;lt;- function(x, y){x*y}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can run this, but it won’t work if we don’t give two arguments:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#This does not work without defaults
+#multiply()
+
+#This will multiply 2 and 3:
+multiply(2,3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 6&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we rewrite this function, then it will work if defaults are set:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;multiply2 &amp;lt;- function(x = 2, y = 4){x*y}
+
+#This will multiply the default arguments
+multiply2()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 8&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#This will multiply the inputs
+multiply2(3,10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 30&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What happens if you only include one number?
+multiply2(10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 40&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;multiply2(y = 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 20&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-types&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Types&lt;/h2&gt;
+&lt;p&gt;So far we’ve been able to run calculations using variables, and used read.csv() to take in a character (the name of your file) that is converted into a data frame. We’ve also mentioned that data frame columns must be vectors of the same “type”. But what are the other data types that R can use?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Some basic data types:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Characters (char): “string” of text, which has the value of the text&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Numbers (num): overall class of numbers, which includes integers and doubles&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Integers (int): numbers without decimal points (takes less space)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Doubles (dbl): floating point numbers, or those with precision (takes more space)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Factors (fact): categorical elements which can be ordered (this sounds weird, but we’ll explain more later)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;examplestring &amp;lt;- &amp;quot;This is a string of text&amp;quot;
+exampledouble &amp;lt;- 26.2
+exampleinteger &amp;lt;- 5
+
+#We can find out the data types by running typeof()
+
+typeof(examplestring)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;character&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What data types are exampledouble and exampleinteger?
+
+typeof(exampledouble)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;double&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;typeof(exampleinteger)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;double&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Notice that exampleinteger is also listed as a double; this is because R will automatically store numbers as doubles, and converts between numeric classes automatically
+
+realinteger &amp;lt;- as.integer(exampleinteger)
+typeof(realinteger)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;integer&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When plotting, data types will change how plots view your data. For example, characters will often be unique values without order, numbers will often be continuous rather than discrete, and ordered alphabetically, and factors will be discrete and maintain an order. We will learn more about this soon, but we can use an example with qplot (which we’ve reviewed).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins &amp;lt;- read.csv(&amp;quot;penguins.csv&amp;quot;)
+# How many colors are there when we color by island?
+qplot(x = bill_length_mm, y = bill_depth_mm, data = penguins, color = island)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How many colors are there when we color by bill depth?
+qplot(x = bill_length_mm, y = bill_depth_mm, data = penguins, color = bill_depth_mm)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-22-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div id=&#34;answers-to-practice-problems&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Answers to practice problems&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; ...
+##  $ island           : chr  &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/28/understanding-functions/index.en_files/figure-html/unnamed-chunk-24-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Understanding Indexing and Subsetting</title>
