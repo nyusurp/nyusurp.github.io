@@ -319,7 +319,7 @@ head(gene_model)
 How do we define a function that get us lengths for each gene?
 
 --
-```{r echo = FALSE}
+```{r include=FALSE}
 library(dplyr)
 ```
 
