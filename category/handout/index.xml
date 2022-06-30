@@ -5,12 +5,521 @@
     <link>https://nyusurp.github.io/category/handout/</link>
       <atom:link href="https://nyusurp.github.io/category/handout/index.xml" rel="self" type="application/rss+xml" />
     <description>Handout</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Thu, 30 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Handout</title>
       <link>https://nyusurp.github.io/category/handout/</link>
     </image>
+    
+    <item>
+      <title>Functions and Data Types</title>
+      <link>https://nyusurp.github.io/2022/06/30/functions-and-data-types/</link>
+      <pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/06/30/functions-and-data-types/</guid>
+      <description>
+
+
+&lt;div id=&#34;outline&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Outline&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Review: Write yourself some functions&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Types: How they matter and how to avoid being bitten by them&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;function-practice-normalizing-rna-sequencing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Function practice: Normalizing RNA-Sequencing&lt;/h2&gt;
+&lt;p&gt;We will be using part of the data from &lt;a href=&#34;https://pubmed.ncbi.nlm.nih.gov/27568519/&#34;&gt;a study on spinal motor neurons&lt;/a&gt;. You can find their full
+analysis scripts &lt;a href=&#34;https://github.com/dasenlab/Pbx-Neuron-Paper&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use read.delim instead of read.csv for **tab**-delimited files
+rawcount = read.delim(&amp;quot;BR-A-Control_counts.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What is in the raw data?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Inspect the data you load!&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;normalize_by_depth&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;normalize_by_depth()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;How do we define a function that normalize a vector of counts by total counts?&lt;/p&gt;
+&lt;p&gt;Before you start writing. Let’s start humble and get a small proportion of the
+data so you can capture errors right away when you test your function.&lt;/p&gt;
+&lt;p&gt;The key of doing this is to have something that you can tell whether your code
+is doing something you want right away with test data structurally similar to the
+real data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Take a small fraction of the data so we can test our function
+test_count = head(rawcount)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, we are good to go. Let’s get the total count first!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  
+  # Let&amp;#39;s divide everything by the total count calculated above
+  
+  # Provide an output
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s test the function with our naked eyes.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is the function doing what we expect it to do?
+normalize_by_depth(test_count) == 1472 + 6 + 109 + 43&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## logical(0)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If everything goes as expected, let’s divide everything by total count in the
+function, too.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  depth = sum(input$count)
+  # Let&amp;#39;s divide everything by the total count calculated above
+  
+  # Provide an output
+  # **Note that you would want to change your output!**
+  return(depth)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s test the revised function. What are we expecting here?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We are expecting the first gene to be ~0.903 after normalization
+# while the second gene is 0.
+# Let&amp;#39;s run the function on the test set and let the results print out.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s multiply the result by &lt;span class=&#34;math inline&#34;&gt;\(10^{6}\)&lt;/span&gt; (10^6) before returning it in our
+function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  depth = sum(input$count)
+  
+  # Let&amp;#39;s divide everything by the total count calculated above
+  normalized_count = input$count/depth
+  input$normalized_count = normalized_count
+  
+  # Provide an output
+  return(input)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And test it again.&lt;/p&gt;
+&lt;p&gt;Note that for the first gene, we used to getting 0.9030675 before multiplying with
+&lt;span class=&#34;math inline&#34;&gt;\(10^{6}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalize_by_depth(test_count)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id count normalized_count
+## 1 ENSMUSG00000000001  1472      0.903067485
+## 2 ENSMUSG00000000003     0      0.000000000
+## 3 ENSMUSG00000000028     6      0.003680982
+## 4 ENSMUSG00000000031   109      0.066871166
+## 5 ENSMUSG00000000037    43      0.026380368
+## 6 ENSMUSG00000000049     0      0.000000000&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;get_tx_length&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;get_tx_length()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;A gene model file contains the starting and ending coordinates of genes,
+transcripts, and exons.&lt;/p&gt;
+&lt;p&gt;You can get a gene model file from &lt;a href=&#34;http://useast.ensembl.org/info/data/ftp/index.html/&#34;&gt;Ensembl&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;They are often stored as GTF/GFF3 files, but the format is beyond the scope
+of what we are going to do today. If you are interested, you can find
+&lt;a href=&#34;https://useast.ensembl.org/info/website/upload/gff.html&#34;&gt;more information about GTF/GFF format here&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load gene model file (pre-processed)
+gene_model = read.csv(&amp;quot;mouse_gene_model.csv&amp;quot;)
+head(gene_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end
+## 1 ENSMUSG00000102628 150956201 150958296
+## 2 ENSMUSG00000100595 150983666 150984611
+## 3 ENSMUSG00000097426 151012258 151012971
+## 4 ENSMUSG00000097426 151013347 151013531
+## 5 ENSMUSG00000104478 108344807 108347562
+## 6 ENSMUSG00000104385   6980784   6981446&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How do we define a function that get us lengths for each gene?&lt;/p&gt;
+&lt;p&gt;–&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How do we compute the length of each exons?
+gene_model %&amp;gt;%
+  head() %&amp;gt;%
+  mutate(length = (end - start + 1))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end length
+## 1 ENSMUSG00000102628 150956201 150958296   2096
+## 2 ENSMUSG00000100595 150983666 150984611    946
+## 3 ENSMUSG00000097426 151012258 151012971    714
+## 4 ENSMUSG00000097426 151013347 151013531    185
+## 5 ENSMUSG00000104478 108344807 108347562   2756
+## 6 ENSMUSG00000104385   6980784   6981446    663&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s test if the length column is correctly calculated.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# For the first gene
+150958296 - 150956201   + 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2096&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If it seems right, let’s get the sum of lengths per id now.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;get_tx_length = function(input) {
+  # How do we compute the sum of all exons of a gene?
+  tx_length = input %&amp;gt;%
+    mutate(length = (end - start + 1))
+  # Group
+  
+  # Summarize by summation
+  
+  # Provide an output
+  return(tx_length)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does the output look like?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gene_model %&amp;gt;%
+  head() %&amp;gt;%
+  get_tx_length()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end length
+## 1 ENSMUSG00000102628 150956201 150958296   2096
+## 2 ENSMUSG00000100595 150983666 150984611    946
+## 3 ENSMUSG00000097426 151012258 151012971    714
+## 4 ENSMUSG00000097426 151013347 151013531    185
+## 5 ENSMUSG00000104478 108344807 108347562   2756
+## 6 ENSMUSG00000104385   6980784   6981446    663&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How do you independently test if the answer is correct for ENSMUSG00000097426?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Doing it differently with base R
+gene_of_interest = gene_model[gene_model$id == &amp;quot;ENSMUSG00000097426&amp;quot;, ]
+print(gene_of_interest)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end
+## 3 ENSMUSG00000097426 151012258 151012971
+## 4 ENSMUSG00000097426 151013347 151013531&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gene_of_interest$length = gene_of_interest$end - gene_of_interest$start + 1
+print(gene_of_interest)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end length
+## 3 ENSMUSG00000097426 151012258 151012971    714
+## 4 ENSMUSG00000097426 151013347 151013531    185&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sum(gene_of_interest$length)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 899&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-to-merge-data-with-a-shared-column&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;How to merge data with a shared column?&lt;/h3&gt;
+&lt;p&gt;If we check our small count table:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(rawcount)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id count
+## 1 ENSMUSG00000000001  1472
+## 2 ENSMUSG00000000003     0
+## 3 ENSMUSG00000000028     6
+## 4 ENSMUSG00000000031   109
+## 5 ENSMUSG00000000037    43
+## 6 ENSMUSG00000000049     0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and the first few rows of our gene length table:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gene_model %&amp;gt;%
+  head() %&amp;gt;%
+  get_tx_length()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   id     start       end length
+## 1 ENSMUSG00000102628 150956201 150958296   2096
+## 2 ENSMUSG00000100595 150983666 150984611    946
+## 3 ENSMUSG00000097426 151012258 151012971    714
+## 4 ENSMUSG00000097426 151013347 151013531    185
+## 5 ENSMUSG00000104478 108344807 108347562   2756
+## 6 ENSMUSG00000104385   6980784   6981446    663&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You’ll see that we are almost done except that the row order are not exactly
+the same.&lt;/p&gt;
+&lt;p&gt;This can be taken care of by &lt;code&gt;left_join(x, y, by = column)&lt;/code&gt;, which is a &lt;code&gt;dplyr&lt;/code&gt;
+function that **merge two data.frames (&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;) by a shared column.&lt;/p&gt;
+&lt;p&gt;(&lt;code&gt;left_&lt;/code&gt; means that it keeps all the rows in &lt;code&gt;x&lt;/code&gt; even if &lt;code&gt;y&lt;/code&gt; does not have it.)&lt;/p&gt;
+&lt;p&gt;Let’s see how it works. First, I’ll make a small table of gene length for
+testing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test_gene_model = gene_model %&amp;gt;%
+  # Only keep rows that are present in test_count
+  filter(id %in% test_count$id)
+
+# Compute gene length with our custom function
+test_gene_length = test_gene_model %&amp;gt;% 
+    get_tx_length()
+
+print(test_gene_length)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                    id     start       end length
+## 1  ENSMUSG00000000037 159945768 159946244    477
+## 2  ENSMUSG00000000037 159954486 159954531     46
+## 3  ENSMUSG00000000037 159960243 159960313     71
+## 4  ENSMUSG00000000037 159961033 159961267    235
+## 5  ENSMUSG00000000037 159970260 159970348     89
+## 6  ENSMUSG00000000037 159975200 159975443    244
+## 7  ENSMUSG00000000037 159985010 159985093     84
+## 8  ENSMUSG00000000037 159992191 159992265     75
+## 9  ENSMUSG00000000037 159992605 159992679     75
+## 10 ENSMUSG00000000037 159996237 159996320     84
+## 11 ENSMUSG00000000037 159998176 159998259     84
+## 12 ENSMUSG00000000037 160004662 160004745     84
+## 13 ENSMUSG00000000037 160006153 160006236     84
+## 14 ENSMUSG00000000037 160007457 160007540     84
+## 15 ENSMUSG00000000037 160008873 160008956     84
+## 16 ENSMUSG00000000037 160010369 160010452     84
+## 17 ENSMUSG00000000037 160011673 160011756     84
+## 18 ENSMUSG00000000037 160013087 160013170     84
+## 19 ENSMUSG00000000037 160014396 160014479     84
+## 20 ENSMUSG00000000037 160017609 160017692     84
+## 21 ENSMUSG00000000037 160020476 160020753    278
+## 22 ENSMUSG00000000037 160022746 160022860    115
+## 23 ENSMUSG00000000037 160024984 160025187    204
+## 24 ENSMUSG00000000037 160026362 160026544    183
+## 25 ENSMUSG00000000037 160029253 160029363    111
+## 26 ENSMUSG00000000037 160039562 160041192   1631
+## 27 ENSMUSG00000000003  76897015  76897229    215
+## 28 ENSMUSG00000000003  76891581  76891720    140
+## 29 ENSMUSG00000000003  76888625  76888692     68
+## 30 ENSMUSG00000000003  76886503  76886613    111
+## 31 ENSMUSG00000000003  76886121  76886222    102
+## 32 ENSMUSG00000000003  76885466  76885517     52
+## 33 ENSMUSG00000000003  76881507  76881720    214
+## 34 ENSMUSG00000000001 108053204 108053462    259
+## 35 ENSMUSG00000000001 108031111 108031153     43
+## 36 ENSMUSG00000000001 108030858 108030999    142
+## 37 ENSMUSG00000000001 108025617 108025774    158
+## 38 ENSMUSG00000000001 108023079 108023207    129
+## 39 ENSMUSG00000000001 108019789 108019918    130
+## 40 ENSMUSG00000000001 108019251 108019404    154
+## 41 ENSMUSG00000000001 108016719 108016928    210
+## 42 ENSMUSG00000000001 108014596 108016632   2037
+## 43 ENSMUSG00000000031 142130566 142130647     82
+## 44 ENSMUSG00000000031 142130350 142130484    135
+## 45 ENSMUSG00000000031 142129268 142130267   1000
+## 46 ENSMUSG00000000049 108286119 108286233    115
+## 47 ENSMUSG00000000049 108286642 108286818    177
+## 48 ENSMUSG00000000049 108288125 108288221     97
+## 49 ENSMUSG00000000049 108295637 108295713     77
+## 50 ENSMUSG00000000049 108298117 108298305    189
+## 51 ENSMUSG00000000049 108299957 108300136    180
+## 52 ENSMUSG00000000049 108302821 108303018    198
+## 53 ENSMUSG00000000049 108305066 108305222    157
+## 54 ENSMUSG00000000028  18630554  18630722    169
+## 55 ENSMUSG00000000028  18630265  18630459    195
+## 56 ENSMUSG00000000028  18630055  18630114     60
+## 57 ENSMUSG00000000028  18629139  18629231     93
+## 58 ENSMUSG00000000028  18627482  18627619    138
+## 59 ENSMUSG00000000028  18626030  18626173    144
+## 60 ENSMUSG00000000028  18624132  18624187     56
+## 61 ENSMUSG00000000028  18620551  18620599     49
+## 62 ENSMUSG00000000028  18617426  18617487     62
+## 63 ENSMUSG00000000028  18616099  18616149     51
+## 64 ENSMUSG00000000028  18614575  18614694    120
+## 65 ENSMUSG00000000028  18613845  18613976    132
+## 66 ENSMUSG00000000028  18613512  18613610     99
+## 67 ENSMUSG00000000028  18611928  18612089    162
+## 68 ENSMUSG00000000028  18605680  18605818    139
+## 69 ENSMUSG00000000028  18605519  18605602     84
+## 70 ENSMUSG00000000028  18603823  18603941    119
+## 71 ENSMUSG00000000028  18603556  18603632     77
+## 72 ENSMUSG00000000028  18600646  18600712     67
+## 73 ENSMUSG00000000028  18599197  18599323    127&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And… boom!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;left_join(x = test_count, y = test_gene_length, by = &amp;quot;id&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                    id count     start       end length
+## 1  ENSMUSG00000000001  1472 108053204 108053462    259
+## 2  ENSMUSG00000000001  1472 108031111 108031153     43
+## 3  ENSMUSG00000000001  1472 108030858 108030999    142
+## 4  ENSMUSG00000000001  1472 108025617 108025774    158
+## 5  ENSMUSG00000000001  1472 108023079 108023207    129
+## 6  ENSMUSG00000000001  1472 108019789 108019918    130
+## 7  ENSMUSG00000000001  1472 108019251 108019404    154
+## 8  ENSMUSG00000000001  1472 108016719 108016928    210
+## 9  ENSMUSG00000000001  1472 108014596 108016632   2037
+## 10 ENSMUSG00000000003     0  76897015  76897229    215
+## 11 ENSMUSG00000000003     0  76891581  76891720    140
+## 12 ENSMUSG00000000003     0  76888625  76888692     68
+## 13 ENSMUSG00000000003     0  76886503  76886613    111
+## 14 ENSMUSG00000000003     0  76886121  76886222    102
+## 15 ENSMUSG00000000003     0  76885466  76885517     52
+## 16 ENSMUSG00000000003     0  76881507  76881720    214
+## 17 ENSMUSG00000000028     6  18630554  18630722    169
+## 18 ENSMUSG00000000028     6  18630265  18630459    195
+## 19 ENSMUSG00000000028     6  18630055  18630114     60
+## 20 ENSMUSG00000000028     6  18629139  18629231     93
+## 21 ENSMUSG00000000028     6  18627482  18627619    138
+## 22 ENSMUSG00000000028     6  18626030  18626173    144
+## 23 ENSMUSG00000000028     6  18624132  18624187     56
+## 24 ENSMUSG00000000028     6  18620551  18620599     49
+## 25 ENSMUSG00000000028     6  18617426  18617487     62
+## 26 ENSMUSG00000000028     6  18616099  18616149     51
+## 27 ENSMUSG00000000028     6  18614575  18614694    120
+## 28 ENSMUSG00000000028     6  18613845  18613976    132
+## 29 ENSMUSG00000000028     6  18613512  18613610     99
+## 30 ENSMUSG00000000028     6  18611928  18612089    162
+## 31 ENSMUSG00000000028     6  18605680  18605818    139
+## 32 ENSMUSG00000000028     6  18605519  18605602     84
+## 33 ENSMUSG00000000028     6  18603823  18603941    119
+## 34 ENSMUSG00000000028     6  18603556  18603632     77
+## 35 ENSMUSG00000000028     6  18600646  18600712     67
+## 36 ENSMUSG00000000028     6  18599197  18599323    127
+## 37 ENSMUSG00000000031   109 142130566 142130647     82
+## 38 ENSMUSG00000000031   109 142130350 142130484    135
+## 39 ENSMUSG00000000031   109 142129268 142130267   1000
+## 40 ENSMUSG00000000037    43 159945768 159946244    477
+## 41 ENSMUSG00000000037    43 159954486 159954531     46
+## 42 ENSMUSG00000000037    43 159960243 159960313     71
+## 43 ENSMUSG00000000037    43 159961033 159961267    235
+## 44 ENSMUSG00000000037    43 159970260 159970348     89
+## 45 ENSMUSG00000000037    43 159975200 159975443    244
+## 46 ENSMUSG00000000037    43 159985010 159985093     84
+## 47 ENSMUSG00000000037    43 159992191 159992265     75
+## 48 ENSMUSG00000000037    43 159992605 159992679     75
+## 49 ENSMUSG00000000037    43 159996237 159996320     84
+## 50 ENSMUSG00000000037    43 159998176 159998259     84
+## 51 ENSMUSG00000000037    43 160004662 160004745     84
+## 52 ENSMUSG00000000037    43 160006153 160006236     84
+## 53 ENSMUSG00000000037    43 160007457 160007540     84
+## 54 ENSMUSG00000000037    43 160008873 160008956     84
+## 55 ENSMUSG00000000037    43 160010369 160010452     84
+## 56 ENSMUSG00000000037    43 160011673 160011756     84
+## 57 ENSMUSG00000000037    43 160013087 160013170     84
+## 58 ENSMUSG00000000037    43 160014396 160014479     84
+## 59 ENSMUSG00000000037    43 160017609 160017692     84
+## 60 ENSMUSG00000000037    43 160020476 160020753    278
+## 61 ENSMUSG00000000037    43 160022746 160022860    115
+## 62 ENSMUSG00000000037    43 160024984 160025187    204
+## 63 ENSMUSG00000000037    43 160026362 160026544    183
+## 64 ENSMUSG00000000037    43 160029253 160029363    111
+## 65 ENSMUSG00000000037    43 160039562 160041192   1631
+## 66 ENSMUSG00000000049     0 108286119 108286233    115
+## 67 ENSMUSG00000000049     0 108286642 108286818    177
+## 68 ENSMUSG00000000049     0 108288125 108288221     97
+## 69 ENSMUSG00000000049     0 108295637 108295713     77
+## 70 ENSMUSG00000000049     0 108298117 108298305    189
+## 71 ENSMUSG00000000049     0 108299957 108300136    180
+## 72 ENSMUSG00000000049     0 108302821 108303018    198
+## 73 ENSMUSG00000000049     0 108305066 108305222    157&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This works regardless of how the rows are ordered. You can try messing up
+the rows and see how if it makes a difference.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Mess up the rows and do left_join() again.
+# Say we have test_count[c(1, 3, 5, 2, 4, 6), ] and
+# test_gene_model[c(6, 5, 4, 3, 2, 1), ]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;one-function-to-do-it-all&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;One function to do it all&lt;/h3&gt;
+&lt;p&gt;You must have noticed that functions are like Russian dolls: There are always
+functions inside a function.&lt;/p&gt;
+&lt;p&gt;Now that we have &lt;code&gt;normalize_by_depth&lt;/code&gt; to generate CPM, &lt;code&gt;get_tx_length&lt;/code&gt; to
+calculate gene length, and we know that &lt;code&gt;left_join&lt;/code&gt; can merge them by ID, we
+can write a master function to streamline everything.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+  
+  # 3. Make a master table containing both CPM and length per gene
+
+  return(normalized_count)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, let’s test it:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;normalize_rnaseq(test_count, test_gene_model)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Error in normalize_rnaseq(test_count, test_gene_model): could not find function &amp;quot;normalize_rnaseq&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;All your hard work pays now – you can normalize the whole thing with ease!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Normalize the full table with full gene model&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;common-pitfalls-on-data-types&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Common pitfalls on data types&lt;/h2&gt;
+&lt;div id=&#34;characters-are-friendly-most-of-the-time-but&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;character&lt;/code&gt;s are friendly most of the time, but…&lt;/h3&gt;
+&lt;div id=&#34;hidden-character&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Hidden character&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# There&amp;#39;s a L0 masquerading as 10 in your csv!
+fake_num = c(&amp;quot;1&amp;quot;, &amp;quot;3&amp;quot;, &amp;quot;5&amp;quot;, &amp;quot;7&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;l0&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;typeof(fake_num)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;character&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;as.numeric(fake_num)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: NAs introduced by coercion&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  1  3  5  7  9 NA&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;alphabetical-and-numerical-sorting&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Alphabetical and numerical sorting&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;chr_vec = c(&amp;quot;5&amp;quot;, &amp;quot;8&amp;quot;, &amp;quot;6&amp;quot;, &amp;quot;10&amp;quot;, &amp;quot;7&amp;quot;, &amp;quot;9&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You might not expect it to sort like this
+sort(chr_vec)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;10&amp;quot; &amp;quot;5&amp;quot;  &amp;quot;6&amp;quot;  &amp;quot;7&amp;quot;  &amp;quot;8&amp;quot;  &amp;quot;9&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# If they are numbers, they sort differently
+sort(as.numeric(chr_vec))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  5  6  7  8  9 10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;numeric-type-precision-can-be-dangerous&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Numeric type: Precision can be dangerous…&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;0.1 + 0.2 == 0.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] FALSE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There’s a website called &lt;a href=&#34;https://0.30000000000000004.com/&#34;&gt;https://0.30000000000000004.com/&lt;/a&gt;
+that explains this in detail.&lt;/p&gt;
+&lt;p&gt;But briefly, any number that is not an integer has limited precision, and
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Propagation_of_uncertainty&#34;&gt;propagation of error&lt;/a&gt; is a thing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# A more robust way to compare non-integers
+# Define an error margin that you want to tolerate
+error_margin = 10^-8
+
+# and then decide if the difference is within the margin
+(0.1 + 0.2) - 0.3 &amp;lt; error_margin&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;factor-ordered-categories&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Factor: Ordered categories&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Categories as characters works most of the time, but...
+month_tbl = data.frame(
+  month = c(
+    &amp;quot;January&amp;quot;, &amp;quot;February&amp;quot;, &amp;quot;March&amp;quot;, &amp;quot;April&amp;quot;, &amp;quot;May&amp;quot;, &amp;quot;June&amp;quot;,
+    &amp;quot;July&amp;quot;, &amp;quot;August&amp;quot;, &amp;quot;September&amp;quot;, &amp;quot;October&amp;quot;, &amp;quot;November&amp;quot;, &amp;quot;December&amp;quot;
+  ),
+  length = c(
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+  )
+)
+str(month_tbl)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    12 obs. of  2 variables:
+##  $ month : chr  &amp;quot;January&amp;quot; &amp;quot;February&amp;quot; &amp;quot;March&amp;quot; &amp;quot;April&amp;quot; ...
+##  $ length: num  31 28 31 30 31 30 31 31 30 31 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Most functions that you encounter in R will sort alphabetically for characters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+month_tbl %&amp;gt;%
+  qplot(data = ., x = month, y = length, geom = &amp;quot;point&amp;quot;) +
+  # This adjust the axis text to make the text more visible
+  theme(axis.text.x = element_text(size = 20, angle = 60, hjust = 1))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/30/functions-and-data-types/index.en_files/figure-html/unnamed-chunk-34-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You won’t be able to decide the order unless you convert it to a factor.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;month_tbl$month = factor(
+  month_tbl$month,
+  # R will respect the levels you set here
+  levels = c(
+    &amp;quot;January&amp;quot;, &amp;quot;February&amp;quot;, &amp;quot;March&amp;quot;, &amp;quot;April&amp;quot;, &amp;quot;May&amp;quot;, &amp;quot;June&amp;quot;,
+    &amp;quot;July&amp;quot;, &amp;quot;August&amp;quot;, &amp;quot;September&amp;quot;, &amp;quot;October&amp;quot;, &amp;quot;November&amp;quot;, &amp;quot;December&amp;quot;
+  )
+)
+
+month_tbl %&amp;gt;%
+  qplot(data = ., x = month, y = length, geom = &amp;quot;point&amp;quot;) +
+  # This adjust the axis text to make the text more visible
+  theme(axis.text.x = element_text(size = 20, angle = 60, hjust = 1))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/06/30/functions-and-data-types/index.en_files/figure-html/unnamed-chunk-35-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Factors are more complicated than characters and numbers, so they could be
+harder to troubleshoot, but at the same time, they are very powerful especially
+in statistics.&lt;/p&gt;
+&lt;p&gt;As a rule of thumb, when you inspect your data (e.g., with &lt;code&gt;str()&lt;/code&gt;), always ask
+yourself if you are having categorical variables.&lt;/p&gt;
+&lt;p&gt;If you do, consider converting them to factors if:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;You know they are ordinal&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When you are building statistical models with categorical variables
+(ANOVA et al.)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;date-and-time&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Date and time&lt;/h3&gt;
+&lt;p&gt;They have a similar issue as ordinal categories: If considered as characters,
+they won’t be ordered chronologically.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This shouldn&amp;#39;t be surprising by now
+random_dates = c(&amp;quot;12-25-2022&amp;quot;, &amp;quot;07-04-1989&amp;quot;, &amp;quot;01-01-2077&amp;quot;)
+sort(random_dates)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;01-01-2077&amp;quot; &amp;quot;07-04-1989&amp;quot; &amp;quot;12-25-2022&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Unlike most categorical variables, there are usually so many dates, so it is
+not practical for you to assign orders manually.&lt;/p&gt;
+&lt;p&gt;Luckily, there is a package that will take care of this for you if you tell it
+the format of your dates.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You can tell R how the date is represented to chronologically sort
+library(lubridate)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;lubridate&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     date, intersect, setdiff, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# mdy() stands for month, day, year
+good_dates = mdy(random_dates)
+sort(good_dates)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;1989-07-04&amp;quot; &amp;quot;2022-12-25&amp;quot; &amp;quot;2077-01-01&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Understanding Functions</title>

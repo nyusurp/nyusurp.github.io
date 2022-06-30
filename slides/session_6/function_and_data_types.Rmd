@@ -1,0 +1,885 @@
+---
+title: "Functions and Data Types"
+author: Yen-Chung Chen & Cassandra Buzby
+date: "2022-06-30"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ['https://nyusurp.github.io/libs/custom.css', 'https://nyusurp.github.io/libs/custom-fonts.css']
+    chakra: ['https://nyusurp.github.io/libs/remark-latest.min.js']
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+# Outline
+
+1. Recap on data filtering and functions
+
+--
+
+2. Data types and associated horror stories
+
+---
+# Introduction to RNA-Seq
+
+.pull-left[
+  ![](https://nyusurp.github.io/img/RNAseq.png)
+]
+
+.pull-right[
+  {{content}}
+]
+
+--
+
+1. cDNA synthesis
+{{content}}
+
+--
+
+2. Fragmentation
+{{content}}
+
+--
+
+3. Sequence & align
+{{content}}
+
+--
+
+4. Quantify
+
+--
+
+.center[Is it fair to just count the fragments?]
+
+---
+# Normalization in RNA-Seq
+
+.pull-left[
+  {{content}}
+]
+
+--
+
+## Issues
+{{content}}
+
+--
+
+1. The more you seq, the more you get.
+{{content}}
+
+--
+
+2. The longer the gene is, the more you get.
+
+--
+
+.pull-right[
+## Solutions
+{{content}}
+]
+
+--
+
+1. Account for seq depth.by normalize with seq depth
+{{content}}
+
+--
+
+2. Normalize every gene with its length
+
+---
+# Depth normalization
+
+What you would essentially do is:
+$$Normalized\space{}count = \frac{Per\mbox{-}gene\space{}count}{Total\space{}count}$$
+
+--
+
+What is in the raw data?
+
+```{r}
+# Use read.delim instead of read.csv for **tab**-delimited files
+rawcount = read.delim("BR-A-Control_counts.txt")
+```
+
+---
+# Always know your data
+
+```{r}
+head(rawcount)
+```
+
+---
+# Plan ahead: What are our goals?
+
+1. Normalize read counts by sequencing depth = total reads we got from a sample.
+
+--
+
+2. Normalize again with transcript length.
+
+---
+# `normalize_by_depth()`
+
+How do we define a function that normalize a vector of counts by total counts?
+
+--
+
+```{r eval = FALSE}
+# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  
+  # Let's divide everything by the total count calculated above
+  
+  # Provide an output
+  
+}
+```
+
+---
+# Good practice: Start humble
+
+So you can capture errors right away.
+
+--
+
+```{r}
+# Take a small fraction of the data so we can test our function
+test_count = head(rawcount)
+print(test_count)
+```
+
+---
+# Get the depth
+
+--
+
+```{r}
+# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  {{depth = sum(input$count)}}
+  # Let's divide everything by the total count calculated above
+  
+  # Provide an output
+  return(depth)
+}
+```
+
+---
+# Test the function
+.pull-left[
+### Test data
+
+```{r echo = FALSE}
+head(test_count)
+```
+
+]
+
+
+--
+.pull-right[
+### Ground fact
+
+1472 + 6 + 109 + 43 = `r 1472 + 6 + 109 + 43`
+]
+
+--
+### Testing
+
+```{r}
+normalize_by_depth(test_count) == 1472 + 6 + 109 + 43
+```
+
+---
+# Divide everything by total count
+
+--
+
+```{r}
+# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  depth = sum(input$count)
+  
+  # Let's divide everything by the total count calculated above
+  {{normalized_count = input$count/depth}}
+  input$normalized_count = normalized_count
+  
+  # Provide an output
+  {{return(input)}}
+}
+```
+
+---
+# Test again
+
+.pull-left[
+### Test data
+
+```{r echo = FALSE}
+head(test_count, n = 2)
+```
+
+]
+
+
+--
+.pull-right[
+### Ground fact
+
+Total count is `r sum(test_count$count)`.
+]
+
+--
+
+Thus, for the first gene we will expect 1472/1630=`r 1472/1630`, while the 
+second gene we are expecting 0/1630 = 0.
+
+--
+
+```{r}
+normalize_by_depth(test_count)
+```
+
+---
+# Counts per million (CPM)
+
+$$CPM = \frac{Count\space{}per\space{}gene}{Total\space{}count}\times{}10^{6}$$
+
+--
+
+Let's multiply the result by $10^{6}$ (10^6) before returning it in our
+function.
+
+--
+```{r}
+# What is our input?
+normalize_by_depth = function(input) {
+  # How do we compute total count?
+  depth = sum(input$count)
+  
+  # Let's divide everything by the total count calculated above
+  # and multiply by 10^6 to get CPM
+ {{normalized_count = input$count/depth * 10^6}}
+  input$normalized_count = normalized_count
+  
+  # Provide an output
+  return(input)
+}
+```
+
+---
+# Is it working?
+
+For the first gene, we used to getting 0.9030675 before multiplying with
+$10^{6}$.
+
+--
+
+```{r}
+normalize_by_depth(test_count)
+```
+
+---
+# What is our other goals?
+
+<p style = "color: #aaaaaa;">
+1. Normalize read counts by sequencing depth = total reads we got from a sample.
+</p>
+
+<p style = "color: #000000;">
+2. Normalize again with transcript length.
+</p>
+
+---
+# `get_tx_length()`
+
+A gene model file contains the starting and ending coordinates of genes,
+transcripts, and exons.
+
+--
+
+```{r}
+# Load gene model file (pre-processed)
+gene_model = read.csv("mouse_gene_model.csv")
+head(gene_model)
+```
+
+---
+# Getting transcript length for each gene
+
+How do we define a function that get us lengths for each gene?
+
+--
+```{r echo = FALSE}
+library(dplyr)
+```
+
+
+```{r eval = FALSE}
+library(dplyr)
+
+# What is our input?
+get_tx_length = function(input) {
+  # How do we compute the sum of all exons of a gene?
+  
+  # Provide an output
+  return(tx_length)
+}
+```
+
+---
+# Hint
+
+In `dplyr` term, you might want to:
+
+1. First, define a new column called `length` defined as `end` - `start` + 1.
+
+--
+
+2. Group the table by `id`
+
+--
+
+3. Summarize the table by calculating the `sum()` of column `length`
+
+---
+# `mutate()`
+
+```{r eval = FALSE}
+# How do we compute the length of each exons?
+gene_model %>%
+  head() %>%
+  mutate(length = (end - start + 1))
+```
+
+```{r echo = FALSE}
+# What is our input?
+get_tx_length = function(input) {
+  # How do we compute the sum of all exons of a gene?
+  tx_length = input %>%
+    mutate(length = (end - start + 1))
+  # Provide an output
+  return(tx_length)
+}
+```
+
+```{r echo = FALSE}
+# How do we compute the length of each exons?
+gene_model %>%
+  head() %>%
+  mutate(length = (end - start + 1))
+```
+
+---
+# Sum of length per id
+
+--
+
+```{r eval = FALSE}
+# What is our input?
+get_tx_length = function(input) {
+  # How do we compute the sum of all exons of a gene?
+  tx_length = input %>%
+    mutate(length = (end - start + 1)) %>%
+    {{group_by(id) %>%}}
+    {{summarize(gene_length = sum(length))}}
+  # Provide an output
+  return(tx_length)
+}
+```
+
+```{r echo = FALSE}
+# What is our input?
+get_tx_length = function(input) {
+  # How do we compute the sum of all exons of a gene?
+  tx_length = input %>%
+    mutate(length = (end - start + 1)) %>%
+    group_by(id) %>%
+    summarize(gene_length = sum(length))
+  # Provide an output
+  return(tx_length)
+}
+```
+
+---
+# What does the output look like?
+
+```{r}
+gene_model %>%
+  head() %>%
+  get_tx_length()
+```
+
+--
+
+.center[Does this look right?]
+
+
+---
+# Use ENSMUSG00000097426 as a test
+
+--
+
+```{r}
+# Doing it differently with base R
+gene_of_interest = gene_model[gene_model$id == "ENSMUSG00000097426", ]
+print(gene_of_interest)
+```
+
+--
+
+```{r}
+gene_of_interest$length = gene_of_interest$end - gene_of_interest$start + 1
+print(gene_of_interest)
+```
+
+--
+
+```{r}
+sum(gene_of_interest$length)
+```
+
+---
+# Merging data with a shared column
+
+.pull-left[
+## Count table
+
+```{r echo = FALSE}
+head(rawcount)
+```
+
+]
+
+--
+.pull-right[
+## Gene length
+
+```{r}
+gene_model %>%
+  head() %>%
+  get_tx_length()
+```
+]
+
+--
+
+.center[Everything is good except for the order...]
+
+---
+# `left_join(x, y, by = column)`
+
+- `left_join(x, y, by)` will merge each row according to a shared column.
+
+--
+
+- In our case, that means we merge rows that have the same `id`.
+
+---
+# Minimal example of join
+
+.pull-left[
+```{r}
+# Using small test data
+print(test_count)
+```
+]
+
+--
+
+.pull-right[
+```{r}
+test_gene_model = gene_model %>%
+  # Only keep rows that are present in test_count
+  filter(id %in% test_count$id)
+
+# Compute gene length with our custom function
+test_gene_length = test_gene_model %>%
+  get_tx_length()
+print(test_gene_length)
+```
+]
+
+---
+# `left_join()` time!
+
+```{r}
+left_join(x = test_count, y = test_gene_length, by = "id")
+```
+
+--
+
+`left_join()` will take care of row orders even if they are messy!
+
+--
+
+```{r}
+left_join(x = test_count[c(1, 3, 5, 2, 4, 6), ], y = test_gene_model, by = "id")
+```
+
+---
+# One function to do it all
+
+```{r}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+
+  return(normalized_count)
+}
+```
+
+---
+# The easy
+
+```{r eval = FALSE}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+  {{cpm = normalize_by_depth(count)}}
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+
+  return(normalized_count)
+}
+```
+
+--
+
+```{r eval = FALSE}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+  cpm = normalize_by_depth(count)
+  
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+  {{gene_lengths = get_tx_length(gene_model)}}
+  
+  return(normalized_count)
+}
+```
+
+---
+# The join
+
+```{r eval = FALSE}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+  cpm = normalize_by_depth(count)
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+  gene_lengths = get_tx_length(gene_model)
+  
+  # Make a master table containing both CPM and length per gene
+  {{normalized_count = left_join(cpm, gene_lengths, by = "id")}}
+  
+  return(normalized_count)
+}
+```
+
+---
+# The final normalization (CPM/gene length)
+
+```{r eval = FALSE}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+  cpm = normalize_by_depth(count)
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+  gene_lengths = get_tx_length(gene_model)
+  
+  # Make a master table containing both CPM and length per gene
+  normalized_count = left_join(cpm, gene_lengths, by = "id") %>%
+  # Divide cpm by gene_length
+    {{mutate(tpm = count/length)}}
+  
+  return(normalized_count)
+}
+```
+
+```{r echo = FALSE}
+normalize_rnaseq = function(count, gene_model){
+  # 1. Normalize read counts by sequencing depth = total reads we got from a sample.
+  # (This gives CPM)
+  cpm = normalize_by_depth(count)
+  # 2. Normalize again with transcript length.
+  # (CPM/Gene length = Transcript per million (TPM))
+  gene_lengths = get_tx_length(gene_model)
+  
+  # Make a master table containing both CPM and length per gene
+  normalized_count = left_join(cpm, gene_lengths, by = "id") %>%
+  # Divide cpm by gene_length
+    mutate(tpm = count/gene_length)
+  
+  return(normalized_count)
+}
+```
+
+---
+# Final test
+
+```{r}
+normalize_rnaseq(test_count, test_gene_model)
+```
+
+---
+# Everything at once
+
+--
+
+```{r}
+big_tpm_table = normalize_rnaseq(count = rawcount, gene_model = gene_model)
+head(big_tpm_table)
+```
+
+--
+
+```{r}
+dim(big_tpm_table)
+```
+
+---
+# Data types
+
+.pull-left[
+## Basic/atomic
+- character
+- numeric (integer and double)
+- factor
+- date and time
+]
+
+--
+
+.pull-right[
+## Compound
+{{content}}
+]
+
+--
+- vector: several elements of **the same type**
+{{content}}
+
+--
+- array: several elements (>= 2D) of **the same type**
+{{content}}
+
+--
+- data.frame: 2D table where **each column can be a different type**
+{{content}}
+
+--
+- list: Each element can be anything (vectors, arrays, data.frames...)
+
+---
+# How to take care of data types
+
+- Test early, test often, test with confidence.
+
+--
+
+- Think about what type of data is your input and output if possible.
+
+--
+
+- Check the types again with `typeof()` whenever you convert it.
+
+--
+
+- Failed conversion often results in `NA`. Check with `is.na()`.
+
+---
+# `character`s are friendly most of the time
+
+--
+
+## Hidden character
+
+```{r}
+fake_num = c("1", "3", "5", "7", "9", "l0")
+```
+
+--
+
+```{r}
+typeof(fake_num)
+```
+
+--
+
+```{r}
+as.numeric(fake_num)
+```
+
+---
+# Alphabetical and numerical sorting
+
+```{r}
+chr_vec = c("5", "8", "6", "10", "7", "9")
+```
+
+--
+
+```{r}
+# You might not expect it to sort like this
+sort(chr_vec)
+```
+
+--
+
+```{r}
+# If they are numbers, they sort differently
+sort(as.numeric(chr_vec))
+```
+
+---
+# Numeric type: Precision can be dangerous...
+
+```{r eval = FALSE}
+0.1 + 0.2 == 0.3
+```
+--
+
+```{r echo = FALSE}
+0.1 + 0.2 == 0.3
+```
+
+There's a website called [https://0.30000000000000004.com/](https://0.30000000000000004.com/)
+that explains this in detail.
+
+But briefly, any number that is not an integer has limited precision, and 
+[propagation of error](https://en.wikipedia.org/wiki/Propagation_of_uncertainty) is a thing.
+
+---
+# A more robust way comparing non-integers
+
+```{r}
+# Define an error margin that you want to tolerate
+error_margin = 10^-8
+
+# and then decide if the difference is within the margin
+(0.1 + 0.2) - 0.3 < error_margin
+```
+
+---
+# Factor: Ordered categories
+
+```{r}
+# Categories as characters works most of the time, but...
+month_tbl = data.frame(
+  month = c(
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ),
+  length = c(
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+  )
+)
+str(month_tbl)
+```
+---
+# Most functions will sort alphabetically
+
+```{r fig.height = 5}
+library(ggplot2)
+month_tbl %>%
+  qplot(data = ., x = month, y = length, geom = "point") +
+  # This adjust the axis text to make the text more visible
+  theme(axis.text.x = element_text(size = 20, angle = 60, hjust = 1))
+```
+
+---
+# Unless you convert it to a factor
+
+```{r fig.height = 3}
+month_tbl$month = factor(
+  month_tbl$month,
+  # R will respect the levels you set here
+  levels = c(
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  )
+)
+
+month_tbl %>%
+  qplot(data = ., x = month, y = length, geom = "point") +
+  # This adjust the axis text to make the text more visible
+  theme(axis.text.x = element_text(size = 20, angle = 60, hjust = 1))
+```
+
+---
+# Use factors when...
+
+- You know it's ordinal
+
+--
+
+- When you are building statistical models with categorical variables (ANOVA et al.)
+
+---
+# Date and time: Otherwise character
+
+```{r}
+# This shouldn't be surprising by now
+random_dates = c("12-25-2022", "07-04-1989", "01-01-2077")
+sort(random_dates)
+```
+
+--
+```{r eval = FALSE}
+# You can tell R how the date is represented to chronologically sort
+library(lubridate)
+good_dates = mdy(random_dates)
+sort(good_dates)
+```
+
+```{r echo = FALSE}
+# You can tell R how the date is represented to chronologically sort
+suppressWarnings(library(lubridate))
+good_dates = mdy(random_dates)
+sort(good_dates)
+```
+
+---
+# Take-home messages
+
+- Data types exist to help R figure out what to do with your data.
+
+--
+
+- A common source of bugs since types are counterintuitive.
+
+--
+
+- Proactively thinking about whether your functions assume specific data types
+help prevent type-related errors.
+
+--
+
+- Learn to think about type when you test your code.
+
+--
+
+- Incorporating type checks (is.*()) in your code might be worth learning in
+the future.
+
+```{r}
+is.numeric("apple")
+```
+
+
