@@ -24,7 +24,7 @@
 &lt;h2&gt;Function cheatsheet&lt;/h2&gt;
 &lt;div id=&#34;base-r&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Base R&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;mean()
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean()
 sum()
 head()
 tail()
@@ -37,7 +37,7 @@ unique() - NEW - prints each categorical value only once (so the unique of c(1,2
 &lt;/div&gt;
 &lt;div id=&#34;dplyr&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Dplyr&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;filter()
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;filter()
 group_by()
 summarize()
 na.omit()
@@ -46,7 +46,7 @@ transmute() - NEW - adds a new column based on the arguments within and then sel
 &lt;/div&gt;
 &lt;div id=&#34;ggplot2&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Ggplot2&lt;/h4&gt;
-&lt;pre&gt;&lt;code&gt;ggplot()
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot()
 aes()
 geom_point()
 geom_density()
