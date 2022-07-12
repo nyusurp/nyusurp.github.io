@@ -1,0 +1,1392 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Cassandra Buzby">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Function cheatsheet Base R mean() sum() head() tail() length() dim() as.numeric() as.character() typeof() unique() - NEW - prints each categorical value only once (so the unique of c(1,2,2,4,5,5,5,8) would be 1,2,4,5,8)  Dplyr filter() group_by() summarize() na.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#57068c">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700%7CMerriweather%7CNanum+Myeongjo&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu437f07d278844891d2e703134e956aad_197157_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="R Workshop">
+  <meta property="og:url" content="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/">
+  <meta property="og:title" content="Pivoting and ggplot2 | R Workshop">
+  <meta property="og:description" content="Function cheatsheet Base R mean() sum() head() tail() length() dim() as.numeric() as.character() typeof() unique() - NEW - prints each categorical value only once (so the unique of c(1,2,2,4,5,5,5,8) would be 1,2,4,5,8)  Dplyr filter() group_by() summarize() na."><meta property="og:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-07-12T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2022-07-12T13:45:55-04:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Pivoting and ggplot2 | R Workshop</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">R Workshop</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">R Workshop</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Material</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/#handout"><span>Handouts</span></a>
+            
+              <a class="dropdown-item" href="/extra/"><span>Extra</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Worksheet and Data</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/assets/session1.zip"><span>Session 1</span></a>
+            
+              <a class="dropdown-item" href="/assets/session2.zip"><span>Session 2</span></a>
+            
+              <a class="dropdown-item" href="/assets/session3.zip"><span>Session 3</span></a>
+            
+              <a class="dropdown-item" href="/assets/session4.zip"><span>Session 4</span></a>
+            
+              <a class="dropdown-item" href="/assets/session5.zip"><span>Session 5</span></a>
+            
+              <a class="dropdown-item" href="/assets/session6.zip"><span>Session 6</span></a>
+            
+              <a class="dropdown-item" href="/assets/session7.zip"><span>Session 7</span></a>
+            
+              <a class="dropdown-item" href="/assets/session9.zip"><span>Session 9</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Slide Deck</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/slides/session_1/session_1_welcome.html"><span>Session 1: Welcome</span></a>
+            
+              <a class="dropdown-item" href="/slides/session_2/session_2_EDA_summary.html"><span>Session 2: dplyr</span></a>
+            
+              <a class="dropdown-item" href="/slides/session_6/function_and_data_types.html"><span>Session 6: Functions and Data Types</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Pivoting and ggplot2</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/author/yen-chung-chen/">Yen-Chung Chen</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2022-07-12
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/handout/">Handout</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<div id="function-cheatsheet" class="section level2">
+<h2>Function cheatsheet</h2>
+<div id="base-r" class="section level4">
+<h4>Base R</h4>
+<pre><code>mean()
+sum()
+head()
+tail()
+length()
+dim()
+as.numeric()
+as.character()
+typeof()
+unique() - NEW - prints each categorical value only once (so the unique of c(1,2,2,4,5,5,5,8) would be 1,2,4,5,8)</code></pre>
+</div>
+<div id="dplyr" class="section level4">
+<h4>Dplyr</h4>
+<pre><code>filter()
+group_by()
+summarize()
+na.omit()
+mutate() - NEW - adds a new column based on the arguments within
+transmute() - NEW - adds a new column based on the arguments within and then selects only that column</code></pre>
+</div>
+<div id="ggplot2" class="section level4">
+<h4>Ggplot2</h4>
+<pre><code>ggplot()
+aes()
+geom_point()
+geom_density()
+geom_count()
+geom_bar()
+ggtitle()
+xlab()
+ylab()
+geom_hline() - NEW - makes a horizontal line at the y intercept specified
+geom_vline()- NEW - makes a vertical line at the x intercept specified
+ylim() - NEW - takes in two numbers as the limits for the y axis
+xlim() - NEW - takes in two numbers as the limits for the x axis</code></pre>
+</div>
+</div>
+<div id="advanced-cheatsheets" class="section level2">
+<h2>Advanced cheatsheets</h2>
+<ul>
+<li><a href="https://github.com/rstudio/cheatsheets">Master repository by RStudio</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/base-r.pdf">Base R</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">(Mostly) dplyr</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">dplyr: Transformation</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf">ggplot2</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">tidyr</a></li>
+</ul>
+</div>
+<div id="quick-recap" class="section level2">
+<h2>Quick recap</h2>
+<pre class="r"><code>penguins &lt;- read.csv(&quot;penguins.csv&quot;)
+
+#We can use dplyr&#39;s piping to filter by specific variables
+penguins %&gt;% filter(species == &quot;Adelie&quot;) %&gt;% head()</code></pre>
+<pre><code>##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+## 4  Adelie Torgersen             NA            NA                NA          NA
+## 5  Adelie Torgersen           36.7          19.3               193        3450
+## 6  Adelie Torgersen           39.3          20.6               190        3650
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007
+## 4   &lt;NA&gt; 2007
+## 5 female 2007
+## 6   male 2007</code></pre>
+<pre class="r"><code>penguins %&gt;% filter(species == &quot;Adelie&quot;) %&gt;% ggplot(aes(x = sex)) + geom_bar()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>#We can also get summary statistics using summarize
+penguins %&gt;% na.omit() %&gt;%
+  group_by(species, sex) %&gt;%
+  summarize(bill_length_mean = mean(bill_length_mm)) </code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;species&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 6 × 3
+## # Groups:   species [3]
+##   species   sex    bill_length_mean
+##   &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;
+## 1 Adelie    female             37.3
+## 2 Adelie    male               40.4
+## 3 Chinstrap female             46.6
+## 4 Chinstrap male               51.1
+## 5 Gentoo    female             45.6
+## 6 Gentoo    male               49.5</code></pre>
+<pre class="r"><code>#And then pipe this into a plot
+penguins %&gt;% na.omit() %&gt;%
+  group_by(species, sex) %&gt;%
+  summarize(bill_length_mean = mean(bill_length_mm)) %&gt;%
+  ggplot(aes(x = sex, y = bill_length_mean, color = species)) +
+  geom_point()</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;species&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+</div>
+<div id="review-practice" class="section level2">
+<h2>Review Practice</h2>
+<pre class="r"><code>#### Practice dataset
+# Load the Hollywood data
+# Data courtesy: InformationIsBeautiful.net
+# Data source: https://public.tableau.com/s/resources?qt-overview_resources=1#qt-overview_resources
+hollywood = read.csv(&quot;hollywood.csv&quot;)
+
+#### What is in the dataset? Use head() or str()
+
+#### Piping into plots
+
+hollywood %&gt;%
+## How do we remove rows with missing profitability or audience score?
+  filter(!is.na(Profitability), !is.na(Audience_score)) %&gt;%
+## How do we keep only movies that are comedies
+  filter(Genre == &quot;Comedy&quot;) %&gt;%
+## How do we make a scatter plot that:
+# 1. The x-axis is score on Rotten Tomatoes
+# 2. The y-axis is how profitable a movie is
+  ggplot(., aes(x = Audience_score, y = Profitability, color = Lead_Studio)) +
+    geom_point()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>## Finally, how do we color each point by the lead studio that made the movie</code></pre>
+</div>
+<div id="line-plots" class="section level2">
+<h2>Line Plots</h2>
+<p>While scatter plot is very useful, line plot is sometimes useful to connect the
+dots and represent a trend. In ggplot2, it is usually achieved with
+<code>geom_line()</code>.</p>
+<pre class="r"><code># When you have many data, scatter plots can be difficult for finding trends
+hollywood %&gt;%
+  na.omit() %&gt;%
+  ggplot(., aes(x = Year, y = Profitability, color = Genre)) +
+  geom_jitter()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code># Let&#39;s first get the average profitability per year per genre
+hollywood %&gt;%
+  group_by(Genre, Year) %&gt;%
+# Since we are going to average, missing data will mess up the output.
+# We are dropping them for the time being.
+  na.omit() %&gt;%
+# Use summarize to get the average per group defined above
+  summarize(avg_profit = mean(Profitability)) %&gt;%
+# Pipe the summary data frame to ggplot
+  ggplot(., aes(x = Year, y = avg_profit, color = Genre)) +
+  geom_line()</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Genre&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+</div>
+<div id="pivoting-using-pivot_longer" class="section level2">
+<h2>Pivoting using pivot_longer()</h2>
+<p>Oftentimes, we want to plot different data together in one plot (if they are on
+a same scale). For example, check <code>example_two_color.png</code> in the folder. How
+would you make a plot like this?</p>
+<p><img src="example_two_color.png" /></p>
+<p>One (hopefully) straightforward way of making this kind of plot is to have
+a column that contains the kind of scores, so you can do something like
+<code>aes(color = kind_of_score)</code>, while at the same time have another column that
+keeps both the score from audiences and from Rotten Tomatoes to allow
+<code>aes(x = review_score)</code>.</p>
+<p><code>tidyr</code> provides a simple way to do this. The function that does this is
+<code>pivot_longer()</code>, and the minimal thing that you need to know before using it
+is which columns contain the scores that you want to store into the same column.</p>
+<pre class="r"><code># Examine the original data.frame
+head(hollywood)</code></pre>
+<pre><code>##                   Film   Genre Lead_Studio Audience_score Profitability
+## 1           27 Dresses  Comedy         Fox             71     5.3436218
+## 2 (500) Days of Summer  Comedy         Fox             81     8.0960000
+## 3   A Dangerous Method   Drama Independent             89     0.4486447
+## 4        A Serious Man   Drama   Universal             64     4.3828571
+## 5  Across the Universe Romance Independent             84     0.6526032
+## 6            Beginners  Comedy Independent             80     4.4718750
+##   Rotten_Tomatoes Worldwide_Gross Year
+## 1              40      160.308654 2008
+## 2              87       60.720000 2009
+## 3              79        8.972895 2011
+## 4              89       30.680000 2009
+## 5              54       29.367143 2007
+## 6              84       14.310000 2011</code></pre>
+<pre class="r"><code># Say we want to store audience_score and rotten_tomatoes into the same column
+# assign the new data.frame into another object to make comparison easier
+long_hollywood = hollywood %&gt;%
+  pivot_longer(cols = c(Audience_score, Rotten_Tomatoes))
+
+head(long_hollywood)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   Film         Genre Lead_Studio Profitability Worldwide_Gross  Year name  value
+##   &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+## 1 27 Dresses   Come… Fox                 5.34           160.    2008 Audi…    71
+## 2 27 Dresses   Come… Fox                 5.34           160.    2008 Rott…    40
+## 3 (500) Days … Come… Fox                 8.10            60.7   2009 Audi…    81
+## 4 (500) Days … Come… Fox                 8.10            60.7   2009 Rott…    87
+## 5 A Dangerous… Drama Independent         0.449            8.97  2011 Audi…    89
+## 6 A Dangerous… Drama Independent         0.449            8.97  2011 Rott…    79</code></pre>
+<p>Do you still see either <code>Audience_score</code> or <code>Rotten_Tomatoes</code>?</p>
+<p>Sometimes, naming columns <code>name</code> and <code>value</code> could be confusing for the future
+you, and you are likely to be able to come up with better names.</p>
+<p><code>pivot_longer()</code> provides such arguments, so let’s <code>?pivot_longer</code> or
+<code>help(pivot_longer)</code> and find out which arguments provide this function.</p>
+<pre class="r"><code># Let&#39;s name the score column &quot;score&quot;
+# while the source of review column &quot;score_type&quot;
+long_hollywood = hollywood %&gt;%
+  pivot_longer(
+    cols = c(Audience_score, Rotten_Tomatoes), names_to = &quot;score_type&quot;, values_to = &quot;score&quot;
+  )
+
+head(long_hollywood)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   Film    Genre Lead_Studio Profitability Worldwide_Gross  Year score_type score
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;      &lt;int&gt;
+## 1 27 Dre… Come… Fox                 5.34           160.    2008 Audience_…    71
+## 2 27 Dre… Come… Fox                 5.34           160.    2008 Rotten_To…    40
+## 3 (500) … Come… Fox                 8.10            60.7   2009 Audience_…    81
+## 4 (500) … Come… Fox                 8.10            60.7   2009 Rotten_To…    87
+## 5 A Dang… Drama Independent         0.449            8.97  2011 Audience_…    89
+## 6 A Dang… Drama Independent         0.449            8.97  2011 Rotten_To…    79</code></pre>
+</div>
+<div id="practice" class="section level2">
+<h2>Practice</h2>
+<p>You will find in the folder <code>rnaseq_for_heatmap.csv</code>.</p>
+<p>With your partner,</p>
+<ol style="list-style-type: decimal">
+<li><p>Examine what the data is about: What is each row and column?</p></li>
+<li><p>Use <code>pivot_longer()</code> to store the z-scores of every gene in a column, and
+the gene symbols in another.</p></li>
+<li><p>Let’s name the value column <code>z_score</code> and the name column <code>gene</code>.</p></li>
+</ol>
+<p>Assign the pivoted data.frame to a new object.</p>
+<pre class="r"><code>rnaseq = read.csv(&quot;rnaseq_for_heatmap.csv&quot;)
+
+# You don&#39;t really want to pivot the sample column, so please set
+# cols = -sample. This would pivot all other columns except for sample.
+rnaseq_plot = rnaseq %&gt;%
+  pivot_longer(
+    cols = -sample,
+    names_to = &quot;gene&quot;,
+    values_to = &quot;z_score&quot;
+  )
+
+head(rnaseq_plot)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   sample     gene    z_score
+##   &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;
+## 1 A_Brachial Aldh1a2  0.0398
+## 2 A_Brachial Runx1    0.112 
+## 3 A_Brachial Tacr3    0.666 
+## 4 A_Brachial Etv4     0.222 
+## 5 A_Brachial Dio3     0.759 
+## 6 A_Brachial Smug1    0.827</code></pre>
+</div>
+<div id="heatmaps" class="section level2">
+<h2>Heatmaps</h2>
+<p>Another popular visualization to show differences and trend is heatmaps. In a
+heatmap, every data point is presented as a block, and the value to be compared
+is represented by the color of the block.</p>
+<p>This can be done with <code>geom_tile()</code></p>
+<pre class="r"><code># Say we want to see if the average z-score for each chromosome
+# for both bulk and parent
+# We can first group by chromosomes and sample type
+rnaseq_plot %&gt;%
+  ggplot(., aes(x = sample, y = gene, fill = z_score)) +
+  geom_tile()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>You might find the default ggplot2 coloring less than ideal. If that’s the case,
+you can turn to <code>scale_*</code> family of functions.</p>
+<p>In our case, we want to change a gradient that is used to fill, so the function
+would be <code>scale_fill_gradient()</code>.</p>
+<p>The function takes two colors, <code>low</code> and <code>high</code>. You can refer to colors by
+their names or by hex codes.</p>
+<p>You can find a list of named colors in R
+<a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">here</a>.</p>
+<pre class="r"><code>rnaseq_plot %&gt;%
+  ggplot(., aes(x = sample, y = gene, fill = z_score)) +
+  geom_tile() +
+  scale_fill_gradient(low = &quot;green&quot;, high = &quot;magenta&quot;)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="factors" class="section level2">
+<h2>Factors</h2>
+<p>This RNA-Seq dataset is originally from Figure 5B of
+<a href="https://www.cell.com/neuron/fulltext/S0896-6273(16)30459-7">this article</a>, but
+it currently looks very messy and different from the figure. What is happening?</p>
+<p><img src="hanley_et_al_fig5B.png" /></p>
+<pre class="r"><code># The row order that is defined in a data.frame
+fruits = data.frame(
+  type = c(&quot;banana&quot;, &quot;apple&quot;, &quot;citrus&quot;),
+  price = c(5, 1, 3)
+)
+
+# Will not be respected even in a very simple plot
+# Check the x-axis -- it&#39;s alphabetically ordered
+fruits %&gt;% qplot(data = ., x = type, y = price)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>To tell <code>ggplot2</code> the order we want, we must let it know its a categorical
+variable with an order. This is called a factor in R.</p>
+<pre class="r"><code># We can make a factor from a character vector using factor().
+fruits$factor_type = factor(
+  # Give it the vector you want to convert 
+  x = fruits$type,
+  # A level is a category
+  # the order you used for levels will be honored by ggplot2
+  levels = c(&quot;banana&quot;, &quot;apple&quot;, &quot;citrus&quot;)
+)
+
+# Let&#39;s try the same plot again
+fruits %&gt;% qplot(data = ., x = factor_type, y = price)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div id="practice-ordering-gene-symbols-with-factors" class="section level3">
+<h3>Practice: Ordering gene symbols with factors</h3>
+<p>We can do the same for the gene column in <code>rnaseq_plot</code>. You can find a list
+of genes in the folder in <code>gene_order.txt</code>. Let’s load it into R with
+<code>readLines()</code>, which would load every line of the file as an element of a
+vector.</p>
+<pre class="r"><code># Load gene list
+gene_order = readLines(&quot;gene_order.txt&quot;)</code></pre>
+<p>Then, we are going to make <code>rnaseq_plot$gene</code> a factor, and use the order of
+genes we just loaded above to define its levels.</p>
+<pre class="r"><code># Use factor() to convert rnaseq_plot$gene into a factor
+# define the order with gene_order (loaded above)
+# and assign it into a new column (gene_ordered)
+rnaseq_plot$gene_ordered = factor(
+  x = rnaseq_plot$gene,
+  levels = gene_order
+)</code></pre>
+<p>Now that the genes are ordered as the article, let’s plot the heatmap again.
+This time, use <code>gene_ordered</code> instead of <code>gene</code> as the y-axis.</p>
+<pre class="r"><code>rnaseq_plot %&gt;%
+  ggplot(., aes(x = sample, y = gene_ordered, fill = z_score)) +
+  geom_tile() +
+  scale_fill_gradient(low = &quot;green&quot;, high = &quot;magenta&quot;)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+</div>
+<div id="practice-exercises" class="section level2">
+<h2>Practice Exercises</h2>
+<p>Today we’re going to use one of Cassandra’s data sets, which has chromosome positions and z-scores.</p>
+<pre class="r"><code>BSAResults = read.csv(&quot;BSAResults.csv&quot;)
+
+# Filter for Chromosome II using dplyr&#39;s filter() function
+
+BSAResults %&gt;% filter(CHROM == &quot;II&quot;) %&gt;% head()</code></pre>
+<pre><code>##              X CHROM    POS        Bulk      Parent Interaction
+## 1 result.11000    II 100153 -0.18330726 -0.06467321  0.19943965
+## 2 result.21000    II 100367 -0.18800155 -0.29128447  0.28590390
+## 3 result.31000    II 100413 -0.32764216 -0.30312559  0.52362311
+## 4 result.41000    II 100878  0.02040887  0.11852673 -0.16398910
+## 5 result.51000    II 101103 -0.13385976 -0.01003441 -0.01602947
+## 6  result.6432    II 101289 -0.25282081  0.08171578  0.21342401</code></pre>
+<pre class="r"><code># Plot a scatter plot of the Bulk with x-axis being POS and y-axis being Bulk values
+
+BSAResults %&gt;% filter(CHROM == &quot;II&quot;) %&gt;% ggplot(., aes(x = POS, y = Bulk)) + geom_point()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r"><code># If we want plot Bulk, Interaction, and Parent for Chr II at once, we need to pivot the data to long format. How do we do so?
+
+BSAResults %&gt;% filter(CHROM == &quot;II&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) </code></pre>
+<pre><code>## # A tibble: 10,710 × 5
+##    X            CHROM    POS name          value
+##    &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+##  1 result.11000 II    100153 Bulk        -0.183 
+##  2 result.11000 II    100153 Parent      -0.0647
+##  3 result.11000 II    100153 Interaction  0.199 
+##  4 result.21000 II    100367 Bulk        -0.188 
+##  5 result.21000 II    100367 Parent      -0.291 
+##  6 result.21000 II    100367 Interaction  0.286 
+##  7 result.31000 II    100413 Bulk        -0.328 
+##  8 result.31000 II    100413 Parent      -0.303 
+##  9 result.31000 II    100413 Interaction  0.524 
+## 10 result.41000 II    100878 Bulk         0.0204
+## # … with 10,700 more rows</code></pre>
+<pre class="r"><code># Then to plot, we can separate our data by &quot;name&quot;
+
+BSAResults %&gt;% filter(CHROM == &quot;II&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<pre class="r"><code># There&#39;s a more interesting thing happening on Chr VIII. Filter for this next
+
+BSAResults %&gt;% filter(CHROM == &quot;VIII&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<pre class="r"><code>#There are a lot of points. Change the opacity of these points
+
+BSAResults %&gt;% filter(CHROM == &quot;VIII&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+<pre class="r"><code># We now want to change the names to reflect what the value actually is. Add labels to the plot
+
+BSAResults %&gt;% filter(CHROM == &quot;VIII&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&quot;Effects of GLM&quot;) + ylab(&quot;Z score&quot;) + xlab(&quot;Position&quot;)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-5.png" width="672" /></p>
+<pre class="r"><code># A different theme might be better. Let&#39;s use theme_classic()
+
+BSAResults %&gt;% filter(CHROM == &quot;VIII&quot;) %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&quot;Effects of GLM&quot;) + ylab(&quot;Z score&quot;) + xlab(&quot;Position&quot;) + theme_classic()</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-6.png" width="672" /></p>
+<pre class="r"><code># Faceting
+
+BSAResults %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&quot;Effects of GLM&quot;) + ylab(&quot;Z score&quot;) + xlab(&quot;Position&quot;) + facet_grid(~CHROM)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-7.png" width="672" /></p>
+<pre class="r"><code>#There are some weird values, but because these are z-scores, we know most of the data should be within +/- 2 unless significat. We can change our limits to reflect this and see actual trends
+
+BSAResults %&gt;% pivot_longer(c(&quot;Bulk&quot;, &quot;Parent&quot;, &quot;Interaction&quot;)) %&gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_line(alpha = 0.5) + ggtitle(&quot;Effects of GLM&quot;) + ylab(&quot;Z score&quot;) + xlab(&quot;Position&quot;)+ ylim(-5,5) + facet_grid(~CHROM, scales = &quot;free&quot;, space = &quot;free_x&quot;)</code></pre>
+<p><img src="https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-8.png" width="672" /></p>
+</div>
+<div id="coming-up-sanjana-lab-data" class="section level2">
+<h2>Coming up: Sanjana Lab Data</h2>
+<ul>
+<li>Github: <a href="https://gitlab.com/sanjanalab/cas13" class="uri">https://gitlab.com/sanjanalab/cas13</a></li>
+<li>Paper: <a href="https://www.nature.com/articles/s41587-020-0456-9#Sec1" class="uri">https://www.nature.com/articles/s41587-020-0456-9#Sec1</a></li>
+<li>Figure 1: <a href="https://www.nature.com/articles/s41587-020-0456-9/figures/1" class="uri">https://www.nature.com/articles/s41587-020-0456-9/figures/1</a></li>
+</ul>
+</div>
+
+    </div>
+    
+    
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/&amp;text=Pivoting%20and%20ggplot2" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/&amp;t=Pivoting%20and%20ggplot2" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Pivoting%20and%20ggplot2&amp;body=https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/&amp;title=Pivoting%20and%20ggplot2" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Pivoting%20and%20ggplot2%20https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/&amp;title=Pivoting%20and%20ggplot2" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-square" src="/author/yen-chung-chen/avatar_huda0ce57f65f04f993150b3aa43fca8b8_48438_270x270_fill_q90_lanczos_center.jpg" alt="Yen-Chung Chen">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/author/yen-chung-chen/">Yen-Chung Chen</a></h5>
+        <h6 class="card-subtitle">PhD Candidate</h6>
+        <p class="card-text">A graduate student interested in developmental biology, neurobiology and bioinformatics.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:ycc520@nyu.edu" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/ycchen_tw" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=JtsGxWEAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/chenyenchung" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-8529-1251" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/bash.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+      
+
+    
+
+    
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.b2ed8054531fc8b77a9c500d5dfef876.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    © NYU 2021 - 2022
+  </p>
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY NC SA 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0" rel="noopener noreferrer" target="_blank">
+      <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
+      <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
+      
+        <img src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" alt="CC NC icon">
+      
+      
+        <img src="https://search.creativecommons.org/static/img/cc-sa_icon.svg" alt="CC SA icon">
+      
+    </a>
+  </p>
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

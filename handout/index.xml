@@ -5,12 +5,431 @@
     <link>https://nyusurp.github.io/handout/</link>
       <atom:link href="https://nyusurp.github.io/handout/index.xml" rel="self" type="application/rss+xml" />
     <description>Handouts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Handouts</title>
       <link>https://nyusurp.github.io/handout/</link>
     </image>
+    
+    <item>
+      <title>Pivoting and ggplot2</title>
+      <link>https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/</link>
+      <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/</guid>
+      <description>
+
+
+&lt;div id=&#34;function-cheatsheet&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Function cheatsheet&lt;/h2&gt;
+&lt;div id=&#34;base-r&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Base R&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;mean()
+sum()
+head()
+tail()
+length()
+dim()
+as.numeric()
+as.character()
+typeof()
+unique() - NEW - prints each categorical value only once (so the unique of c(1,2,2,4,5,5,5,8) would be 1,2,4,5,8)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dplyr&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Dplyr&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;filter()
+group_by()
+summarize()
+na.omit()
+mutate() - NEW - adds a new column based on the arguments within
+transmute() - NEW - adds a new column based on the arguments within and then selects only that column&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ggplot2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Ggplot2&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;ggplot()
+aes()
+geom_point()
+geom_density()
+geom_count()
+geom_bar()
+ggtitle()
+xlab()
+ylab()
+geom_hline() - NEW - makes a horizontal line at the y intercept specified
+geom_vline()- NEW - makes a vertical line at the x intercept specified
+ylim() - NEW - takes in two numbers as the limits for the y axis
+xlim() - NEW - takes in two numbers as the limits for the x axis&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;advanced-cheatsheets&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Advanced cheatsheets&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rstudio/cheatsheets&#34;&gt;Master repository by RStudio&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rstudio/cheatsheets/blob/main/base-r.pdf&#34;&gt;Base R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf&#34;&gt;(Mostly) dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf&#34;&gt;dplyr: Transformation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf&#34;&gt;ggplot2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf&#34;&gt;tidyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;quick-recap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Quick recap&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins &amp;lt;- read.csv(&amp;quot;penguins.csv&amp;quot;)
+
+#We can use dplyr&amp;#39;s piping to filter by specific variables
+penguins %&amp;gt;% filter(species == &amp;quot;Adelie&amp;quot;) %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   species    island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+## 1  Adelie Torgersen           39.1          18.7               181        3750
+## 2  Adelie Torgersen           39.5          17.4               186        3800
+## 3  Adelie Torgersen           40.3          18.0               195        3250
+## 4  Adelie Torgersen             NA            NA                NA          NA
+## 5  Adelie Torgersen           36.7          19.3               193        3450
+## 6  Adelie Torgersen           39.3          20.6               190        3650
+##      sex year
+## 1   male 2007
+## 2 female 2007
+## 3 female 2007
+## 4   &amp;lt;NA&amp;gt; 2007
+## 5 female 2007
+## 6   male 2007&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% filter(species == &amp;quot;Adelie&amp;quot;) %&amp;gt;% ggplot(aes(x = sex)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#We can also get summary statistics using summarize
+penguins %&amp;gt;% na.omit() %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  summarize(bill_length_mean = mean(bill_length_mm)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;species&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 3
+## # Groups:   species [3]
+##   species   sex    bill_length_mean
+##   &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;dbl&amp;gt;
+## 1 Adelie    female             37.3
+## 2 Adelie    male               40.4
+## 3 Chinstrap female             46.6
+## 4 Chinstrap male               51.1
+## 5 Gentoo    female             45.6
+## 6 Gentoo    male               49.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#And then pipe this into a plot
+penguins %&amp;gt;% na.omit() %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  summarize(bill_length_mean = mean(bill_length_mm)) %&amp;gt;%
+  ggplot(aes(x = sex, y = bill_length_mean, color = species)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;species&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-1-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;review-practice&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Review Practice&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#### Practice dataset
+# Load the Hollywood data
+# Data courtesy: InformationIsBeautiful.net
+# Data source: https://public.tableau.com/s/resources?qt-overview_resources=1#qt-overview_resources
+hollywood = read.csv(&amp;quot;hollywood.csv&amp;quot;)
+
+#### What is in the dataset? Use head() or str()
+
+#### Piping into plots
+
+hollywood %&amp;gt;%
+## How do we remove rows with missing profitability or audience score?
+  filter(!is.na(Profitability), !is.na(Audience_score)) %&amp;gt;%
+## How do we keep only movies that are comedies
+  filter(Genre == &amp;quot;Comedy&amp;quot;) %&amp;gt;%
+## How do we make a scatter plot that:
+# 1. The x-axis is score on Rotten Tomatoes
+# 2. The y-axis is how profitable a movie is
+  ggplot(., aes(x = Audience_score, y = Profitability, color = Lead_Studio)) +
+    geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Finally, how do we color each point by the lead studio that made the movie&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;line-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Line Plots&lt;/h2&gt;
+&lt;p&gt;While scatter plot is very useful, line plot is sometimes useful to connect the
+dots and represent a trend. In ggplot2, it is usually achieved with
+&lt;code&gt;geom_line()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# When you have many data, scatter plots can be difficult for finding trends
+hollywood %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = Year, y = Profitability, color = Genre)) +
+  geom_jitter()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s first get the average profitability per year per genre
+hollywood %&amp;gt;%
+  group_by(Genre, Year) %&amp;gt;%
+# Since we are going to average, missing data will mess up the output.
+# We are dropping them for the time being.
+  na.omit() %&amp;gt;%
+# Use summarize to get the average per group defined above
+  summarize(avg_profit = mean(Profitability)) %&amp;gt;%
+# Pipe the summary data frame to ggplot
+  ggplot(., aes(x = Year, y = avg_profit, color = Genre)) +
+  geom_line()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;Genre&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-3-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pivoting-using-pivot_longer&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Pivoting using pivot_longer()&lt;/h2&gt;
+&lt;p&gt;Oftentimes, we want to plot different data together in one plot (if they are on
+a same scale). For example, check &lt;code&gt;example_two_color.png&lt;/code&gt; in the folder. How
+would you make a plot like this?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;example_two_color.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;One (hopefully) straightforward way of making this kind of plot is to have
+a column that contains the kind of scores, so you can do something like
+&lt;code&gt;aes(color = kind_of_score)&lt;/code&gt;, while at the same time have another column that
+keeps both the score from audiences and from Rotten Tomatoes to allow
+&lt;code&gt;aes(x = review_score)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tidyr&lt;/code&gt; provides a simple way to do this. The function that does this is
+&lt;code&gt;pivot_longer()&lt;/code&gt;, and the minimal thing that you need to know before using it
+is which columns contain the scores that you want to store into the same column.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Examine the original data.frame
+head(hollywood)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   Film   Genre Lead_Studio Audience_score Profitability
+## 1           27 Dresses  Comedy         Fox             71     5.3436218
+## 2 (500) Days of Summer  Comedy         Fox             81     8.0960000
+## 3   A Dangerous Method   Drama Independent             89     0.4486447
+## 4        A Serious Man   Drama   Universal             64     4.3828571
+## 5  Across the Universe Romance Independent             84     0.6526032
+## 6            Beginners  Comedy Independent             80     4.4718750
+##   Rotten_Tomatoes Worldwide_Gross Year
+## 1              40      160.308654 2008
+## 2              87       60.720000 2009
+## 3              79        8.972895 2011
+## 4              89       30.680000 2009
+## 5              54       29.367143 2007
+## 6              84       14.310000 2011&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Say we want to store audience_score and rotten_tomatoes into the same column
+# assign the new data.frame into another object to make comparison easier
+long_hollywood = hollywood %&amp;gt;%
+  pivot_longer(cols = c(Audience_score, Rotten_Tomatoes))
+
+head(long_hollywood)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 8
+##   Film         Genre Lead_Studio Profitability Worldwide_Gross  Year name  value
+##   &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;               &amp;lt;dbl&amp;gt;           &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
+## 1 27 Dresses   Come… Fox                 5.34           160.    2008 Audi…    71
+## 2 27 Dresses   Come… Fox                 5.34           160.    2008 Rott…    40
+## 3 (500) Days … Come… Fox                 8.10            60.7   2009 Audi…    81
+## 4 (500) Days … Come… Fox                 8.10            60.7   2009 Rott…    87
+## 5 A Dangerous… Drama Independent         0.449            8.97  2011 Audi…    89
+## 6 A Dangerous… Drama Independent         0.449            8.97  2011 Rott…    79&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Do you still see either &lt;code&gt;Audience_score&lt;/code&gt; or &lt;code&gt;Rotten_Tomatoes&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;Sometimes, naming columns &lt;code&gt;name&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt; could be confusing for the future
+you, and you are likely to be able to come up with better names.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pivot_longer()&lt;/code&gt; provides such arguments, so let’s &lt;code&gt;?pivot_longer&lt;/code&gt; or
+&lt;code&gt;help(pivot_longer)&lt;/code&gt; and find out which arguments provide this function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s name the score column &amp;quot;score&amp;quot;
+# while the source of review column &amp;quot;score_type&amp;quot;
+long_hollywood = hollywood %&amp;gt;%
+  pivot_longer(
+    cols = c(Audience_score, Rotten_Tomatoes), names_to = &amp;quot;score_type&amp;quot;, values_to = &amp;quot;score&amp;quot;
+  )
+
+head(long_hollywood)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 8
+##   Film    Genre Lead_Studio Profitability Worldwide_Gross  Year score_type score
+##   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;               &amp;lt;dbl&amp;gt;           &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;int&amp;gt;
+## 1 27 Dre… Come… Fox                 5.34           160.    2008 Audience_…    71
+## 2 27 Dre… Come… Fox                 5.34           160.    2008 Rotten_To…    40
+## 3 (500) … Come… Fox                 8.10            60.7   2009 Audience_…    81
+## 4 (500) … Come… Fox                 8.10            60.7   2009 Rotten_To…    87
+## 5 A Dang… Drama Independent         0.449            8.97  2011 Audience_…    89
+## 6 A Dang… Drama Independent         0.449            8.97  2011 Rotten_To…    79&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Practice&lt;/h2&gt;
+&lt;p&gt;You will find in the folder &lt;code&gt;rnaseq_for_heatmap.csv&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;With your partner,&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Examine what the data is about: What is each row and column?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;code&gt;pivot_longer()&lt;/code&gt; to store the z-scores of every gene in a column, and
+the gene symbols in another.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Let’s name the value column &lt;code&gt;z_score&lt;/code&gt; and the name column &lt;code&gt;gene&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Assign the pivoted data.frame to a new object.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rnaseq = read.csv(&amp;quot;rnaseq_for_heatmap.csv&amp;quot;)
+
+# You don&amp;#39;t really want to pivot the sample column, so please set
+# cols = -sample. This would pivot all other columns except for sample.
+rnaseq_plot = rnaseq %&amp;gt;%
+  pivot_longer(
+    cols = -sample,
+    names_to = &amp;quot;gene&amp;quot;,
+    values_to = &amp;quot;z_score&amp;quot;
+  )
+
+head(rnaseq_plot)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 3
+##   sample     gene    z_score
+##   &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;
+## 1 A_Brachial Aldh1a2  0.0398
+## 2 A_Brachial Runx1    0.112 
+## 3 A_Brachial Tacr3    0.666 
+## 4 A_Brachial Etv4     0.222 
+## 5 A_Brachial Dio3     0.759 
+## 6 A_Brachial Smug1    0.827&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;heatmaps&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Heatmaps&lt;/h2&gt;
+&lt;p&gt;Another popular visualization to show differences and trend is heatmaps. In a
+heatmap, every data point is presented as a block, and the value to be compared
+is represented by the color of the block.&lt;/p&gt;
+&lt;p&gt;This can be done with &lt;code&gt;geom_tile()&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Say we want to see if the average z-score for each chromosome
+# for both bulk and parent
+# We can first group by chromosomes and sample type
+rnaseq_plot %&amp;gt;%
+  ggplot(., aes(x = sample, y = gene, fill = z_score)) +
+  geom_tile()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You might find the default ggplot2 coloring less than ideal. If that’s the case,
+you can turn to &lt;code&gt;scale_*&lt;/code&gt; family of functions.&lt;/p&gt;
+&lt;p&gt;In our case, we want to change a gradient that is used to fill, so the function
+would be &lt;code&gt;scale_fill_gradient()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The function takes two colors, &lt;code&gt;low&lt;/code&gt; and &lt;code&gt;high&lt;/code&gt;. You can refer to colors by
+their names or by hex codes.&lt;/p&gt;
+&lt;p&gt;You can find a list of named colors in R
+&lt;a href=&#34;http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rnaseq_plot %&amp;gt;%
+  ggplot(., aes(x = sample, y = gene, fill = z_score)) +
+  geom_tile() +
+  scale_fill_gradient(low = &amp;quot;green&amp;quot;, high = &amp;quot;magenta&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;factors&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Factors&lt;/h2&gt;
+&lt;p&gt;This RNA-Seq dataset is originally from Figure 5B of
+&lt;a href=&#34;https://www.cell.com/neuron/fulltext/S0896-6273(16)30459-7&#34;&gt;this article&lt;/a&gt;, but
+it currently looks very messy and different from the figure. What is happening?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;hanley_et_al_fig5B.png&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# The row order that is defined in a data.frame
+fruits = data.frame(
+  type = c(&amp;quot;banana&amp;quot;, &amp;quot;apple&amp;quot;, &amp;quot;citrus&amp;quot;),
+  price = c(5, 1, 3)
+)
+
+# Will not be respected even in a very simple plot
+# Check the x-axis -- it&amp;#39;s alphabetically ordered
+fruits %&amp;gt;% qplot(data = ., x = type, y = price)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To tell &lt;code&gt;ggplot2&lt;/code&gt; the order we want, we must let it know its a categorical
+variable with an order. This is called a factor in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We can make a factor from a character vector using factor().
+fruits$factor_type = factor(
+  # Give it the vector you want to convert 
+  x = fruits$type,
+  # A level is a category
+  # the order you used for levels will be honored by ggplot2
+  levels = c(&amp;quot;banana&amp;quot;, &amp;quot;apple&amp;quot;, &amp;quot;citrus&amp;quot;)
+)
+
+# Let&amp;#39;s try the same plot again
+fruits %&amp;gt;% qplot(data = ., x = factor_type, y = price)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;practice-ordering-gene-symbols-with-factors&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice: Ordering gene symbols with factors&lt;/h3&gt;
+&lt;p&gt;We can do the same for the gene column in &lt;code&gt;rnaseq_plot&lt;/code&gt;. You can find a list
+of genes in the folder in &lt;code&gt;gene_order.txt&lt;/code&gt;. Let’s load it into R with
+&lt;code&gt;readLines()&lt;/code&gt;, which would load every line of the file as an element of a
+vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load gene list
+gene_order = readLines(&amp;quot;gene_order.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, we are going to make &lt;code&gt;rnaseq_plot$gene&lt;/code&gt; a factor, and use the order of
+genes we just loaded above to define its levels.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use factor() to convert rnaseq_plot$gene into a factor
+# define the order with gene_order (loaded above)
+# and assign it into a new column (gene_ordered)
+rnaseq_plot$gene_ordered = factor(
+  x = rnaseq_plot$gene,
+  levels = gene_order
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that the genes are ordered as the article, let’s plot the heatmap again.
+This time, use &lt;code&gt;gene_ordered&lt;/code&gt; instead of &lt;code&gt;gene&lt;/code&gt; as the y-axis.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rnaseq_plot %&amp;gt;%
+  ggplot(., aes(x = sample, y = gene_ordered, fill = z_score)) +
+  geom_tile() +
+  scale_fill_gradient(low = &amp;quot;green&amp;quot;, high = &amp;quot;magenta&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice-exercises&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Practice Exercises&lt;/h2&gt;
+&lt;p&gt;Today we’re going to use one of Cassandra’s data sets, which has chromosome positions and z-scores.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSAResults = read.csv(&amp;quot;BSAResults.csv&amp;quot;)
+
+# Filter for Chromosome II using dplyr&amp;#39;s filter() function
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;% head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##              X CHROM    POS        Bulk      Parent Interaction
+## 1 result.11000    II 100153 -0.18330726 -0.06467321  0.19943965
+## 2 result.21000    II 100367 -0.18800155 -0.29128447  0.28590390
+## 3 result.31000    II 100413 -0.32764216 -0.30312559  0.52362311
+## 4 result.41000    II 100878  0.02040887  0.11852673 -0.16398910
+## 5 result.51000    II 101103 -0.13385976 -0.01003441 -0.01602947
+## 6  result.6432    II 101289 -0.25282081  0.08171578  0.21342401&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot a scatter plot of the Bulk with x-axis being POS and y-axis being Bulk values
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;% ggplot(., aes(x = POS, y = Bulk)) + geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# If we want plot Bulk, Interaction, and Parent for Chr II at once, we need to pivot the data to long format. How do we do so?
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 10,710 × 5
+##    X            CHROM    POS name          value
+##    &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;dbl&amp;gt;
+##  1 result.11000 II    100153 Bulk        -0.183 
+##  2 result.11000 II    100153 Parent      -0.0647
+##  3 result.11000 II    100153 Interaction  0.199 
+##  4 result.21000 II    100367 Bulk        -0.188 
+##  5 result.21000 II    100367 Parent      -0.291 
+##  6 result.21000 II    100367 Interaction  0.286 
+##  7 result.31000 II    100413 Bulk        -0.328 
+##  8 result.31000 II    100413 Parent      -0.303 
+##  9 result.31000 II    100413 Interaction  0.524 
+## 10 result.41000 II    100878 Bulk         0.0204
+## # … with 10,700 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Then to plot, we can separate our data by &amp;quot;name&amp;quot;
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# There&amp;#39;s a more interesting thing happening on Chr VIII. Filter for this next
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#There are a lot of points. Change the opacity of these points
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-4.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We now want to change the names to reflect what the value actually is. Add labels to the plot
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&amp;quot;Effects of GLM&amp;quot;) + ylab(&amp;quot;Z score&amp;quot;) + xlab(&amp;quot;Position&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-5.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# A different theme might be better. Let&amp;#39;s use theme_classic()
+
+BSAResults %&amp;gt;% filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&amp;quot;Effects of GLM&amp;quot;) + ylab(&amp;quot;Z score&amp;quot;) + xlab(&amp;quot;Position&amp;quot;) + theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-6.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Faceting
+
+BSAResults %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_point(alpha = 0.5) + ggtitle(&amp;quot;Effects of GLM&amp;quot;) + ylab(&amp;quot;Z score&amp;quot;) + xlab(&amp;quot;Position&amp;quot;) + facet_grid(~CHROM)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-7.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#There are some weird values, but because these are z-scores, we know most of the data should be within +/- 2 unless significat. We can change our limits to reflect this and see actual trends
+
+BSAResults %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&amp;quot;, &amp;quot;Interaction&amp;quot;)) %&amp;gt;% ggplot(aes(x = POS, y = value, color = name)) + geom_line(alpha = 0.5) + ggtitle(&amp;quot;Effects of GLM&amp;quot;) + ylab(&amp;quot;Z score&amp;quot;) + xlab(&amp;quot;Position&amp;quot;)+ ylim(-5,5) + facet_grid(~CHROM, scales = &amp;quot;free&amp;quot;, space = &amp;quot;free_x&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/12/pivoting-and-ggplot2/index.en_files/figure-html/unnamed-chunk-14-8.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;coming-up-sanjana-lab-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Coming up: Sanjana Lab Data&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Github: &lt;a href=&#34;https://gitlab.com/sanjanalab/cas13&#34; class=&#34;uri&#34;&gt;https://gitlab.com/sanjanalab/cas13&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Paper: &lt;a href=&#34;https://www.nature.com/articles/s41587-020-0456-9#Sec1&#34; class=&#34;uri&#34;&gt;https://www.nature.com/articles/s41587-020-0456-9#Sec1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Figure 1: &lt;a href=&#34;https://www.nature.com/articles/s41587-020-0456-9/figures/1&#34; class=&#34;uri&#34;&gt;https://www.nature.com/articles/s41587-020-0456-9/figures/1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Introduction to ggplot2</title>
