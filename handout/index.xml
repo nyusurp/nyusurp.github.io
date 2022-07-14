@@ -5,12 +5,698 @@
     <link>https://nyusurp.github.io/handout/</link>
       <atom:link href="https://nyusurp.github.io/handout/index.xml" rel="self" type="application/rss+xml" />
     <description>Handouts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Thu, 14 Jul 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Handouts</title>
       <link>https://nyusurp.github.io/handout/</link>
     </image>
+    
+    <item>
+      <title>Reproducing Visualization in Publications</title>
+      <link>https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/</link>
+      <pubDate>Thu, 14 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/</guid>
+      <description>
+
+
+&lt;div id=&#34;quick-recappractice&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Quick recap/practice&lt;/h2&gt;
+&lt;p&gt;To warm up, we’re going to use one of Cassandra’s data sets, which has chromosome positions and z-scores. We’ll do each of these exercises together.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load in the data
+BSAResults = read.csv(&amp;quot;data/BSAResults.csv&amp;quot;)
+
+# Find the unique values of the chromosomes. How do we find the column name?
+str(BSAResults)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    49432 obs. of  6 variables:
+##  $ X          : chr  &amp;quot;result.1&amp;quot; &amp;quot;result.2&amp;quot; &amp;quot;result.3&amp;quot; &amp;quot;result.4&amp;quot; ...
+##  $ CHROM      : chr  &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; ...
+##  $ POS        : num  100007 1035 1074 1101 1173 ...
+##  $ Bulk       : num  -0.08758 0.1827 -0.00987 0.01895 0.87397 ...
+##  $ Parent     : num  3.554 0.537 -0.345 -0.12 -0.393 ...
+##  $ Interaction: num  -0.01715 0.13848 0.31904 -0.00762 -0.18258 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique(BSAResults$CHROM)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;I&amp;quot;    &amp;quot;II&amp;quot;   &amp;quot;III&amp;quot;  &amp;quot;IV&amp;quot;   &amp;quot;V&amp;quot;    &amp;quot;VI&amp;quot;   &amp;quot;VII&amp;quot;  &amp;quot;VIII&amp;quot; &amp;quot;IX&amp;quot;   &amp;quot;X&amp;quot;   
+## [11] &amp;quot;XI&amp;quot;   &amp;quot;XII&amp;quot;  &amp;quot;XIII&amp;quot; &amp;quot;XIV&amp;quot;  &amp;quot;XV&amp;quot;   &amp;quot;XVI&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Filter for Chromosome II using dplyr&amp;#39;s filter() function, and pipe through head() to output only the first 10 lines
+BSAResults %&amp;gt;%
+  filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;%
+  head(., n = 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##               X CHROM    POS        Bulk        Parent Interaction
+## 1  result.11000    II 100153 -0.18330726 -0.0646732103  0.19943965
+## 2  result.21000    II 100367 -0.18800155 -0.2912844665  0.28590390
+## 3  result.31000    II 100413 -0.32764216 -0.3031255854  0.52362311
+## 4  result.41000    II 100878  0.02040887  0.1185267276 -0.16398910
+## 5  result.51000    II 101103 -0.13385976 -0.0100344121 -0.01602947
+## 6   result.6432    II 101289 -0.25282081  0.0817157785  0.21342401
+## 7   result.7100    II 101340 -0.19522650  0.1584760726 -0.15293462
+## 8   result.8100    II  10136 -0.30926532 -0.0078019497 -0.02303257
+## 9   result.9100    II 101507 -0.19850031 -0.0007044734  0.08039453
+## 10 result.10100    II 101581  0.07333291  0.0641751118 -0.28421660&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot a scatter plot of the Bulk with x-axis being POS and y-axis being Bulk values
+BSAResults %&amp;gt;%
+  filter(CHROM == &amp;quot;II&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = POS, y = Bulk)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# If we want plot Bulk, Interaction, and Parent for Chr II at once, we need to pivot the data to long format. How do we do so?
+BSAResults %&amp;gt;%
+  pivot_longer(., cols = c(Bulk, Interaction, Parent)) %&amp;gt;%
+  head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 × 5
+##   X        CHROM    POS name          value
+##   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;dbl&amp;gt;
+## 1 result.1 I     100007 Bulk        -0.0876
+## 2 result.1 I     100007 Interaction -0.0171
+## 3 result.1 I     100007 Parent       3.55  
+## 4 result.2 I       1035 Bulk         0.183 
+## 5 result.2 I       1035 Interaction  0.138 
+## 6 result.2 I       1035 Parent       0.537&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Then to plot, we can separate our data by &amp;quot;name&amp;quot; - rename this column &amp;quot;Z_score&amp;quot; using pivot_longer()
+BSAResults %&amp;gt;%
+  pivot_longer(., cols = c(Bulk, Interaction, Parent), names_to = &amp;quot;Z_score&amp;quot;) %&amp;gt;%
+# There&amp;#39;s a more interesting thing happening on Chr VIII. Filter for this instead.
+  filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;%
+# Plot the pivoted points with them colored by Z_score. 
+  ggplot(., aes(x = POS, y = value, color = Z_score)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-1-2.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# There are a lot of points. Change the opacity of these points.
+BSAResults %&amp;gt;%
+  pivot_longer(., cols = c(Bulk, Interaction, Parent), names_to = &amp;quot;Z_score&amp;quot;) %&amp;gt;%
+  filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = POS, y = value, color = Z_score)) +
+  geom_point(alpha = 0.3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-1-3.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We now want to change the names to reflect what the value actually is. Add labels to the plot.
+BSAResults %&amp;gt;%
+  pivot_longer(., cols = c(Bulk, Interaction, Parent), names_to = &amp;quot;Z_score&amp;quot;) %&amp;gt;%
+  filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = POS, y = value, color = Z_score)) +
+  geom_point(alpha = 0.3) +
+  xlab(&amp;quot;Coordinate on Chromsome (nt)&amp;quot;) +
+  ylab(&amp;quot;Z-Score&amp;quot;) +
+  ggtitle(&amp;quot;The Light from the Other End of the Tunnel&amp;quot;) +
+# A different theme might be better. Let&amp;#39;s use theme_classic()
+  theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-1-4.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# BONUS: it would be great to plot all chromosomes on the plot at once. Add facet_grid(~CHROM) to do this, and once it works, remove the filtering of your CHROM column.
+BSAResults %&amp;gt;%
+  pivot_longer(., cols = c(Bulk, Interaction, Parent), names_to = &amp;quot;Z_score&amp;quot;) %&amp;gt;%
+  # filter(CHROM == &amp;quot;VIII&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = POS, y = value, color = Z_score)) +
+  geom_point(alpha = 0.3, size = 0.1) +
+  xlab(&amp;quot;Coordinate on Chromsome (nt)&amp;quot;) +
+  ylab(&amp;quot;Z-Score&amp;quot;) +
+  ggtitle(&amp;quot;The One where Everything is Plotted Together&amp;quot;) +
+  theme_classic() +
+  facet_grid(~CHROM, space = &amp;quot;free_x&amp;quot;) +
+  # NEW: Another way to limit the y
+  coord_cartesian(ylim = c(-1.5, 1.5)) +
+  guides(color = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-1-5.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Today, we will be looking into the first figure from
+&lt;a href=&#34;https://www.nature.com/articles/s41587-020-0456-9&#34;&gt;Massively parallel Cas13 screens reveal principles for guide RNA design&lt;/a&gt; from the Sanjana Lab.&lt;/p&gt;
+&lt;p&gt;The main reason we selected this paper is because: First, the visualization they
+used are fairly popular and meets what we covered in previous sessions; second,
+they did an excellent job in
+&lt;a href=&#34;https://gitlab.com/sanjanalab/cas13&#34;&gt;sharing their data and code&lt;/a&gt;, so you will
+have this unique chance to work with real data and know exactly how the authors
+performed their analyses and visualization if you take the time to read their
+code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-1b-boxplot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Figure 1b: BoxPlot&lt;/h2&gt;
+&lt;p&gt;Figure 1b is a panel of boxplots showing log-transformed enrichment scores of
+different types of crRNAs (the equivalent to sgRNAs for Cas13a).&lt;/p&gt;
+&lt;p&gt;The processed (normalized and batch-corrected) data for crRNAs in this tiling
+screen is provided in &lt;code&gt;data/GFP_screen_crRNA_enrichments.csv&lt;/code&gt;. Specifically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;crRNAs are categorized in to several categories based on their targets in
+&lt;code&gt;type&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Log-transformed enrichment scores are stored in &lt;code&gt;meanCS.BIN1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First, let’s load in the data and see what it looks like&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Load in our data
+GFP_Results = read.csv(&amp;quot;data/GFP_screen_crRNA_enrichments.csv&amp;quot;)
+
+#See what the data looks like
+str(GFP_Results)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    7500 obs. of  17 variables:
+##  $ p.BIN1       : num  0.03714 0.00531 0.05278 0.00993 0.81008 ...
+##  $ p.BIN2       : num  0.00441 0.06989 1 0.31136 1 ...
+##  $ p.BIN3       : num  0.0164 0.038 0.3089 0.2385 0.6272 ...
+##  $ p.BIN4       : num  0.1162 0.0542 0.2063 0.012 0.8689 ...
+##  $ logBIN1      : num  1.4302 2.2752 1.2776 2.0029 0.0915 ...
+##  $ logBIN2      : num  2.355 1.156 0 0.507 0 ...
+##  $ logBIN3      : num  1.785 1.42 0.51 0.622 0.203 ...
+##  $ logBIN4      : num  0.935 1.266 0.686 1.923 0.061 ...
+##  $ meanCS.BIN1  : num  0.698 0.973 1.167 1.055 0.953 ...
+##  $ meanCS.BIN2  : num  -0.6699 -0.2926 -0.0292 -0.3766 NA ...
+##  $ meanCS.BIN3  : num  -0.923 -0.469 -0.589 -0.499 -0.852 ...
+##  $ meanCS.BIN4  : num  -0.658 -0.408 -0.573 -0.689 -0.67 ...
+##  $ medianCS.BIN1: num  0.742 0.97 1.167 1.235 0.953 ...
+##  $ medianCS.BIN2: num  -0.6353 -0.2197 -0.0292 -0.0923 NA ...
+##  $ medianCS.BIN3: num  -1.019 -0.446 -0.589 -0.458 -0.852 ...
+##  $ medianCS.BIN4: num  -0.774 -0.398 -0.573 -0.762 -0.67 ...
+##  $ type         : chr  &amp;quot;Perfect Match&amp;quot; &amp;quot;Perfect Match&amp;quot; &amp;quot;Perfect Match&amp;quot; &amp;quot;Perfect Match&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next we want to change the “type” column into factors. We can do this by using the function factor() which we went over last class, and then add the labels function to change the words into acronyms.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Note that each type is:
+# 1. Represented as acronyms in the figure
+# 2. Are NOT arranged in alphabetical order
+# We can see the need to transform the type column to a factor
+
+GFP_Results$type = factor(
+  x = GFP_Results$type,
+  levels = c(
+    &amp;quot;Perfect Match&amp;quot;,
+    &amp;quot;First Order&amp;quot;,
+    &amp;quot;Random Double&amp;quot;,
+    &amp;quot;Consecutive Double&amp;quot;,
+    &amp;quot;Consecutive Triple&amp;quot;,
+    &amp;quot;Non-Targeting&amp;quot;
+  ),
+  labels = c(
+    &amp;quot;PM&amp;quot;,
+    &amp;quot;SM&amp;quot;,
+    &amp;quot;RD&amp;quot;, 
+    &amp;quot;CD&amp;quot;,
+    &amp;quot;CT&amp;quot;,
+    &amp;quot;NT&amp;quot;
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next we can make a basic boxplot, using ggplot and filtering for non NA values:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;GFP_Results %&amp;gt;%
+  # This is to remove the rows where meanCS.BIN is NA
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(., aes(x = type, y = meanCS.BIN1)) +
+  geom_boxplot() +
+  #labels
+  ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  xlab(&amp;quot;&amp;quot;) +
+  ylab(&amp;quot;log2(FC)&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;First of all, the colors are different. We can change these by setting the hex codes to match the Sanjana lab’s colors, then inputting this vector of hex codes into the scale_fill_manual() function:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# The color palette used in the paper
+#### BONUS: Change the colors and run the chunk to see what happens to the
+#### plot!!
+sanjana_colors = c(
+  &amp;quot;#E69F00&amp;quot;, &amp;quot;#D55E00&amp;quot;, &amp;quot;#009E73&amp;quot;, &amp;quot;#0072B2&amp;quot;, &amp;quot;#56B4E9&amp;quot;, &amp;quot;#999999&amp;quot;
+)
+
+GFP_Results %&amp;gt;%
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(aes(fill = type, x = type, y = meanCS.BIN1)) + geom_boxplot() +
+  #labels
+  xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;log2(FC)&amp;quot;) + ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  #colors
+  scale_fill_manual(values = sanjana_colors)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can also make the outliers smaller, using the outlier.shape and outlier.size functions in geom_boxplot().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;GFP_Results %&amp;gt;%
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(aes(fill = type, x = type, y = meanCS.BIN1)) + geom_boxplot(outlier.shape = 20, outlier.size = 0.05) +
+  #labels
+  xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;log2(FC)&amp;quot;) + ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  #colors
+  scale_fill_manual(values = sanjana_colors)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;
+Next, let’s reduce the white space by adding a ylim argument:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;GFP_Results %&amp;gt;%
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(aes(fill = type, x = type, y = meanCS.BIN1)) + geom_boxplot(outlier.shape = 20, outlier.size = 0.05) +
+  #labels
+  xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;log2(FC)&amp;quot;) + ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  #colors
+  scale_fill_manual(values = sanjana_colors) +
+  #y axis limits
+  ylim(c(-1.5,1.5)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 15 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, we’re going to use a new function called coord_fixed() to restrict the aspect ratio of the plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;GFP_Results %&amp;gt;%
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(aes(fill = type, x = type, y = meanCS.BIN1)) + geom_boxplot(outlier.shape = 20, outlier.size = 0.05) +
+  #labels
+  xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;log2(FC)&amp;quot;) + ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  #colors
+  scale_fill_manual(values = sanjana_colors) +
+  #y-axis limits and ratio
+  ylim(c(-1.5,1.5)) + coord_fixed(ratio = 6/3) +
+  # Remove legends
+    guides(fill = &amp;quot;none&amp;quot;) +
+    # Remove x-axis line and tick
+    theme(
+      axis.ticks.x = element_blank(), 
+      axis.line.x = element_blank()
+    )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 15 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;And finally, for a publication-level plot, we’ll remove our legend and x axis ticks using guides() and theme(), and then set our overall theme to theme_classic().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;GFP_Results %&amp;gt;%
+  filter(!is.na(meanCS.BIN1)) %&amp;gt;%
+  #basic elements of the plot
+  ggplot(aes(fill = type, x = type, y = meanCS.BIN1)) + geom_boxplot(outlier.shape = 20, outlier.size = 0.05) +
+  #labels
+  xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;log2(FC)&amp;quot;) + ggtitle(&amp;quot;All crRNAs&amp;quot;) +
+  #colors
+  scale_fill_manual(values = sanjana_colors) +
+  #y axis limits and ratio
+  ylim(c(-1.5,1.5)) + coord_fixed(ratio = 6/3) +
+  # Remove legends
+  guides(fill = &amp;quot;none&amp;quot;) +
+  theme_classic() +
+  # Remove x-axis line and tick
+    theme(
+      axis.ticks.x = element_blank(), 
+      axis.line.x = element_blank()
+    )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 15 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;section&#34; class=&#34;section level79&#34;&gt;
+&lt;p class=&#34;heading&#34;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-1c-scatter-plot-with-jitter&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Figure 1c: Scatter plot with jitter&lt;/h2&gt;
+&lt;p&gt;Figure 1c is a panel of scatter plots with jitter showing differences in
+log-transformed enrichment scores of individual crRNAs of different types.&lt;/p&gt;
+&lt;p&gt;The processed data for individual crRNAs is provided in
+&lt;code&gt;data/GFPTiling_individual.csv&lt;/code&gt;. Specifically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;crRNAs are categorized in to several categories based on their targets in
+&lt;code&gt;MatchType&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Differences of log-transformed enrichment scores are stored in &lt;code&gt;DeltaCS&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load data
+tiling_result = read.csv(&amp;quot;data/GFPTiling_individual.csv&amp;quot;)
+
+# Take a look at your data
+str(tiling_result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    179 obs. of  10 variables:
+##  $ Screen    : chr  &amp;quot;GFP&amp;quot; &amp;quot;GFP&amp;quot; &amp;quot;GFP&amp;quot; &amp;quot;GFP&amp;quot; ...
+##  $ GuideName : chr  &amp;quot;crRNA004:7-33&amp;quot; &amp;quot;crRNA004:7-33_consecDouble_01&amp;quot; &amp;quot;crRNA004:7-33_consecDouble_02&amp;quot; &amp;quot;crRNA004:7-33_consecDouble_03&amp;quot; ...
+##  $ Guide     : chr  &amp;quot;crRNA004&amp;quot; &amp;quot;crRNA004&amp;quot; &amp;quot;crRNA004&amp;quot; &amp;quot;crRNA004&amp;quot; ...
+##  $ MatchType : chr  &amp;quot;Perfect Match&amp;quot; &amp;quot;Consecutive Double&amp;quot; &amp;quot;Consecutive Double&amp;quot; &amp;quot;Consecutive Double&amp;quot; ...
+##  $ MatchPos  : int  33 33 33 33 33 33 33 33 33 33 ...
+##  $ Annotation: chr  &amp;quot;CDS&amp;quot; &amp;quot;CDS&amp;quot; &amp;quot;CDS&amp;quot; &amp;quot;CDS&amp;quot; ...
+##  $ meanCS    : num  1.0546 0.9534 0.839 0.4866 -0.0992 ...
+##  $ pVal      : num  0.00993 0.81008 0.02679 0.07028 0.172 ...
+##  $ log10pVal : num  2.0029 0.0915 1.572 1.1532 0.7645 ...
+##  $ DeltaCS   : num  0 -0.101 -0.216 -0.568 -1.154 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Find the unique values for your MatchType column
+unique(tiling_result$MatchType)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Perfect Match&amp;quot;      &amp;quot;Consecutive Double&amp;quot; &amp;quot;Consecutive Triple&amp;quot;
+## [4] &amp;quot;First Order&amp;quot;        &amp;quot;Random Double&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Make MatchType a factor
+tiling_result$MatchType = factor(
+  x = tiling_result$MatchType,
+  levels = c(
+    &amp;quot;Perfect Match&amp;quot;,
+    &amp;quot;First Order&amp;quot;,
+    &amp;quot;Random Double&amp;quot;,
+    &amp;quot;Consecutive Double&amp;quot;,
+    &amp;quot;Consecutive Triple&amp;quot;
+  ),
+  labels = c(
+    &amp;quot;PM&amp;quot;,
+    &amp;quot;SM&amp;quot;,
+    &amp;quot;RD&amp;quot;, 
+    &amp;quot;CD&amp;quot;,
+    &amp;quot;CT&amp;quot;
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, let’s make the basic ggplot for the tiling result, with MatchType on the x axis, DeltaCS on the y axis, and colored points by MatchType. You’ll want to use geom_jitter() rather than geom_point(), with a width of 0.2, a size of 3, and a shape of 20.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tiling_result %&amp;gt;%
+#Filter out the NAs in the DeltaCS column
+  filter(!is.na(DeltaCS)) %&amp;gt;%
+#Make your ggplot scatter plot here
+  ggplot(., aes(x = MatchType, y = DeltaCS, color = MatchType)) +
+  geom_jitter()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We’ll add horizontal lines using the new function stat_summary(), which provides plotting of simple summary statistics. First, let’s look up the documentation for stat_summary().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What is the other way to find the help menu?
+?stat_summary&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s go ahead and use stat_summary, finding the median of each group:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tiling_result %&amp;gt;%
+  filter(!is.na(DeltaCS)) %&amp;gt;%
+  ggplot(aes(x = MatchType, y = DeltaCS, color = MatchType)) +
+    geom_jitter(
+      # Do you notice several things are different from your plot above
+      # and the real one in the paper?
+      # The size of the points and how wide they spread/jitter are the most
+      # obvious to me, so we are fixing those here.
+      width = 0.2,size = 3,shape = 20
+    ) +
+  
+    # Add a horizontal bar at the median of each group
+    # NEW FUNCTION!! stat_summary() provides plotting of simple summary
+    # statistics (defined by fun (function to summarize each group)) with several
+    # types of plots (defined by geom)
+    stat_summary(
+      fun = median,
+      geom = &amp;quot;crossbar&amp;quot;,
+      width = 0.5,
+      color = &amp;quot;black&amp;quot;
+    ) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, we can scale our y axis continuously, as follows:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tiling_result %&amp;gt;%
+  filter(!is.na(DeltaCS)) %&amp;gt;%
+  ggplot(aes(x = MatchType, y = DeltaCS, color = MatchType)) +
+    geom_jitter(width = 0.2,size = 3,shape = 20) +
+    stat_summary(fun = median,geom = &amp;quot;crossbar&amp;quot;,width = 0.5, color = &amp;quot;black&amp;quot;) + 
+  
+  #scaling function
+    scale_y_continuous(limits = c(-2, 0.5), breaks = c(seq(-2, 0)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To finish up this plot, we’ll want to set the following arguments. With a partner, add these to your plot:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;title your plot “Individual crRNA”&lt;/li&gt;
+&lt;li&gt;remove the x axis label&lt;/li&gt;
+&lt;li&gt;set the y axis label to “delta log2(FC)”&lt;/li&gt;
+&lt;li&gt;set the coordinate ratio to 7/3.5&lt;/li&gt;
+&lt;li&gt;set the colors to sanajana colors as we did before (note that this time the function has to be scale_color_manual rather than scale_fill_manual)&lt;/li&gt;
+&lt;li&gt;Remove x-axis line and tick as we did before&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Your publication-ready plot here
+tiling_result %&amp;gt;%
+  filter(!is.na(DeltaCS)) %&amp;gt;%
+  ggplot(aes(x = MatchType, y = DeltaCS, color = MatchType)) +
+  geom_jitter(width = 0.2,size = 3,shape = 20) +
+  stat_summary(fun = median,geom = &amp;quot;crossbar&amp;quot;,width = 0.5, color = &amp;quot;black&amp;quot;) + 
+  
+  #scaling function
+  scale_y_continuous(limits = c(-2, 0.5), breaks = c(seq(-2, 0))) +
+  scale_color_manual(values = sanjana_colors) +
+  coord_fixed(ratio = 7/3.5) +
+  # Set axis labels
+  xlab(&amp;quot;&amp;quot;) +
+  ylab(&amp;quot;Delta log2(FC)&amp;quot;) +
+  ggtitle(&amp;quot;Individual crRNAs&amp;quot;) +
+  theme_classic() +
+  theme(
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) +
+  guides(color = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;section-1&#34; class=&#34;section level79&#34;&gt;
+&lt;p class=&#34;heading&#34;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-1d-scatter-plot-with-a-smooth-line&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Figure 1d: Scatter plot with a smooth line&lt;/h2&gt;
+&lt;p&gt;Figure 1d is a panel of scatter plots with a smooth line for enrichment scores
+of individual crRNAs targeting different regions of the GFP transcript.&lt;/p&gt;
+&lt;p&gt;The processed data for individual crRNAs that target GFP is provided in
+&lt;code&gt;data/GFPTiling_individual_full.csv&lt;/code&gt;. Specifically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Log-transformed enrichment scores are stored in &lt;code&gt;meanCS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The points are plotted over the GFP transcripts, and the coordinates of
+matching site is in &lt;code&gt;MatchPos&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The points were colored by which quantile it falls into.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Quantile is just binning values into four bins, and &lt;code&gt;dplyr&lt;/code&gt; has another
+function to determine *which quantile a row belongs to by a numeric column
+of your choice, and the syntax is &lt;code&gt;ntile(column, number_of_bins)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A minimal example of its usage is:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;exdf = data.frame(
+  value = 1:10
+)
+
+
+exdf %&amp;gt;% mutate(
+  split_at_median = ntile(value, 2),
+  quantile = ntile(value, 4)
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    value split_at_median quantile
+## 1      1               1        1
+## 2      2               1        1
+## 3      3               1        1
+## 4      4               1        2
+## 5      5               1        2
+## 6      6               2        2
+## 7      7               2        3
+## 8      8               2        3
+## 9      9               2        4
+## 10    10               2        4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Please observe the figure and propose your way of reproducing the panel. The
+colors they used are provided in the chunk below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gfp_color = c(&amp;#39;#ca0020&amp;#39;,&amp;#39;#f4a582&amp;#39;,&amp;#39;#92c5de&amp;#39;,&amp;#39;#0571b0&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load data
+allGFP = read.csv(&amp;quot;data/GFPTiling_individual_full.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use qtile() within mutate to create our data frame
+allGFP %&amp;gt;%
+  filter(!is.na(meanCS)) %&amp;gt;%
+  # Assign quartile (split into 4 proportions) by meanCS
+  # Since we are going to color by quartile, it is preferable to use factor
+  # than numerics
+  mutate(qtile = as.factor(ntile(meanCS, 4))) %&amp;gt;% head(20)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    Screen      GuideName    Guide     MatchType MatchPos Annotation
+## 1     GFP  crRNA001:1-27 crRNA001 Perfect Match       27        CDS
+## 2     GFP  crRNA002:2-28 crRNA002 Perfect Match       28        CDS
+## 3     GFP  crRNA003:6-32 crRNA003 Perfect Match       32        CDS
+## 4     GFP  crRNA004:7-33 crRNA004 Perfect Match       33        CDS
+## 5     GFP  crRNA005:9-35 crRNA005 Perfect Match       35        CDS
+## 6     GFP crRNA006:10-36 crRNA006 Perfect Match       36        CDS
+## 7     GFP crRNA007:11-37 crRNA007 Perfect Match       37        CDS
+## 8     GFP crRNA008:12-38 crRNA008 Perfect Match       38        CDS
+## 9     GFP crRNA009:14-40 crRNA009 Perfect Match       40        CDS
+## 10    GFP crRNA010:15-41 crRNA010 Perfect Match       41        CDS
+## 11    GFP crRNA011:16-42 crRNA011 Perfect Match       42        CDS
+## 12    GFP crRNA012:20-46 crRNA012 Perfect Match       46        CDS
+## 13    GFP crRNA013:21-47 crRNA013 Perfect Match       47        CDS
+## 14    GFP crRNA014:22-48 crRNA014 Perfect Match       48        CDS
+## 15    GFP crRNA015:26-52 crRNA015 Perfect Match       52        CDS
+## 16    GFP crRNA016:27-53 crRNA016 Perfect Match       53        CDS
+## 17    GFP crRNA017:30-56 crRNA017 Perfect Match       56        CDS
+## 18    GFP crRNA018:31-57 crRNA018 Perfect Match       57        CDS
+## 19    GFP crRNA019:33-59 crRNA019 Perfect Match       59        CDS
+## 20    GFP crRNA020:37-63 crRNA020 Perfect Match       63        CDS
+##          meanCS        pVal log10pVal    ScaledCS qtile
+## 1   0.697828662 0.037139487 1.4301641  1.08371271     3
+## 2   0.973333658 0.005305903 2.2752407  1.62662808     4
+## 3   1.166888147 0.052775054 1.2775713  2.00805023     4
+## 4   1.054580427 0.009933042 2.0029177  1.78673451     4
+## 5   0.850456714 0.161383678 0.7921404  1.38448445     4
+## 6   0.957187296 0.013888889 1.8573325  1.59480976     4
+## 7   0.985674966 0.136754065 0.8640598  1.65094810     4
+## 8   1.074104147 0.555658488 0.2551920  1.82520832     4
+## 9  -0.080430937 0.600709794 0.2213353 -0.44994042     1
+## 10  0.786329262 0.015443537 1.8112532  1.25811367     3
+## 11 -0.068862813 0.365481687 0.4371344 -0.42714406     1
+## 12  0.047882725 0.597939473 0.2233428 -0.19708308     1
+## 13  0.725672983 0.168281759 0.7739630  1.13858326     3
+## 14  0.108779029 0.434274771 0.3622354 -0.07707967     2
+## 15 -0.038672492 0.858834132 0.0660907 -0.36765044     1
+## 16 -0.056426383 0.295065651 0.5300813 -0.40263659     1
+## 17  0.132830725 0.552465793 0.2576946 -0.02968294     2
+## 18  0.009357908 0.763074183 0.1174332 -0.27300082     1
+## 19 -0.043976387 0.754415576 0.1223894 -0.37810239     1
+## 20  0.519437522 0.137494396 0.8617150  0.73217175     3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; allGFP %&amp;gt;%
+  filter(!is.na(meanCS)) %&amp;gt;%
+  mutate(qtile = as.factor(ntile(meanCS, 4))) %&amp;gt;%
+  # Pipe into ggplot and define the columns used for axes and color
+  ggplot(aes(x = MatchPos, y = meanCS, color = qtile)) +
+  # Plot a smooth line by the scatter points you provided 
+  geom_smooth(
+    # There are multiple ways to get a line from points
+    # Here, we use &amp;quot;locally estimated scatter plot smoothing&amp;quot;
+    method = &amp;quot;loess&amp;quot;,
+    # which fits a polynomial function (curve line) within a small window
+    # whose size is defined by span
+    span = 0.05,
+    # The color of the smooth line
+    color = &amp;quot;black&amp;quot;,
+    # The size of the smooth line
+    size = 0.5,
+    # The color of the shaded area representing the standard error of
+    # the smoothing method you picked
+    fill = &amp;quot;grey77&amp;quot;
+  ) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Then of course we can add the points, colored by their qtile scores&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allGFP %&amp;gt;%
+  filter(!is.na(meanCS)) %&amp;gt;%
+  mutate(qtile = as.factor(ntile(meanCS, 4))) %&amp;gt;%
+  ggplot(aes(x = MatchPos, y = meanCS, color = qtile)) +
+  geom_smooth(method = &amp;quot;loess&amp;quot;, span = 0.05, color = &amp;quot;black&amp;quot;, size = 0.5, fill = &amp;quot;grey77&amp;quot;) +
+  geom_point(shape = 20)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allGFP %&amp;gt;%
+  filter(!is.na(meanCS)) %&amp;gt;%
+  mutate(qtile = as.factor(ntile(meanCS, 4))) %&amp;gt;%
+  ggplot(aes(x = MatchPos, y = meanCS, color = qtile)) +
+  geom_smooth(method = &amp;quot;loess&amp;quot;, span = 0.05, color = &amp;quot;black&amp;quot;, size = 0.5, fill = &amp;quot;grey77&amp;quot;) +
+  geom_point(shape = 20) +
+  # Use classic theme
+  theme_classic() +
+  # Remove color legend
+  guides(color = &amp;quot;none&amp;quot;) +
+  # Set the ticks and limits of x and y axes
+  scale_x_continuous(
+    limits = c(-50, 750),
+    breaks = seq(0, 750, 100),
+  ) +
+  scale_y_continuous(
+    limits = c(-1, 1.5),
+    breaks = seq(-1, 1.5, 1),
+  ) +
+  # Set axis titles
+  xlab(&amp;quot;Position in GFP transcript (nt)&amp;quot;) +
+  ylab(&amp;quot;log2(FC)&amp;quot;) +
+  # Set aspect ratio
+  coord_fixed(ratio = 200/3) +
+  # Set a customized color palette
+  scale_color_manual(values = gfp_color) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Many, many annotations are added here. This adds each individual box. Run the following code, and then try changing the Q1 box to say 1Q instead.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allGFP %&amp;gt;%
+  filter(!is.na(meanCS)) %&amp;gt;%
+  mutate(qtile = as.factor(ntile(meanCS, 4))) %&amp;gt;%
+  ggplot(aes(x = MatchPos, y = meanCS, color = qtile)) +
+  geom_smooth(method = &amp;quot;loess&amp;quot;, span = 0.05, color = &amp;quot;black&amp;quot;, size = 0.5, fill = &amp;quot;grey77&amp;quot;) +
+  geom_point(shape = 20) +
+  # Use classic theme
+  theme_classic() +
+  # Remove color legend
+  guides(color = &amp;quot;none&amp;quot;) +
+  # Set the ticks and limits of x and y axes
+  scale_x_continuous(
+    limits = c(-50, 750),
+    breaks = seq(0, 750, 100),
+  ) +
+  scale_y_continuous(
+    limits = c(-1, 1.5),
+    breaks = seq(-1, 1.5, 1),
+  ) +
+  # Set axis titles
+  xlab(&amp;quot;Position in GFP transcript (nt)&amp;quot;) +
+  ylab(&amp;quot;log2(FC)&amp;quot;) +
+  # Set aspect ratio
+  coord_fixed(ratio = 200/3) +
+  # Set a customized color palette
+  scale_color_manual(values = gfp_color) +
+  
+  
+  # Extra annotations -- these are done manually here.
+  # The authors wrote a function for this, which is the preferred way:
+  # https://gitlab.com/sanjanalab/cas13/-/blob/master/scripts/Plot_GuideScoreDistributionPerGene.R#L140
+  # If you really want to fully recapitulate the figure, this is what you need.
+  # But manually annotating one figure is pretty tedious as you see below.
+  annotate(
+    geom = &amp;quot;rect&amp;quot;,
+    # xmin and xmax (and x for the text geom should be computed as a function)
+    # This is basically the length of each exons in the transcript
+    xmin = 0,
+    xmax = 750,
+    # These are fixed for the transcript plot
+    ymin = -1,
+    ymax = -0.8,
+    color = &amp;quot;grey50&amp;quot;,
+    fill = &amp;quot;lightblue&amp;quot;,
+    alpha = 0.5
+  ) +
+  annotate(
+    # This labels the exon number
+    geom = &amp;quot;text&amp;quot;,
+    x = 750/2,
+    y = -0.9,
+    label = &amp;quot;1&amp;quot;,
+    size = 2,
+    color = &amp;quot;black&amp;quot;
+  ) +
+  annotate(
+    # The following labels the range of each quartile
+    geom = &amp;quot;rect&amp;quot;,
+    # The x range is fixed
+    xmin = -50,
+    xmax = -10,
+    # ymin, ymax, and y for the text geom should be computed if a function
+    # is to be written
+    ymin = min(allGFP$meanCS, na.rm = TRUE),
+    ymax = quantile(allGFP$meanCS, 0.25, na.rm = TRUE),
+    fill = gfp_color[1],
+    alpha = 0.3
+  ) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = -30,
+    y = 
+      (min(allGFP$meanCS, na.rm = TRUE) + quantile(allGFP$meanCS, 0.25, na.rm = TRUE))/2,
+    label = &amp;quot;Q1&amp;quot;,
+    size = 4
+  ) +
+  annotate(
+    geom = &amp;quot;rect&amp;quot;,
+    xmin = -50,
+    xmax = -10,
+    ymin = quantile(allGFP$meanCS, 0.25, na.rm = TRUE),
+    ymax = quantile(allGFP$meanCS, 0.5, na.rm = TRUE),
+    fill = gfp_color[2],
+    alpha = 0.3
+  ) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = -30,
+    y = 
+      (quantile(allGFP$meanCS, 0.25, na.rm = TRUE) + quantile(allGFP$meanCS, 0.5, na.rm = TRUE))/2,
+    label = &amp;quot;Q2&amp;quot;,
+    size = 4
+  ) +
+  annotate(
+    geom = &amp;quot;rect&amp;quot;,
+    xmin = -50,
+    xmax = -10,
+    ymin = quantile(allGFP$meanCS, 0.5, na.rm = TRUE),
+    ymax = quantile(allGFP$meanCS, 0.75, na.rm = TRUE),
+    fill = gfp_color[3],
+    alpha = 0.3
+  ) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = -30,
+    y = 
+      (quantile(allGFP$meanCS, 0.5, na.rm = TRUE) + quantile(allGFP$meanCS, 0.75, na.rm = TRUE))/2,
+    label = &amp;quot;Q3&amp;quot;,
+    size = 4
+  ) +
+  annotate(
+    geom = &amp;quot;rect&amp;quot;,
+    xmin = -50,
+    xmax = -10,
+    ymin = quantile(allGFP$meanCS, 0.75, na.rm = TRUE),
+    ymax = max(allGFP$meanCS, na.rm = TRUE),
+    fill = gfp_color[4],
+    alpha = 0.3
+  ) +
+  annotate(
+    geom = &amp;quot;text&amp;quot;,
+    x = -30,
+    y = 
+      (quantile(allGFP$meanCS, 0.75, na.rm = TRUE) + max(allGFP$meanCS, na.rm = TRUE))/2,
+    label = &amp;quot;Q4&amp;quot;,
+    size = 4
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/14/reproducing-visualization-in-publications/index.en_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Pivoting and ggplot2</title>
@@ -427,6 +1113,311 @@ BSAResults %&amp;gt;% pivot_longer(c(&amp;quot;Bulk&amp;quot;, &amp;quot;Parent&
 &lt;li&gt;Paper: &lt;a href=&#34;https://www.nature.com/articles/s41587-020-0456-9#Sec1&#34; class=&#34;uri&#34;&gt;https://www.nature.com/articles/s41587-020-0456-9#Sec1&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Figure 1: &lt;a href=&#34;https://www.nature.com/articles/s41587-020-0456-9/figures/1&#34; class=&#34;uri&#34;&gt;https://www.nature.com/articles/s41587-020-0456-9/figures/1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ggplot2 and dplyr</title>
+      <link>https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/</link>
+      <pubDate>Thu, 07 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/</guid>
+      <description>
+
+
+&lt;div id=&#34;review&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Review&lt;/h2&gt;
+&lt;p&gt;A quick review before we get into more complicated exercises:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Load in your data
+penguins &amp;lt;- read.csv(&amp;quot;penguins.csv&amp;quot;)
+
+#Look at the column names and types of your data using str()
+str(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; ...
+##  $ island           : chr  &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a scatter plot of *body mass* and *bill depth*
+ggplot(penguins, aes(x = body_mass_g, y = bill_depth_mm)) + geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a density plot of body mass with a fill color changing by sex and a transparency of 0.4
+ggplot(penguins, aes(x = body_mass_g, fill = sex)) + geom_density(alpha = 0.4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Name the density plot above using ggtitle()
+ggplot(penguins, aes(x = body_mass_g, fill = sex)) + geom_density(alpha = 0.4) + ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;practice-exercise&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice Exercise&lt;/h3&gt;
+&lt;p&gt;With a partner, let’s make a scatter plot and two density plots of two numeric variables; make one scatter plot looking at the correlation between the two, and then a density plot for each variable that you choose. Color based on a categorical variable.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use head() or str() to find the variables that are numeric
+str(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; ...
+##  $ island           : chr  &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Make a scatter plot of the two variables using geom_point()
+# Add a color to separate the categorical variable
+penguins %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = body_mass_g, color = island)) +
+  geom_point() +
+# Add axis labels and a title to your plot
+  xlab(&amp;quot;Bill Length (mm)&amp;quot;) +
+  ylab(&amp;quot;Body Mass (g)&amp;quot;) +
+  ggtitle(&amp;quot;Does a heavier penguin have a longer bill?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a density plot using geom_density()
+penguins %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, color = island)) +
+  geom_density() +
+# Add axis labels and a title to your plot using ggtitle(), xlab(), and ylab()
+  xlab(&amp;quot;Bill Legnth (mm)&amp;quot;) +
+  ylab(&amp;quot;Density&amp;quot;) +
+  ggtitle(&amp;quot;Density distribution&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-3-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Share with the class which variables you chose and what your plots looked like&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-dplyr-to-pipe-into-plotting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Using Dplyr to pipe into plotting&lt;/h2&gt;
+&lt;p&gt;So far we’ve included into ggplot() the arguments for data and columns, but we can also use dplyr to pipe. In dplyr, the argument being used is often referred to as ‘.’, so using this can allow you to substitute based on your other pipeline arguments.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  ggplot(data = .,aes(x = body_mass_g, color = species)) +
+  geom_density(size = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;) %&amp;gt;%
+  ggplot(data = .,aes(x = body_mass_g, color = species)) +
+  geom_density(size = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;omitting-nas&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Omitting NAs&lt;/h3&gt;
+&lt;p&gt;We can also use the dplyr function na.omit() to remove the NAs in our dataset before plotting.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Original graph
+penguins %&amp;gt;% 
+  ggplot(., aes(x = body_mass_g, fill = sex)) + 
+  geom_density(alpha = 0.4) + 
+  ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#New graph
+penguins %&amp;gt;% 
+  na.omit() %&amp;gt;% 
+  ggplot(., aes(body_mass_g, fill = sex)) + 
+  geom_density(alpha = 0.4) + 
+  ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Using piping, filter to only the female Adelie penguins and plot their bill length vs bill depth
+#Color this plot by island
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Change the size to be 3 and the transparency of your points to 0.5
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point(size = 3, alpha = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Label your plot and include a title
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point(size = 3, alpha = 0.5) +
+  xlab(&amp;quot;Bill Length (mm)&amp;quot;) +
+  ylab(&amp;quot;Bill Depth (mm)&amp;quot;) +
+  ggtitle(&amp;quot;I ♥ Adelie Penguins&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bar-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bar Plots&lt;/h2&gt;
+&lt;p&gt;We’ve mostly looked at numeric data; but what about using categorical data on our x or y axis? Bar plots are one way to look at this, and they have multiple functions for a bar-like graph. Here we’ll go through a few&lt;/p&gt;
+&lt;div id=&#34;counts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Counts&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#To count the number of individuals
+penguins %&amp;gt;% ggplot(., aes(x = species)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Adding in color to separate by sex
+penguins %&amp;gt;% ggplot(., aes(x = species, fill = sex)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Changing the position to 
+penguins %&amp;gt;% na.omit() %&amp;gt;% ggplot(., aes(x = species, fill = sex)) + geom_bar(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;values&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Values&lt;/h3&gt;
+&lt;p&gt;Instead of the automatic counts that we get in geom_bar(), we can use geom_col() to produce &lt;em&gt;columns&lt;/em&gt; that represent the measure of choice. Keep in mind that bar graphs of either type will start at 0, and so the scale might not be a good representation of differences. Since it is possible to change the y axis, keep in mind that you should almost NEVER do this on a bar plot because it looks misleading and enhances the differences in disproportionate ways. Other plots are better suited.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% na.omit() %&amp;gt;% group_by(species) %&amp;gt;% summarize(mean_bill = mean(bill_length_mm)) %&amp;gt;% ggplot(., aes(x = species, y = mean_bill)) + geom_col()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% na.omit() %&amp;gt;% group_by(year, species) %&amp;gt;% summarize(mean = mean(bill_length_mm)) %&amp;gt;% ggplot(., aes(x = year, fill = species, y = mean)) + geom_col(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;year&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-8-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;p&gt;Try plotting the number of penguins on each island with a fill color by sex.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use geom_bar() to plot the counts
+penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = island, fill = sex)) +
+  geom_bar(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, plot the mean flipper length of each species, colored by sex&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Find the average flipper length by grouping by species and sex, then summarizing
+penguins %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  na.omit() %&amp;gt;%
+  summarize(mean_flipper_length = mean(flipper_length_mm)) %&amp;gt;%
+#Use geom_col() to plot the average flipper length
+  ggplot(., aes( x = species, y = mean_flipper_length, fill = sex)) +
+  geom_col(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;species&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;boxplots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Boxplots&lt;/h2&gt;
+&lt;p&gt;We often want to plot the statistics of our graphs, and box plots are one easy way to show the quantiles without doing a ton of work on adding error bars (which have more settings to include). The function is geom_boxplot().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#The basic plot structure
+penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Can you add in color by species? What happens if you color by sex?
+penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm, color = species)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;practice-2&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;p&gt;Change the above graph to remove NAs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = species, y = flipper_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Plot the bill length instead of the flipper length.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = species, y = bill_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exercises-with-new-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Exercises with new data&lt;/h2&gt;
+&lt;p&gt;Let’s load a new csv to practice our plotting. This is from Cassandra’s data, and includes chromosomes, positions, and reads.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads &amp;lt;- read.csv(&amp;quot;BSA_Reads.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Look at the structure of iris to find what the options are for column names
+str(BSA_Reads)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    398312 obs. of  11 variables:
+##  $ X     : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ CHROM : chr  &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; ...
+##  $ POS   : int  100007 100007 100007 100007 100007 100007 100007 100007 1035 1035 ...
+##  $ value : int  867 590 815 160 86 189 322 43 137 99 ...
+##  $ allele: chr  &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; ...
+##  $ bulk  : chr  &amp;quot;HIGH&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; ...
+##  $ parent: chr  &amp;quot;Wine&amp;quot; &amp;quot;Oak&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ REF   : chr  &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; ...
+##  $ Wine  : chr  &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; ...
+##  $ Oak   : chr  NA NA NA NA ...
+##  $ Type  : chr  &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What is the distribution of values? Use geom_density()
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = value)) +
+  geom_density()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How does the distribution differ with respect to parent? Use geom_density() but color by parent.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = value, color = parent)) +
+  geom_density()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-15-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Let’s look at the average number of reads (value) for each bulk, colored by parent&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# First, group by your bulk and parent
+BSA_Reads %&amp;gt;%
+  group_by(bulk, parent) %&amp;gt;%
+#Next, use summarize to find the mean of the value
+  summarize(avg_value = mean(value)) %&amp;gt;%
+#Finally, plot using geom_col() with bulk as your x axis label, y as the mean of your reads, and a fill color of the parent
+  ggplot(., aes(x = bulk, y = avg_value, fill = parent)) +
+  geom_col() +
+  xlab(&amp;quot;Bulk&amp;quot;) +
+  ylab(&amp;quot;Mean of Reads&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;bulk&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Separate your plot so that the position is dodge (so that the bars are next to each other)
+BSA_Reads %&amp;gt;%
+  group_by(bulk, parent) %&amp;gt;%
+#Next, use summarize to find the mean of the value
+  summarize(avg_value = mean(value)) %&amp;gt;%
+#Finally, plot using geom_col() with bulk as your x axis label, y as the mean of your reads, and a fill color of the parent
+  ggplot(., aes(x = bulk, y = avg_value, fill = parent)) +
+  geom_col(position = &amp;quot;dodge&amp;quot;) +
+  xlab(&amp;quot;Bulk&amp;quot;) +
+  ylab(&amp;quot;Mean of Reads&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;bulk&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-16-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, let’s look at the average value per chromosome, and the number of reads per chromosome.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use a boxplot to look at the values for each chromosome. Your x should be CHROM and y should be value.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = CHROM, y = value)) +
+  geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use geom_bar() for the number of entries for each chromosome. In this case you only need x to be CHROM since geom_bar() will count for you.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = CHROM)) +
+  geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-17-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonus-factors&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bonus: Factors&lt;/h2&gt;
+&lt;p&gt;The graphs of chromosomes are out of order, partially because they’re characters which are ordered alphabetically. However, Roman numerals don’t follow alphabetical order, so we can instead turn this column into a &lt;em&gt;factor&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Factors have “levels” which determine their order. We can define this using factor(), just as we switched between numbers and characters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads$CHROMf &amp;lt;- factor(BSA_Reads$CHROM, 
+                             levels = c(&amp;quot;I&amp;quot;, &amp;quot;II&amp;quot;, &amp;quot;III&amp;quot;, &amp;quot;IV&amp;quot;, &amp;quot;V&amp;quot;, &amp;quot;VI&amp;quot;, &amp;quot;VII&amp;quot;, &amp;quot;VIII&amp;quot;, 
+                                        &amp;quot;IX&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;XI&amp;quot;, &amp;quot;XII&amp;quot;, &amp;quot;XIII&amp;quot;, &amp;quot;XIV&amp;quot;, &amp;quot;XV&amp;quot;, &amp;quot;XVI&amp;quot;))
+
+str(BSA_Reads)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    398312 obs. of  12 variables:
+##  $ X     : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ CHROM : chr  &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; ...
+##  $ POS   : int  100007 100007 100007 100007 100007 100007 100007 100007 1035 1035 ...
+##  $ value : int  867 590 815 160 86 189 322 43 137 99 ...
+##  $ allele: chr  &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; ...
+##  $ bulk  : chr  &amp;quot;HIGH&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; ...
+##  $ parent: chr  &amp;quot;Wine&amp;quot; &amp;quot;Oak&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ REF   : chr  &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; ...
+##  $ Wine  : chr  &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; ...
+##  $ Oak   : chr  NA NA NA NA ...
+##  $ Type  : chr  &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ CHROMf: Factor w/ 16 levels &amp;quot;I&amp;quot;,&amp;quot;II&amp;quot;,&amp;quot;III&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, let’s plot this new variable as our x-axis.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads %&amp;gt;% ggplot(., aes(x = CHROMf)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

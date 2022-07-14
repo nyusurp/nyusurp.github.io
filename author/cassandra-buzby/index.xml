@@ -5,12 +5,317 @@
     <link>https://nyusurp.github.io/author/cassandra-buzby/</link>
       <atom:link href="https://nyusurp.github.io/author/cassandra-buzby/index.xml" rel="self" type="application/rss+xml" />
     <description>Cassandra Buzby</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Tue, 05 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© NYU 2021 - 2022</copyright><lastBuildDate>Thu, 07 Jul 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://nyusurp.github.io/images/icon_hu437f07d278844891d2e703134e956aad_197157_512x512_fill_lanczos_center_2.png</url>
       <title>Cassandra Buzby</title>
       <link>https://nyusurp.github.io/author/cassandra-buzby/</link>
     </image>
+    
+    <item>
+      <title>ggplot2 and dplyr</title>
+      <link>https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/</link>
+      <pubDate>Thu, 07 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/</guid>
+      <description>
+
+
+&lt;div id=&#34;review&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Review&lt;/h2&gt;
+&lt;p&gt;A quick review before we get into more complicated exercises:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Load in your data
+penguins &amp;lt;- read.csv(&amp;quot;penguins.csv&amp;quot;)
+
+#Look at the column names and types of your data using str()
+str(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; ...
+##  $ island           : chr  &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a scatter plot of *body mass* and *bill depth*
+ggplot(penguins, aes(x = body_mass_g, y = bill_depth_mm)) + geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a density plot of body mass with a fill color changing by sex and a transparency of 0.4
+ggplot(penguins, aes(x = body_mass_g, fill = sex)) + geom_density(alpha = 0.4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Name the density plot above using ggtitle()
+ggplot(penguins, aes(x = body_mass_g, fill = sex)) + geom_density(alpha = 0.4) + ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-2-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;practice-exercise&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice Exercise&lt;/h3&gt;
+&lt;p&gt;With a partner, let’s make a scatter plot and two density plots of two numeric variables; make one scatter plot looking at the correlation between the two, and then a density plot for each variable that you choose. Color based on a categorical variable.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Use head() or str() to find the variables that are numeric
+str(penguins)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    344 obs. of  8 variables:
+##  $ species          : chr  &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; &amp;quot;Adelie&amp;quot; ...
+##  $ island           : chr  &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; &amp;quot;Torgersen&amp;quot; ...
+##  $ bill_length_mm   : num  39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+##  $ bill_depth_mm    : num  18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+##  $ flipper_length_mm: int  181 186 195 NA 193 190 181 195 193 190 ...
+##  $ body_mass_g      : int  3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+##  $ sex              : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; NA ...
+##  $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Make a scatter plot of the two variables using geom_point()
+# Add a color to separate the categorical variable
+penguins %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = body_mass_g, color = island)) +
+  geom_point() +
+# Add axis labels and a title to your plot
+  xlab(&amp;quot;Bill Length (mm)&amp;quot;) +
+  ylab(&amp;quot;Body Mass (g)&amp;quot;) +
+  ggtitle(&amp;quot;Does a heavier penguin have a longer bill?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Make a density plot using geom_density()
+penguins %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, color = island)) +
+  geom_density() +
+# Add axis labels and a title to your plot using ggtitle(), xlab(), and ylab()
+  xlab(&amp;quot;Bill Legnth (mm)&amp;quot;) +
+  ylab(&amp;quot;Density&amp;quot;) +
+  ggtitle(&amp;quot;Density distribution&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-3-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Share with the class which variables you chose and what your plots looked like&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-dplyr-to-pipe-into-plotting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Using Dplyr to pipe into plotting&lt;/h2&gt;
+&lt;p&gt;So far we’ve included into ggplot() the arguments for data and columns, but we can also use dplyr to pipe. In dplyr, the argument being used is often referred to as ‘.’, so using this can allow you to substitute based on your other pipeline arguments.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  ggplot(data = .,aes(x = body_mass_g, color = species)) +
+  geom_density(size = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;) %&amp;gt;%
+  ggplot(data = .,aes(x = body_mass_g, color = species)) +
+  geom_density(size = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-4-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;omitting-nas&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Omitting NAs&lt;/h3&gt;
+&lt;p&gt;We can also use the dplyr function na.omit() to remove the NAs in our dataset before plotting.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Original graph
+penguins %&amp;gt;% 
+  ggplot(., aes(x = body_mass_g, fill = sex)) + 
+  geom_density(alpha = 0.4) + 
+  ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_density).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#New graph
+penguins %&amp;gt;% 
+  na.omit() %&amp;gt;% 
+  ggplot(., aes(body_mass_g, fill = sex)) + 
+  geom_density(alpha = 0.4) + 
+  ggtitle(&amp;quot;Body Mass by Sex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-5-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Using piping, filter to only the female Adelie penguins and plot their bill length vs bill depth
+#Color this plot by island
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Change the size to be 3 and the transparency of your points to 0.5
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point(size = 3, alpha = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Label your plot and include a title
+penguins %&amp;gt;%
+  filter(species == &amp;quot;Adelie&amp;quot;, sex == &amp;quot;female&amp;quot;) %&amp;gt;%
+  ggplot(., aes(x = bill_length_mm, y = bill_depth_mm, color = island)) +
+  geom_point(size = 3, alpha = 0.5) +
+  xlab(&amp;quot;Bill Length (mm)&amp;quot;) +
+  ylab(&amp;quot;Bill Depth (mm)&amp;quot;) +
+  ggtitle(&amp;quot;I ♥ Adelie Penguins&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-6-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bar-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bar Plots&lt;/h2&gt;
+&lt;p&gt;We’ve mostly looked at numeric data; but what about using categorical data on our x or y axis? Bar plots are one way to look at this, and they have multiple functions for a bar-like graph. Here we’ll go through a few&lt;/p&gt;
+&lt;div id=&#34;counts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Counts&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#To count the number of individuals
+penguins %&amp;gt;% ggplot(., aes(x = species)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Adding in color to separate by sex
+penguins %&amp;gt;% ggplot(., aes(x = species, fill = sex)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Changing the position to 
+penguins %&amp;gt;% na.omit() %&amp;gt;% ggplot(., aes(x = species, fill = sex)) + geom_bar(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-7-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;values&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Values&lt;/h3&gt;
+&lt;p&gt;Instead of the automatic counts that we get in geom_bar(), we can use geom_col() to produce &lt;em&gt;columns&lt;/em&gt; that represent the measure of choice. Keep in mind that bar graphs of either type will start at 0, and so the scale might not be a good representation of differences. Since it is possible to change the y axis, keep in mind that you should almost NEVER do this on a bar plot because it looks misleading and enhances the differences in disproportionate ways. Other plots are better suited.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% na.omit() %&amp;gt;% group_by(species) %&amp;gt;% summarize(mean_bill = mean(bill_length_mm)) %&amp;gt;% ggplot(., aes(x = species, y = mean_bill)) + geom_col()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% na.omit() %&amp;gt;% group_by(year, species) %&amp;gt;% summarize(mean = mean(bill_length_mm)) %&amp;gt;% ggplot(., aes(x = year, fill = species, y = mean)) + geom_col(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;year&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-8-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;practice-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;p&gt;Try plotting the number of penguins on each island with a fill color by sex.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use geom_bar() to plot the counts
+penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = island, fill = sex)) +
+  geom_bar(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, plot the mean flipper length of each species, colored by sex&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Find the average flipper length by grouping by species and sex, then summarizing
+penguins %&amp;gt;%
+  group_by(species, sex) %&amp;gt;%
+  na.omit() %&amp;gt;%
+  summarize(mean_flipper_length = mean(flipper_length_mm)) %&amp;gt;%
+#Use geom_col() to plot the average flipper length
+  ggplot(., aes( x = species, y = mean_flipper_length, fill = sex)) +
+  geom_col(position = &amp;quot;dodge&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;species&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;boxplots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Boxplots&lt;/h2&gt;
+&lt;p&gt;We often want to plot the statistics of our graphs, and box plots are one easy way to show the quantiles without doing a ton of work on adding error bars (which have more settings to include). The function is geom_boxplot().&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#The basic plot structure
+penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Can you add in color by species? What happens if you color by sex?
+penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm, color = species)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;% ggplot(., aes(x = species, y = flipper_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 2 rows containing non-finite values (stat_boxplot).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-11-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;practice-2&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Practice&lt;/h3&gt;
+&lt;p&gt;Change the above graph to remove NAs.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = species, y = flipper_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Plot the bill length instead of the flipper length.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;penguins %&amp;gt;%
+  na.omit() %&amp;gt;%
+  ggplot(., aes(x = species, y = bill_length_mm, color = sex)) + geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exercises-with-new-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Exercises with new data&lt;/h2&gt;
+&lt;p&gt;Let’s load a new csv to practice our plotting. This is from Cassandra’s data, and includes chromosomes, positions, and reads.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads &amp;lt;- read.csv(&amp;quot;BSA_Reads.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Look at the structure of iris to find what the options are for column names
+str(BSA_Reads)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    398312 obs. of  11 variables:
+##  $ X     : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ CHROM : chr  &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; ...
+##  $ POS   : int  100007 100007 100007 100007 100007 100007 100007 100007 1035 1035 ...
+##  $ value : int  867 590 815 160 86 189 322 43 137 99 ...
+##  $ allele: chr  &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; ...
+##  $ bulk  : chr  &amp;quot;HIGH&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; ...
+##  $ parent: chr  &amp;quot;Wine&amp;quot; &amp;quot;Oak&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ REF   : chr  &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; ...
+##  $ Wine  : chr  &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; ...
+##  $ Oak   : chr  NA NA NA NA ...
+##  $ Type  : chr  &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#What is the distribution of values? Use geom_density()
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = value)) +
+  geom_density()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# How does the distribution differ with respect to parent? Use geom_density() but color by parent.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = value, color = parent)) +
+  geom_density()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-15-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Let’s look at the average number of reads (value) for each bulk, colored by parent&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# First, group by your bulk and parent
+BSA_Reads %&amp;gt;%
+  group_by(bulk, parent) %&amp;gt;%
+#Next, use summarize to find the mean of the value
+  summarize(avg_value = mean(value)) %&amp;gt;%
+#Finally, plot using geom_col() with bulk as your x axis label, y as the mean of your reads, and a fill color of the parent
+  ggplot(., aes(x = bulk, y = avg_value, fill = parent)) +
+  geom_col() +
+  xlab(&amp;quot;Bulk&amp;quot;) +
+  ylab(&amp;quot;Mean of Reads&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;bulk&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Separate your plot so that the position is dodge (so that the bars are next to each other)
+BSA_Reads %&amp;gt;%
+  group_by(bulk, parent) %&amp;gt;%
+#Next, use summarize to find the mean of the value
+  summarize(avg_value = mean(value)) %&amp;gt;%
+#Finally, plot using geom_col() with bulk as your x axis label, y as the mean of your reads, and a fill color of the parent
+  ggplot(., aes(x = bulk, y = avg_value, fill = parent)) +
+  geom_col(position = &amp;quot;dodge&amp;quot;) +
+  xlab(&amp;quot;Bulk&amp;quot;) +
+  ylab(&amp;quot;Mean of Reads&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` has grouped output by &amp;#39;bulk&amp;#39;. You can override using the
+## `.groups` argument.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-16-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, let’s look at the average value per chromosome, and the number of reads per chromosome.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use a boxplot to look at the values for each chromosome. Your x should be CHROM and y should be value.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = CHROM, y = value)) +
+  geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Use geom_bar() for the number of entries for each chromosome. In this case you only need x to be CHROM since geom_bar() will count for you.
+BSA_Reads %&amp;gt;%
+  ggplot(., aes(x = CHROM)) +
+  geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-17-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonus-factors&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bonus: Factors&lt;/h2&gt;
+&lt;p&gt;The graphs of chromosomes are out of order, partially because they’re characters which are ordered alphabetically. However, Roman numerals don’t follow alphabetical order, so we can instead turn this column into a &lt;em&gt;factor&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Factors have “levels” which determine their order. We can define this using factor(), just as we switched between numbers and characters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads$CHROMf &amp;lt;- factor(BSA_Reads$CHROM, 
+                             levels = c(&amp;quot;I&amp;quot;, &amp;quot;II&amp;quot;, &amp;quot;III&amp;quot;, &amp;quot;IV&amp;quot;, &amp;quot;V&amp;quot;, &amp;quot;VI&amp;quot;, &amp;quot;VII&amp;quot;, &amp;quot;VIII&amp;quot;, 
+                                        &amp;quot;IX&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;XI&amp;quot;, &amp;quot;XII&amp;quot;, &amp;quot;XIII&amp;quot;, &amp;quot;XIV&amp;quot;, &amp;quot;XV&amp;quot;, &amp;quot;XVI&amp;quot;))
+
+str(BSA_Reads)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    398312 obs. of  12 variables:
+##  $ X     : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ CHROM : chr  &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; &amp;quot;I&amp;quot; ...
+##  $ POS   : int  100007 100007 100007 100007 100007 100007 100007 100007 1035 1035 ...
+##  $ value : int  867 590 815 160 86 189 322 43 137 99 ...
+##  $ allele: chr  &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; &amp;quot;ALT&amp;quot; &amp;quot;REF&amp;quot; ...
+##  $ bulk  : chr  &amp;quot;HIGH&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; &amp;quot;LOW&amp;quot; ...
+##  $ parent: chr  &amp;quot;Wine&amp;quot; &amp;quot;Oak&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ REF   : chr  &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; &amp;quot;AT&amp;quot; ...
+##  $ Wine  : chr  &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; &amp;quot;A&amp;quot; ...
+##  $ Oak   : chr  NA NA NA NA ...
+##  $ Type  : chr  &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; &amp;quot;Wine&amp;quot; ...
+##  $ CHROMf: Factor w/ 16 levels &amp;quot;I&amp;quot;,&amp;quot;II&amp;quot;,&amp;quot;III&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, let’s plot this new variable as our x-axis.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;BSA_Reads %&amp;gt;% ggplot(., aes(x = CHROMf)) + geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://nyusurp.github.io/2022/07/07/ggplot2-and-dplyr/index.en_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Introduction to ggplot2</title>
